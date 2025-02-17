@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/beatrice-display-trial');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,6 +9,7 @@
   --foreground: #171717;
 }
 
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #ededed;
@@ -15,7 +18,53 @@
 }
 
 body {
+  margin-left: 64px !important;
+
+  margin-right: 45px !important;
+  font-family: 'Beatrice Display Trial', sans-serif;
   color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background: url('/background.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+@keyframes marquee {
+  from {
+    transform: translateX(100%);
+    opacity: 0.4;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 1;
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  animation: marquee 10s linear infinite; /* Faster speed */
+}
+
+/* Animated Scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* Scrollbar width */
+  transition: width 0.3s ease-in-out; /* Smooth animation */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent; /* Make track transparent */
+}
+
+/* Scrollbar Thumb (Draggable Part) */
+::-webkit-scrollbar-thumb {
+  background: #0a0a0a; /* Initial color */
+  border-radius: 4px;
+  transition: background 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+/* Hover Effect: Make it more visible */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.8); /* Darker on hover */
+  width: 12px; /* Increase width slightly */
+}
+

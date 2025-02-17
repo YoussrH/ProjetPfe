@@ -1,0 +1,1225 @@
+.bg {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #f5f5f5;
+    width: 1440px;
+    height: 628px;
+}
+.copyright {
+    flex: 1;
+    position: relative;
+    line-height: 130%;
+    text-transform: lowercase;
+    font-weight: 500;
+    opacity: 0.4;
+}
+.privacy {
+    position: relative;
+    line-height: 130%;
+    text-transform: lowercase;
+    font-weight: 500;
+    opacity: 0.4;
+}
+.terms {
+    position: relative;
+    line-height: 130%;
+    text-transform: lowercase;
+    font-weight: 500;
+    color: #dfdfdf;
+    opacity: 0.4;
+}
+.privacyParent {
+    width: 469px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.copyrightParent {
+    position: absolute;
+    top: 607px;
+    left: 605px;
+    width: 827px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.technologies {
+    position: relative;
+    letter-spacing: 0.04em;
+    line-height: 130%;
+    text-transform: uppercase;
+    font-weight: 500;
+    opacity: 0.4;
+}
+.vr {
+    position: relative;
+    letter-spacing: -0.02em;
+    line-height: 110%;
+    font-weight: 900;
+}
+.xiv {
+    position: relative;
+    letter-spacing: -0.02em;
+    line-height: 110%;
+    font-weight: 900;
+    color: #000;
+}
+.nearFieldCommunication {
+    position: relative;
+    font-size: 12px;
+    line-height: 130%;
+    font-weight: 500;
+    opacity: 0.4;
+}
+.div {
+    position: relative;
+    font-size: 56px;
+    letter-spacing: -0.02em;
+    line-height: 110%;
+    font-weight: 100;
+    opacity: 0.2;
+}
+.xivParent {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 16px;
+    color: #1e1e1e;
+}
+.technologies1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 12px;
+    font-size: 80px;
+    color: #ececec;
+}
+.technologiesParent {
+    position: absolute;
+    top: 126px;
+    left: 605px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 32px;
+}
+.languages {
+    position: relative;
+    letter-spacing: 0.04em;
+    line-height: 140%;
+    text-transform: uppercase;
+    font-weight: 500;
+    opacity: 0.4;
+}
+.eng {
+    position: relative;
+    letter-spacing: -0.02em;
+    line-height: 140%;
+    text-transform: uppercase;
+    font-weight: 500;
+    opacity: 0.6;
+}
+.div1 {
+    position: relative;
+    letter-spacing: -0.02em;
+    line-height: 140%;
+    text-transform: uppercase;
+    font-weight: 300;
+    opacity: 0.2;
+}
+.engParent {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 8px;
+}
+.row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 8px;
+    font-size: 12px;
+}
+.section {
+    position: absolute;
+    top: 279px;
+    left: 247px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 32px;
+    color: #000;
+}
+.pricing {
+    position: relative;
+    line-height: 130%;
+    text-transform: uppercase;
+    font-weight: 500;
+    opacity: 0.6;
+}
+.div3 {
+    position: relative;
+    line-height: 130%;
+    font-weight: 300;
+    opacity: 0.2;
+}
+.section1 {
+    position: absolute;
+    top: 126px;
+    left: 247px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 32px;
+    color: #000;
+}
+.icon1 {
+    position: absolute;
+    top: 24px;
+    left: 26px;
+    width: 12px;
+    height: 16px;
+}
+.border {
+    position: absolute;
+    top: 64px;
+    left: 0px;
+    background-color: #000;
+    width: 64px;
+    height: 1px;
+}
+.toTop {
+    position: absolute;
+    top: 556px;
+    left: 8px;
+    border-radius: 64px;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    width: 64px;
+    height: 64px;
+    overflow: hidden;
+}
+.groupChild {
+    position: absolute;
+    top: 0px;
+    left: 23.5px;
+    background-color: #d9d9d9;
+    width: 33.2px;
+    height: 33.2px;
+    transform:  rotate(45deg);
+    transform-origin: 0 0;
+}
+.groupItem {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 47px;
+    height: 47px;
+    object-fit: contain;
+}
+.rectangleParent {
+    position: absolute;
+    top: 178px;
+    left: 605px;
+    width: 47px;
+    height: 47px;
+}
+.footer {
+    position: absolute;
+    top: 3370px;
+    left: -80px;
+    width: 1440px;
+    height: 628px;
+    font-size: 10px;
+    color: #1e1e1e;
+    font-family: Inter;
+}
+.new {
+    margin: 0;
+}
+.newCollection {
+    position: absolute;
+    top: 386px;
+    left: 50px;
+    font-size: 48px;
+    letter-spacing: 2px;
+    line-height: 40px;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+.menWomenKidsContainer {
+    position: absolute;
+    top: 156px;
+    left: 50px;
+    letter-spacing: 2px;
+}
+.grainTextureIcon {
+    position: absolute;
+    height: 50%;
+    width: 100%;
+    top: 0%;
+    right: 0%;
+    bottom: 50%;
+    left: 0%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    object-fit: cover;
+    mix-blend-mode: soft-light;
+}
+.grainTextureIcon1 {
+    position: absolute;
+    height: 50%;
+    width: 100%;
+    top: 50%;
+    right: 0%;
+    bottom: 0%;
+    left: 0%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    object-fit: cover;
+    mix-blend-mode: soft-light;
+}
+.noisyBackground {
+    position: absolute;
+    height: 41.62%;
+    width: 101.48%;
+    top: 0%;
+    right: 0%;
+    bottom: 58.38%;
+    left: -1.48%;
+    display: none;
+    mix-blend-mode: luminosity;
+}
+.home1 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    letter-spacing: 2px;
+    font-weight: 500;
+}
+.collections {
+    position: absolute;
+    top: 0px;
+    left: 87px;
+    letter-spacing: 2px;
+    font-weight: 500;
+}
+.new1 {
+    position: absolute;
+    top: 0px;
+    left: 230px;
+    letter-spacing: 2px;
+    font-weight: 500;
+}
+.homeParent {
+    position: absolute;
+    top: 61px;
+    left: 112px;
+    width: 268px;
+    height: 24px;
+}
+.homeChild {
+    position: absolute;
+    top: 50px;
+    left: 1180.26px;
+    width: 50px;
+    height: 50px;
+}
+.homeItem {
+    position: absolute;
+    top: 50px;
+    left: 921px;
+    width: 50px;
+    height: 50px;
+}
+.homeInner {
+    position: absolute;
+    top: 50px;
+    left: 1087.67px;
+    width: 50px;
+    height: 50px;
+}
+.rectangleDiv {
+    position: absolute;
+    top: 50px;
+    left: 1016.63px;
+    border-radius: 22px;
+    background-color: #000;
+    width: 76px;
+    height: 50px;
+}
+.cart {
+    position: absolute;
+    top: 66px;
+    left: 1037px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: 500;
+    color: #fff;
+}
+.groupInner {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #d9d9d9;
+    width: 265px;
+    height: 40px;
+}
+.vectorIcon {
+    position: absolute;
+    height: 30%;
+    width: 17.92%;
+    top: 35%;
+    right: 7.36%;
+    bottom: 35%;
+    left: 74.72%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    object-fit: contain;
+}
+.goToShop {
+    position: absolute;
+    top: 8px;
+    left: 27px;
+    font-weight: 500;
+}
+.rectangleGroup {
+    position: absolute;
+    top: 722px;
+    left: 50px;
+    width: 265px;
+    height: 40px;
+}
+.groupChild1 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border: 1px solid #a3a3a3;
+    box-sizing: border-box;
+    width: 40px;
+    height: 40px;
+}
+.rectangleWrapper {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 40px;
+    height: 40px;
+}
+.vectorIcon1 {
+    position: absolute;
+    height: 27.5%;
+    width: 12.5%;
+    top: 35%;
+    right: 45%;
+    bottom: 37.5%;
+    left: 42.5%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    object-fit: contain;
+}
+.groupParent {
+    position: absolute;
+    top: 722px;
+    left: 407px;
+    width: 40px;
+    height: 40px;
+}
+.vectorIcon2 {
+    position: absolute;
+    height: 27.5%;
+    width: 12.5%;
+    top: 35%;
+    right: 45%;
+    bottom: 37.5%;
+    left: 42.5%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    object-fit: contain;
+    opacity: 0.66;
+}
+.groupContainer {
+    position: absolute;
+    top: 722px;
+    left: 355px;
+    width: 40px;
+    height: 40px;
+    opacity: 0.66;
+}
+.summer2024 {
+    position: absolute;
+    top: 474px;
+    left: 50px;
+    letter-spacing: 2px;
+}
+.groupChild3 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-radius: 2px;
+    background-color: #d9d9d9;
+    width: 367px;
+    height: 50px;
+}
+.groupIcon {
+    position: absolute;
+    height: 28.6%;
+    width: 3.9%;
+    top: 36%;
+    right: 91.74%;
+    bottom: 35.4%;
+    left: 4.36%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+}
+.search {
+    position: absolute;
+    top: 17px;
+    left: 285px;
+    letter-spacing: 2px;
+}
+.groupDiv {
+    position: absolute;
+    top: 242px;
+    left: 50px;
+    width: 367px;
+    height: 50px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.66);
+}
+.noisyBackground1 {
+    position: absolute;
+    height: 41.62%;
+    width: 101.48%;
+    top: 83.24%;
+    right: -0.39%;
+    bottom: -24.86%;
+    left: -1.09%;
+    mix-blend-mode: luminosity;
+}
+.noisyBackground2 {
+    position: absolute;
+    height: 41.62%;
+    width: 101.48%;
+    top: 41.62%;
+    right: -0.39%;
+    bottom: 16.76%;
+    left: -1.09%;
+    mix-blend-mode: luminosity;
+}
+.noisyBackground3 {
+    position: absolute;
+    height: 41.62%;
+    width: 101.48%;
+    top: 0%;
+    right: 0%;
+    bottom: 58.38%;
+    left: -1.48%;
+    mix-blend-mode: luminosity;
+}
+.rectangleIcon {
+    position: absolute;
+    top: 386px;
+    left: 457px;
+    width: 366px;
+    height: 376px;
+    object-fit: cover;
+}
+.homeChild1 {
+    position: absolute;
+    top: 386px;
+    left: 864px;
+    width: 366px;
+    height: 376px;
+    object-fit: cover;
+}
+.div5 {
+    position: absolute;
+    top: 2010px;
+    left: 1310px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.seeMore {
+    position: absolute;
+    top: 1831px;
+    left: 1162px;
+    font-size: 14px;
+    text-decoration: underline;
+    line-height: 40px;
+    font-family: 'Beatrice Trial';
+    color: #5e5e5e;
+}
+.xivCollections2324Container {
+    position: absolute;
+    top: 603px;
+    left: calc(50% - 586px);
+    font-size: 48px;
+    letter-spacing: 2px;
+    line-height: 40px;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+.lineDiv {
+    position: absolute;
+    top: 811.5px;
+    left: -0.5px;
+    border-top: 1px solid #dfdfdf;
+    box-sizing: border-box;
+    width: 1181px;
+    height: 1px;
+}
+.all {
+    position: absolute;
+    top: 768px;
+    left: 0px;
+    line-height: 40px;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-family: 'Beatrice Headline Trial';
+}
+.men1 {
+    position: absolute;
+    top: 768px;
+    left: 79px;
+    line-height: 40px;
+    font-family: 'Beatrice Trial';
+    color: #8a8a8a;
+}
+.women1 {
+    position: absolute;
+    top: 768px;
+    left: 155px;
+    line-height: 40px;
+    font-family: 'Beatrice Trial';
+    color: #8a8a8a;
+}
+.filters {
+    position: absolute;
+    top: 728px;
+    left: 915px;
+    font-size: 14px;
+    line-height: 40px;
+    font-family: 'Beatrice Trial';
+}
+.sorts {
+    position: absolute;
+    top: 728px;
+    left: 1086px;
+    font-size: 14px;
+    line-height: 40px;
+    font-family: 'Beatrice Trial';
+}
+.lessToMore {
+    position: absolute;
+    top: 753px;
+    left: 1086px;
+    font-size: 14px;
+    line-height: 40px;
+    font-family: 'Beatrice Trial';
+    color: #5e5e5e;
+}
+.seeAll {
+    position: absolute;
+    top: 0px;
+    left: 1131px;
+    font-size: 14px;
+    line-height: 40px;
+    font-family: 'Beatrice Trial';
+    color: #5e5e5e;
+    text-align: right;
+}
+.moreToLess {
+    position: absolute;
+    top: 773px;
+    left: 1087px;
+    font-size: 14px;
+    line-height: 40px;
+    font-family: 'Beatrice Trial';
+    color: #5e5e5e;
+}
+.kid {
+    position: absolute;
+    top: 768px;
+    left: 259px;
+    line-height: 40px;
+    font-family: 'Beatrice Trial';
+    color: #8a8a8a;
+}
+.vectorIcon3 {
+    position: absolute;
+    height: 15%;
+    top: 82.5%;
+    bottom: 2.5%;
+    left: calc(50% - 7.5px);
+    max-height: 100%;
+    width: 14px;
+    object-fit: contain;
+}
+.more {
+    position: absolute;
+    top: 0px;
+    left: calc(50% - 21.5px);
+    line-height: 40px;
+}
+.vectorParent {
+    position: absolute;
+    height: 2.98%;
+    top: 97.02%;
+    bottom: 0%;
+    left: calc(50% - 21px);
+    width: 43px;
+    color: #8a8a8a;
+    font-family: 'Beatrice Trial';
+}
+.cottonTShirt {
+    position: absolute;
+    top: 1237px;
+    left: 0px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.66);
+}
+.cottonJeans {
+    position: absolute;
+    top: 1237px;
+    left: 407px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.66);
+    white-space: pre-wrap;
+}
+.cottonTShirt1 {
+    position: absolute;
+    top: 1237px;
+    left: 814px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.66);
+}
+.basicHeavyWeight {
+    position: absolute;
+    top: 1258px;
+    left: 0px;
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 500;
+}
+.softWashStraight {
+    position: absolute;
+    top: 1258px;
+    left: 407px;
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 500;
+}
+.basicHeavyWeight1 {
+    position: absolute;
+    top: 1258px;
+    left: 814px;
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 500;
+}
+.div6 {
+    position: absolute;
+    top: 1255px;
+    left: 326px;
+    font-weight: 500;
+}
+.div7 {
+    position: absolute;
+    top: 1255px;
+    left: 733px;
+    font-weight: 500;
+}
+.div8 {
+    position: absolute;
+    top: 1255px;
+    left: 1140px;
+    font-weight: 500;
+}
+.groupChild4 {
+    position: absolute;
+    top: 1328px;
+    left: 468px;
+    width: 244px;
+    height: 0px;
+}
+.xivCollections2324Parent {
+    position: absolute;
+    top: 973px;
+    left: calc(50% - 590px);
+    width: 1180px;
+    height: 1343px;
+}
+.ourApproachTo {
+    position: absolute;
+    top: 2480px;
+    left: calc(50% - 456px);
+    font-size: 48px;
+    letter-spacing: 2px;
+    line-height: 40px;
+    text-transform: uppercase;
+    text-align: center;
+}
+.homeChild2 {
+    position: absolute;
+    top: 2804px;
+    left: 403px;
+    width: 317px;
+    height: 419px;
+    object-fit: cover;
+}
+.homeChild3 {
+    position: absolute;
+    top: 2731px;
+    left: 756px;
+    width: 317px;
+    height: 419px;
+    object-fit: cover;
+}
+.homeChild4 {
+    position: absolute;
+    top: 2731px;
+    left: 50px;
+    width: 317px;
+    height: 389px;
+    object-fit: cover;
+}
+.homeChild5 {
+    position: absolute;
+    top: 2834px;
+    left: 1109px;
+    width: 317px;
+    height: 389px;
+    object-fit: cover;
+}
+.newThisWeekContainer {
+    position: absolute;
+    top: 0px;
+    left: calc(50% - 647.5px);
+    font-size: 48px;
+    letter-spacing: 2px;
+    line-height: 40px;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+.groupChild5 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 304px;
+    height: 313px;
+    object-fit: cover;
+}
+.groupChild6 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(220, 220, 220, 0.44);
+    width: 34px;
+    height: 34px;
+}
+.vectorIcon4 {
+    position: absolute;
+    height: 35.29%;
+    width: 35.29%;
+    top: 32.35%;
+    right: 32.35%;
+    bottom: 32.35%;
+    left: 32.35%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+}
+.rectangleParent2 {
+    position: absolute;
+    top: 279px;
+    left: 135px;
+    width: 34px;
+    height: 34px;
+    opacity: 0.66;
+}
+.rectangleParent1 {
+    position: absolute;
+    top: 110px;
+    left: 331px;
+    width: 304px;
+    height: 313px;
+}
+.groupChild7 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 305px;
+    height: 313px;
+    object-fit: cover;
+}
+.rectangleParent4 {
+    position: absolute;
+    top: 279px;
+    left: 136px;
+    width: 34px;
+    height: 34px;
+    opacity: 0.66;
+}
+.rectangleParent3 {
+    position: absolute;
+    top: 110px;
+    left: 0px;
+    width: 305px;
+    height: 313px;
+}
+.rectangleParent6 {
+    position: absolute;
+    top: 278px;
+    left: 135px;
+    width: 34px;
+    height: 34px;
+    opacity: 0.66;
+}
+.rectangleParent5 {
+    position: absolute;
+    top: 110px;
+    left: 661px;
+    width: 304px;
+    height: 313px;
+}
+.rectangleParent7 {
+    position: absolute;
+    top: 110px;
+    left: 991px;
+    width: 304px;
+    height: 313px;
+}
+.groupParent2 {
+    position: absolute;
+    top: 0px;
+    left: 52px;
+    width: 40px;
+    height: 40px;
+}
+.groupParent3 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 40px;
+    height: 40px;
+    opacity: 0.66;
+}
+.groupParent1 {
+    position: absolute;
+    top: 508px;
+    left: 544px;
+    width: 92px;
+    height: 40px;
+}
+.vNeckTShirt {
+    position: absolute;
+    top: 437px;
+    left: 0px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.66);
+}
+.cottonTShirt2 {
+    position: absolute;
+    top: 437px;
+    left: 331px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.66);
+}
+.div9 {
+    position: absolute;
+    top: 438px;
+    left: 436px;
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.66);
+}
+.div10 {
+    position: absolute;
+    top: 1301px;
+    left: 509px;
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.66);
+}
+.div11 {
+    position: absolute;
+    top: 1299px;
+    left: 922px;
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.66);
+}
+.henleyTShirt {
+    position: absolute;
+    top: 437px;
+    left: 661px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.66);
+}
+.crewneckTShirt {
+    position: absolute;
+    top: 437px;
+    left: 991px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.66);
+}
+.embroideredSeersuckerShirt {
+    position: absolute;
+    top: 458px;
+    left: 0px;
+    font-weight: 500;
+}
+.basicSlimFit {
+    position: absolute;
+    top: 458px;
+    left: 331px;
+    text-transform: capitalize;
+    font-weight: 500;
+}
+.blurredPrintTShirt {
+    position: absolute;
+    top: 458px;
+    left: 661px;
+    font-weight: 500;
+}
+.fullSleeveZipper {
+    position: absolute;
+    top: 458px;
+    left: 991px;
+    font-weight: 500;
+}
+.div12 {
+    position: absolute;
+    top: 456px;
+    left: 279px;
+    font-weight: 500;
+}
+.div13 {
+    position: absolute;
+    top: 458px;
+    left: 604px;
+    font-weight: 500;
+    text-align: right;
+}
+.div14 {
+    position: absolute;
+    top: 458px;
+    left: 936px;
+    font-weight: 500;
+    text-align: right;
+}
+.div15 {
+    position: absolute;
+    top: 11px;
+    left: calc(50% - 363.5px);
+    font-size: 20px;
+    letter-spacing: 2px;
+    line-height: 40px;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #000e8a;
+}
+.newThisWeekParent {
+    position: absolute;
+    top: 912px;
+    left: calc(50% - 590px);
+    width: 1295px;
+    height: 1316px;
+    font-size: 14px;
+}
+.groupChild15 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 366px;
+    height: 376px;
+    object-fit: cover;
+}
+.rectangleParent10 {
+    position: absolute;
+    top: 342px;
+    left: 166px;
+    width: 34px;
+    height: 34px;
+    opacity: 0.66;
+}
+.rectangleParent9 {
+    position: absolute;
+    top: 1822px;
+    left: 457px;
+    width: 366px;
+    height: 376px;
+}
+.homeChild6 {
+    position: absolute;
+    top: 1822px;
+    left: 50px;
+    width: 366px;
+    height: 376px;
+    object-fit: cover;
+}
+.rectangleParent11 {
+    position: absolute;
+    top: 1822px;
+    left: 864px;
+    width: 366px;
+    height: 376px;
+}
+.rectangleParent13 {
+    position: absolute;
+    top: 2163px;
+    left: 216px;
+    width: 34px;
+    height: 34px;
+    opacity: 0.66;
+}
+.atElegantVogue {
+    position: absolute;
+    top: 2533px;
+    left: calc(50% - 342px);
+    letter-spacing: 2px;
+    font-weight: 300;
+    font-family: 'Beatrice Trial';
+    text-align: center;
+    display: inline-block;
+    width: 685px;
+}
+.groupChild20 {
+    position: absolute;
+    top: 0px;
+    left: 17.5px;
+    background-color: #d9d9d9;
+    width: 24.7px;
+    height: 24.7px;
+    transform:  rotate(45deg);
+    transform-origin: 0 0;
+}
+.groupChild21 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+.rectangleParent14 {
+    position: absolute;
+    top: 55px;
+    left: 622px;
+    width: 35px;
+    height: 35px;
+}
+.homeChild7 {
+    position: absolute;
+    height: 0.4%;
+    width: 2.03%;
+    top: 1.55%;
+    right: 93.91%;
+    bottom: 98.05%;
+    left: 4.06%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+}
+.homeChild8 {
+    position: absolute;
+    top: 1351px;
+    left: 472px;
+    background-color: #fff;
+    border: 0.5px solid #a3a3a3;
+    box-sizing: border-box;
+    width: 12px;
+    height: 12px;
+}
+.homeChild9 {
+    position: absolute;
+    top: 2214px;
+    left: 545px;
+    background-color: #fff;
+    border: 0.5px solid #a3a3a3;
+    box-sizing: border-box;
+    width: 12px;
+    height: 12px;
+}
+.homeChild10 {
+    position: absolute;
+    top: 2212px;
+    left: 958px;
+    background-color: #fff;
+    border: 0.5px solid #a3a3a3;
+    box-sizing: border-box;
+    width: 12px;
+    height: 12px;
+}
+.div16 {
+    position: absolute;
+    top: 1350px;
+    left: 819px;
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.66);
+}
+.div17 {
+    position: absolute;
+    top: 1350px;
+    left: 1169px;
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.66);
+}
+.homeChild11 {
+    position: absolute;
+    top: 1351px;
+    left: 805px;
+    background-color: #dbdcce;
+    border: 0.5px solid #a3a3a3;
+    box-sizing: border-box;
+    width: 12px;
+    height: 12px;
+}
+.homeChild12 {
+    position: absolute;
+    top: 1351px;
+    left: 1155px;
+    background-color: #eae8d9;
+    border: 0.5px solid #a3a3a3;
+    box-sizing: border-box;
+    width: 12px;
+    height: 12px;
+}
+.home {
+    width: 100%;
+    position: relative;
+    background-color: #fff;
+    height: 3998px;
+    overflow: hidden;
+    text-align: left;
+    font-size: 16px;
+    color: #000;
+    font-family: 'Beatrice Deck Trial';
+}
+

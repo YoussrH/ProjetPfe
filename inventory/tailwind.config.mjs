@@ -7,6 +7,10 @@ export default {
   ],
   theme: {
     extend: {
+      
+        fontFamily: {
+          beatrice: ['Beatrice Display Trial', 'sans-serif'],
+        },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

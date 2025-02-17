@@ -1,0 +1,26 @@
+      <div className='mt-24'>
+            <div className="text-5xl leading-[40px] tracking-[2px] font-bold uppercase">
+                <span className="block">NEW</span>
+                <span className="block">COLLECTION</span>
+            </div>
+            <div className=" mt-2 font-light tracking-[2px] text-[16]">
+                <span className="block">Winter </span>
+                <span className="block">2025</span>
+            </div>
+
+            <div className='mt-[248px] flex'>
+                <div className="w-[265px]  flex items-center border border-gray-300  px-3 py-2 h-10 bg-[#D9D9D9]">
+                    <span className='text-[16px]'>Go To Shop</span>
+                    <Image src="/ArrowRightVector.svg" alt="arrrow-right" width={42} height={20} className='ml-24'/>   
+                </div>
+                <div className='flex gap-2 ml-2'>
+                <RiArrowDropLeftLine className="border h-10 w-10 border-gray-400 rounded-md p-1 text-4xl" />
+                <RiArrowDropRightLine className="border h-10 w-10 border-gray-400 rounded-md p-1 text-4xl" />
+
+                </div>
+            </div>
+      </div>
+      <div className='mt-24 flex gap-10'>
+           <Image src="/chemise1.jpg" alt="hero" width={366} height={30} className='w-[50%] h-[90%]'/>
+           <Image src="/chemise2.jpg" alt="hero" width={366} height={30} className='w-[50%] h-[90%]'/>   
+      </div>
