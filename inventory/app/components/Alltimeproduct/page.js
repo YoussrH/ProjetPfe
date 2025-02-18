@@ -4,13 +4,13 @@ import { useRouter } from "next/navigation"; // Import router for navigation
 import { AiOutlinePlus } from "react-icons/ai";
 
 const products = [
-  { id: 1, image: "/chemise1.jpg", composition: "69% LYOCELL 30% COTTON", name: "Chemise Classique", price: "$49.99", category: "MEN", colors: ["#000000", "#B22222", "#4169E1"] },
-  { id: 2, image: "/chemise2.jpg", composition: "100% COTTON", name: "Chemise Décontractée", price: "$54.99", category: "MEN", colors: ["#A52A2A", "#4B0082"] },
-  { id: 3, image: "/CRISTAL.jpg", composition: "98% COTTON 2% ELASTANE", name: "Jean Cristal", price: "$79.99", category: "MEN", colors: ["#1C1C1C"] },
-  { id: 4, image: "/CRISTAL1.jpg", composition: "98% COTTON 2% ELASTANE", name: "Jean Cristal Slim", price: "$84.99", category: "MEN", colors: ["#1C1C1C", "#808080"] },
-  { id: 5, image: "/CRISTAL2.jpg", composition: "99% COTTON 1% ELASTANE", name: "Jean Cristal Fit", price: "$89.99", category: "WOMEN", colors: ["#000000", "#808080", "#A9A9A9"] },
-  { id: 6, image: "/CRISTAL3.jpg", composition: "97% COTTON 3% ELASTANE", name: "Jean Cristal Stretch", price: "$92.99", category: "WOMEN", colors: ["#2F4F4F", "#708090"] },
-  { id: 7, image: "/SAPHIR.jpg", composition: "100% DENIM COTTON", name: "Jean Saphir", price: "$95.99", category: "KIDS", colors: ["#191970", "#4682B4"] },
+  { id: 1, image: "/chemise1.jpg", composition: "69% LYOCELL 30% COTTON", name: "Chemise Classique", price: "DT 49.99", category: "MEN", colors: ["#000000", "#B22222", "#4169E1"] },
+  { id: 2, image: "/chemise2.jpg", composition: "100% COTTON", name: "Chemise Décontractée", price: "DT 54.99", category: "MEN", colors: ["#A52A2A", "#4B0082"] },
+  { id: 3, image: "/CRISTAL.jpg", composition: "98% COTTON 2% ELASTANE", name: "Jean Cristal", price: "DT 79.99", category: "MEN", colors: ["#1C1C1C"] },
+  { id: 4, image: "/CRISTAL1.jpg", composition: "98% COTTON 2% ELASTANE", name: "Jean Cristal Slim", price: "DT 84.99", category: "MEN", colors: ["#1C1C1C", "#808080"] },
+  { id: 5, image: "/CRISTAL2.jpg", composition: "99% COTTON 1% ELASTANE", name: "Jean Cristal Fit", price: "DT 89.99", category: "WOMEN", colors: ["#000000", "#808080", "#A9A9A9"] },
+  { id: 6, image: "/CRISTAL3.jpg", composition: "97% COTTON 3% ELASTANE", name: "Jean Cristal Stretch", price: "DT 92.99", category: "WOMEN", colors: ["#2F4F4F", "#708090"] },
+  { id: 7, image: "/SAPHIR.jpg", composition: "100% DENIM COTTON", name: "Jean Saphir", price: "DT 95.99", category: "KIDS", colors: ["#191970", "#4682B4"] },
 ];
 
 export default function AllTimeProducts() {

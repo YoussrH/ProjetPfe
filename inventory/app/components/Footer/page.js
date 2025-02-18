@@ -16,8 +16,8 @@ export default function Footer() {
             Subscribe to Our Newsletter
           </h3>
           <p className="text-gray-700 text-xs mt-1">
-            Stay updated with our latest collections and offers.
-          </p>
+          subscribe and get a 10% discount.
+           </p>
           <div className="mt-3 flex justify-center">
             <input
               type="email"

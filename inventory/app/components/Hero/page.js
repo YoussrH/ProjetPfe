@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation"; // Import useRouter for navigation
 import { RiArrowDropRightLine, RiArrowDropLeftLine } from "react-icons/ri";
 
 const images = [
@@ -11,10 +12,10 @@ const images = [
   "/CRISTAL2.jpg",
   "/CRISTAL3.jpg",
   "/SAPHIR.jpg",
-  
 ];
 
 export default function Hero() {
+  const router = useRouter(); // Initialize router
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const scrollLeft = () => {
@@ -43,10 +44,14 @@ export default function Hero() {
         </div>
 
         <div className="mt-[200px] flex items-center gap-10">
-          <div className="flex items-center border border-gray-300 px-5 py-2 bg-[#D9D9D9] cursor-pointer">
+          {/* ✅ Fixed navigation */}
+          <button 
+            className="flex items-center border border-gray-300 px-5 py-2 bg-[#D9D9D9] cursor-pointer" 
+            onClick={() => router.push("/store/products")} 
+          >
             <span className="text-[16px]">Go To Shop</span>
             <img src="/ArrowRightVector.svg" alt="arrow-right" width="42" height="20" className="ml-5 animate-pulse" />
-          </div>
+          </button>
 
           <div className="flex gap-2 ml-72">
             <RiArrowDropLeftLine

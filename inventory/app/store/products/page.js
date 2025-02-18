@@ -5,13 +5,13 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 // Dummy Product Data
 const products = [
-  { id: 1, image: "/chemise1.jpg", name: "Chemise Classique", price: "$49.99", category: "MEN", colors: ["#000000", "#B22222", "#4169E1"], size: ["XS", "S", "M", "L"], tags: ["Casual", "Summer"] },
-  { id: 2, image: "/chemise2.jpg", name: "Chemise Décontractée", price: "$54.99", category: "MEN", colors: ["#A52A2A", "#4B0082"], size: ["M", "L", "XL"], tags: ["Workwear"] },
-  { id: 3, image: "/CRISTAL.jpg", name: "Jean Cristal", price: "$79.99", category: "MEN", colors: ["#1C1C1C"], size: ["XS", "S", "M"], tags: ["Denim", "Casual"] },
-  { id: 4, image: "/CRISTAL1.jpg", name: "Jean Cristal Slim", price: "$84.99", category: "MEN", colors: ["#1C1C1C", "#808080"], size: ["M", "L"], tags: ["Slim Fit"] },
-  { id: 5, image: "/CRISTAL2.jpg", name: "Jean Cristal Fit", price: "$89.99", category: "WOMEN", colors: ["#000000", "#808080", "#A9A9A9"], size: ["S", "M", "L", "XL"], tags: ["Trendy"] },
-  { id: 6, image: "/CRISTAL3.jpg", name: "Jean Cristal Stretch", price: "$92.99", category: "WOMEN", colors: ["#2F4F4F", "#708090"], size: ["XS", "S", "M", "XL"], tags: ["Stretch", "Comfort"] },
-  { id: 7, image: "/SAPHIR.jpg", name: "Jean Saphir", price: "$95.99", category: "KIDS", colors: ["#191970", "#4682B4"], size: ["M", "L", "XL", "2X"], tags: ["Denim", "Kidswear"] },
+  { id: 1, image: "/chemise1.jpg", name: "Chemise Classique", price: "DT 49.99", category: "MEN", colors: ["#000000", "#B22222", "#4169E1"], size: ["XS", "S", "M", "L"], tags: ["Casual", "Summer"] },
+  { id: 2, image: "/chemise2.jpg", name: "Chemise Décontractée", price: "DT 54.99", category: "MEN", colors: ["#A52A2A", "#4B0082"], size: ["M", "L", "XL"], tags: ["Workwear"] },
+  { id: 3, image: "/CRISTAL.jpg", name: "Jean Cristal", price: "DT 79.99", category: "MEN", colors: ["#1C1C1C"], size: ["XS", "S", "M"], tags: ["Denim", "Casual"] },
+  { id: 4, image: "/CRISTAL1.jpg", name: "Jean Cristal Slim", price: "DT 84.99", category: "MEN", colors: ["#1C1C1C", "#808080"], size: ["M", "L"], tags: ["Slim Fit"] },
+  { id: 5, image: "/CRISTAL2.jpg", name: "Jean Cristal Fit", price: "DT 89.99", category: "WOMEN", colors: ["#000000", "#808080", "#A9A9A9"], size: ["S", "M", "L", "XL"], tags: ["Trendy"] },
+  { id: 6, image: "/CRISTAL3.jpg", name: "Jean Cristal Stretch", price: "DT 92.99", category: "WOMEN", colors: ["#2F4F4F", "#708090"], size: ["XS", "S", "M", "XL"], tags: ["Stretch", "Comfort"] },
+  { id: 7, image: "/SAPHIR.jpg", name: "Jean Saphir", price: "DT 95.99", category: "KIDS", colors: ["#191970", "#4682B4"], size: ["M", "L", "XL", "2X"], tags: ["Denim", "Kidswear"] },
 ];
 
 // Dummy Filters
@@ -19,7 +19,7 @@ const sizes = ["XS", "S", "M", "L", "XL", "2X"];
 const availability = ["Available (450)", "Out Of Stock (18)"];
 const categories = ["MEN", "WOMEN", "KIDS"];
 const colors = ["#000000", "#B22222", "#4169E1", "#A52A2A", "#4B0082", "#1C1C1C"];
-const priceRange = ["$0 - $50", "$50 - $100", "$100 - $150", "$150+"];
+const priceRange = ["DT 0 - DT 50", "DT 50 - DT 100", "DT 100 - DT 150", "DT 150+"];
 const tags = ["Casual", "Denim", "Slim Fit", "Stretch", "Trendy", "Workwear", "Summer"];
 
 export default function ProductsPage() {

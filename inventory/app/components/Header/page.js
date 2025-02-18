@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from "next/image";
 import { Search } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Header() {
   return (
@@ -11,9 +12,9 @@ export default function Header() {
         <div className="flex items-center gap-5">
           <Image src="/menu.svg" alt="menu" width={30} height={30} className="cursor-pointer" />
           <nav className="flex gap-5">
-            <h5 className="cursor-pointer">Home</h5>
-            <h5 className="cursor-pointer">Collections</h5>
-            <h5 className="cursor-pointer">New</h5>
+            <Link href="/"><h5 className="cursor-pointer">Home</h5></Link>
+            <Link href="/store/Collections"><h5 className="cursor-pointer">Collections</h5></Link>
+            <Link href="/store/New"><h5 className="cursor-pointer">New</h5></Link>
           </nav>
         </div>
 
