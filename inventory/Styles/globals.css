@@ -18,9 +18,8 @@
 }
 
 body {
-  margin-left: 64px !important;
-
-  margin-right: 45px !important;
+  overflow-x: hidden;
+  width: 100%;
   font-family: 'Beatrice Display Trial', sans-serif;
   color: var(--foreground);
   background: url('/background.svg');

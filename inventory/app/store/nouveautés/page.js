@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Collections() {
+export default function Nouveaute() {
   return (
     <div>
-      Collection
+      Nouvaute
     </div>
   )
 }

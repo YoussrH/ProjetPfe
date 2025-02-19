@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function New() {
+export default function page() {
   return (
     <div>
-      NEW
+      
     </div>
   )
 }

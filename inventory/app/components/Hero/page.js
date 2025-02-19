@@ -1,87 +1,99 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation"; // Import useRouter for navigation
-import { RiArrowDropRightLine, RiArrowDropLeftLine } from "react-icons/ri";
-
-const images = [
-  "/chemise1.jpg",
-  "/chemise2.jpg",
-  "/CRISTAL.jpg",
-  "/CRISTAL1.jpg",
-  "/CRISTAL2.jpg",
-  "/CRISTAL3.jpg",
-  "/SAPHIR.jpg",
-];
+import React from "react";
+import { useRouter } from "next/navigation";
 
 export default function Hero() {
-  const router = useRouter(); // Initialize router
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const scrollLeft = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex((prevIndex) => Math.max(prevIndex - 2, 0));
-    }
-  };
-
-  const scrollRight = () => {
-    if (currentIndex < images.length - 2) {
-      setCurrentIndex((prevIndex) => Math.min(prevIndex + 2, images.length - 2));
-    }
-  };
+  const router = useRouter();
 
   return (
-    <section className="flex items-start justify-between px-10 mt-24">
-      <div className="flex flex-col self-start">
-        <div className="text-5xl leading-[40px] tracking-[2px] font-bold uppercase">
-          <span className="block">NEW</span>
-          <span className="block">COLLECTION</span>
-        </div>
+    <section className="flex flex-col justify-center items-center mt-16">
+      {/* New Collection Title */}
+      <div className="text-center justify-center mb-10 relative">
+          <div className="text-xl leading-[40px] gap-2 tracking-[2px] font-bold uppercase relative">
+            <span className="relative">
+              NEW COLLECTIO<span className="relative">
+                N
+                <span className="absolute -top-4 -right-2 text-red-500 text-xs font-extrabold animate-bounce">
+                  (4)
+                </span>
+              </span>
+            </span>
+          </div>
 
-        <div className="mt-2 font-light tracking-[2px] text-lg">
-          <span className="block">Summer</span>
-          <span className="block">2025</span>
-        </div>
-
-        <div className="mt-[200px] flex items-center gap-10">
-          {/* ✅ Fixed navigation */}
-          <button 
-            className="flex items-center border border-gray-300 px-5 py-2 bg-[#D9D9D9] cursor-pointer" 
-            onClick={() => router.push("/store/products")} 
-          >
-            <span className="text-[16px]">Go To Shop</span>
-            <img src="/ArrowRightVector.svg" alt="arrow-right" width="42" height="20" className="ml-5 animate-pulse" />
-          </button>
-
-          <div className="flex gap-2 ml-72">
-            <RiArrowDropLeftLine
-              onClick={scrollLeft}
-              className={`border h-10 w-10 border-gray-400 rounded-md p-1 text-4xl 
-                ${currentIndex === 0 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
-            />
-            <RiArrowDropRightLine
-              onClick={scrollRight}
-              className={`border h-10 w-10 border-gray-400 rounded-md p-1 text-4xl 
-                ${currentIndex >= images.length - 2 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
-            />
+          <div className="mt-2 font-light tracking-[2px] text-lg">
+            <span className="block">Winter</span>
+            <span className="block">2025</span>
           </div>
         </div>
-      </div>
 
-      {/* ✅ Image Container with Smooth Transition & `gap-5` Between Images */}
-      <div className="w-[50%] overflow-hidden relative">
-        <div
-          className="flex gap-5 transition-transform duration-700 ease-in-out"
-          style={{ transform: `translateX(-${currentIndex * 55}%)` }}
-        >
-          {images.map((src, index) => (
+
+      {/* Image Grid Layout */}
+      <div className="grid grid-cols-2 md:grid-cols-2 gap-6">
+        {/* Image 1 */}
+        <div className="relative flex flex-col items-center">
+          <div className="overflow-hidden w-full h-[70%] cursor-pointer">
             <img
-              key={index}
-              src={src}
-              alt={`image-${index}`}
-              className="w-[50%] h-96 object-cover flex-shrink-0"
+              src="/KANE-BLG23D45-A1.jpg"
+              alt="VESTES | FEMME"
+              className="shadow-lg w-full h-full object-cover transform scale-100 transition-transform duration-500 ease-out hover:scale-105"
             />
-          ))}
+          </div>
+          <div className="relative bottom-4 bg-white p-3 shadow-md w-[80%] text-center ">
+            <h3 className="text-sm font-serif">VESTES | FEMME</h3>
+            <p className="text-xs mt-1 font-mono font-thin">
+              Explorez des vêtements garçons pratiques et stylés
+            </p>
+            <button
+              className="mt-3 px-4 py-2 border-black border-2 text-black  font-mono font-semibold text-xs hover:bg-gray-200 transition"
+              onClick={() => router.push("/store/products")}
+            >
+              VOIR LA SÉLECTION
+            </button>
+          </div>
+        </div>
+
+        {/* Column for Image 2 & 3 */}
+        <div className="flex flex-col items-center">
+          {/* Image 2 */}
+          <div className="relative flex flex-col items-center cursor-pointer">
+            <div className="overflow-hidden w-[30rem] h-[24rem] cursor-pointer">
+              <img
+                src="/slider-homme-scaled.jpg"
+                alt="PANTALONS | GARÇON"
+                className="shadow-lg w-full h-full object-fit transform scale-100 transition-transform duration-500 ease-out hover:scale-105"
+              />
+            </div>
+            <div className="text-center mt-1">
+              <h3 className="text-sm font-serif">PANTALONS | GARÇON</h3>
+              <button
+                className="mt-1 font-semibold px-4 pt-1 text-black font-mono text-xs border-b-2 border-black hover:text-gray-500 transition"
+                onClick={() => router.push("/store/products")}
+              >
+                VOIR LA SÉLECTION
+              </button>
+            </div>
+          </div>
+
+          {/* Image 3 (Placed below Image 2) */}
+          <div className="relative flex flex-col items-center mt-5">
+            <div className="overflow-hidden w-[30rem] h-[24rem] cursor-pointer">
+              <img
+                src="/CHEMISE-B5-2.jpg"
+                alt="CHEMISE | GARÇON"
+                className="shadow-lg w-full h-full object-fit transform scale-100 transition-transform duration-500 ease-out hover:scale-105"
+              />
+            </div>
+            <div className="text-center mt-1">
+              <h3 className="text-sm font-serif">CHEMISE | GARÇON</h3>
+              <button
+                className="mt-1 px-4 pt-1 text-black font-mono font-semibold text-xs border-b-2 border-black hover:text-gray-500 transition"
+                onClick={() => router.push("/store/products")}
+              >
+                VOIR LA SÉLECTION
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
