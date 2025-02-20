@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import BebeProductList from "./BebeProductList";
+import NouveauteProductList from "./NouveauteProductList";
 
 const dropdownData = {
 
@@ -64,7 +64,7 @@ const products = [
 
 ];
 
-export default function BebePage() {
+export default function NouveautesPage() {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [priceRange, setPriceRange] = useState(50);
 
@@ -103,17 +103,22 @@ export default function BebePage() {
      <div className="px-10 py-6 font-serif flex flex-col items-center">
       {/* Breadcrumb */}
       <div className="border border-gray-300 px-4 py-1 text-gray-500 text-sm mb-4 rounded-md">
-        Accueil / Petits Prix
+        Accueil / Nouveautés
       </div>
 
       {/* Title Section */}
-      <h1 className="text-sm font-semibold text-center mb-2 uppercase">Petits prix</h1>
+      <h1 className="text-sm font-semibold text-center mb-2 uppercase">Nouvelles collections</h1>
       
       {/* Description */}
       {/* Description */}
       <p className="font-mono text-xs text-center max-w-2xl mx-auto mb-6">
-      Profitez de -50%* sur une sélection d'articles à prix rond de vos marques préférées !
-
+        Découvrez les nouvelles collections Printemps-Été 2025 des plus belles
+        marques de la mode enfant et bébé :{" "}
+        <span className="text-xs font-mono font-normal">
+          Billieblush, BOSS, Chloé, DKNY, Givenchy, HUGO, KARL LAGERFELD KIDS,
+          KENZO Kids, Lanvin, Marc Jacobs, Michael Kors, Sonia Rykiel,
+          Timberland et Zadig&Voltaire.
+        </span>
       </p>
 
       {/* Filter Bar */}
@@ -150,7 +155,7 @@ export default function BebePage() {
         <span className="text-xs font-normal cursor-pointer hover:underline">2675 Produit(s)</span>
       </div>
     </div>
-    <BebeProductList products={products}/>
+    <NouveauteProductList products={products}/>
    </section>
   );
 }

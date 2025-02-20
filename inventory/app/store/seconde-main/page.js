@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Nouveaute() {
+export default function page() {
   return (
     <div>
-      Nouvaute
+      
     </div>
   )
 }

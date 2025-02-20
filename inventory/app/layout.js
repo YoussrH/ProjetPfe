@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../Styles/globals.css";
 import Footer from "./components/Footer/page";
 import DynamicHeader from "./components/DynamicHeader/DynamicHeader";
+import ScrollToTop from "./components/DynamicHeader/ScrollToTop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,8 @@ export default function RootLayout({ children }) {
         <DynamicHeader />
         
         {children}
-        
+        <ScrollToTop />
+
         {/* Footer remains on all pages */}
         <Footer />
       </body>

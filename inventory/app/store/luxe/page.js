@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import BebeProductList from "./BebeProductList";
+import LuxeProductList from "./LuxeProductList";
 
 const dropdownData = {
 
@@ -64,7 +64,7 @@ const products = [
 
 ];
 
-export default function BebePage() {
+export default function LuxePage() {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [priceRange, setPriceRange] = useState(50);
 
@@ -103,7 +103,7 @@ export default function BebePage() {
      <div className="px-10 py-6 font-serif flex flex-col items-center">
       {/* Breadcrumb */}
       <div className="border border-gray-300 px-4 py-1 text-gray-500 text-sm mb-4 rounded-md">
-        Accueil / Petits Prix
+        Accueil / Luxe
       </div>
 
       {/* Title Section */}
@@ -150,7 +150,7 @@ export default function BebePage() {
         <span className="text-xs font-normal cursor-pointer hover:underline">2675 Produit(s)</span>
       </div>
     </div>
-    <BebeProductList products={products}/>
+    <LuxeProductList products={products}/>
    </section>
   );
 }

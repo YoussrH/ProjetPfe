@@ -27,12 +27,13 @@ export default function Header() {
     const route = menu
       .toLowerCase()
       .replace(/\s+/g, "-")
-      .replace("é", "e") // Fix for accented characters
+      .replace(/[éèê]/g, "e")
       .replace("ô", "o")
       .replace("ç", "c"); // Handling special French characters
   
-    router.push(`/store/${route}`);
-  };
+      console.log("Navigating to:", `/store/${route}`); // Debugging
+
+      router.push(`/store/${route}`);  };
   
   const handleMouseEnter = (menu) => {
     if (timeoutRef.current) {
@@ -120,30 +121,53 @@ export default function Header() {
       <header className="px-10 border-b border-gray-300">
       <TopNav />
       <div className="mt-10 flex flex-col items-center">
-        <nav className="flex gap-6">
-          {[
-            "Nouveautés",
-            "PETITS PRIX",
-            "Fille",
-            "Garçon",
-            "Bébé",
-            "Chaussures",
-            "Marques",
-            "Tendances",
-            "Outlet",
-            "SECONDE MAIN",
-            "Luxe",
-          ].map((item) => (
-            <div key={item} className="relative group">
-              <h5
-                className="cursor-pointer pb-1 font-serif"
-                onClick={() => handleClick(item)}
-              >
-                {item}
-              </h5>
-            </div>
-          ))}
-        </nav>
+      <nav className="  flex gap-6">
+            {[
+              "Nouveautés",
+              "PETITS PRIX",
+              "Fille",
+              "Garçon",
+              "Bébé",
+              "Chaussures",
+              "Marques",
+              "Tendances",
+              "Outlet",
+              "SECONDE MAIN",
+              "| Luxe",
+            ].map((item) => (
+              <div key={item} className="relative group">
+                <h5
+                  className={`cursor-pointer pb-1 font-serif ${
+                    (item === "Nouveautés" && submenuOpen) ||
+                    (item === "PETITS PRIX" && petitPrixOpen) ||
+                    (item === "Fille" && filleOpen) ||
+                    (item === "Garçon" && garconOpen) ||
+                    (item === "Bébé" && bebeOpen) ||
+                    (item === "Chaussures" && chaussuresOpen) ||
+                    (item === "Marques" && marquesOpen) ||
+                    (item === "Tendances" && tendancesOpen) ||
+                    (item === "Outlet" && outletOpen) ||
+                    (item === "SECONDE MAIN" && secondeMainOpen) ||
+                    (item === "| Luxe" && luxeOpen)
+                      ? "border-b-2 border-black"
+                      : ""
+                  }`}
+                  onMouseEnter={() => handleMouseEnter(item)}
+                  onMouseLeave={() => handleMouseLeave(item)}
+                  onClick={() => handleClick(item)}
+                >
+                  {item}
+                </h5>
+                {/* Tooltip on hover for specific items */}
+                {["Fille", "Garçon", "Bébé"].includes(item) && (
+                  <span className="whitespace-nowrap absolute bottom-full left-1/2 -translate-x-1/2 mb-1 text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition">
+                    {item === "Bébé" ? "1-36 mois" : "2-16 ans"}
+                  </span>
+                )}
+              </div>
+            ))}
+          </nav>
+
 
           {/* Submenu */}
           <div

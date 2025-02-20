@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useRef } from "react";
 import Image from "next/image";
+import Header from "./page";
 // Country Data (Using Emoji Flags)
 const countries = [
   { name: "France", flag: "🇫🇷" },
@@ -75,6 +76,8 @@ export default function TopNav() {
         <Image src="/user.svg" alt="user" width={40} height={30} className="cursor-pointer" />
       </div>
     </div>
+    {/* Bottom Bar */}
+   
      </section>
     </>
   )
