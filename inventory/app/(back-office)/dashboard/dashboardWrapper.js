@@ -1,11 +1,10 @@
 "use client";
 
+import Navbar from "@/app/components/DashboardComponents/Navbar/page";
+import Sidebar from "@/app/components/DashboardComponents/Sidebar/page";
+import { useState } from "react";
 
-import Navbar from "@/app/components/Navbar/page";
-import Sidebar from "@/app/components/Sidebar/page";
-import React, { useState } from "react";
-
-const DashboardLayout = ({ children }) => {
+export default function DashboardLayout({ children }) {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   const toggleSidebar = () => {
@@ -13,22 +12,22 @@ const DashboardLayout = ({ children }) => {
   };
 
   return (
-    <div className="flex bg-gray-50 text-gray-900 w-full min-h-screen">
+    <div className="flex bg-gray-50 text-gray-900 w-full  min-h-screen">
       {/* Sidebar */}
       <Sidebar isSidebarCollapsed={isSidebarCollapsed} />
 
       {/* Main Content */}
       <main
-        className={`flex flex-col w-full h-full py-7 px-9 bg-gray-50 transition-all duration-300 ${
-          isSidebarCollapsed ? "md:pl-24" : "md:pl-72"
+        className={`flex flex-col w-full h-full py-1 px-4 bg-gray-50 transition-all duration-300 ${
+          isSidebarCollapsed ? "md:pl-16" : "md:pl-[16.4rem]"
         }`}
       >
-        {/* ✅ Pass isSidebarCollapsed to Navbar */}
+        {/* Navbar */}
         <Navbar isSidebarCollapsed={isSidebarCollapsed} toggleSidebar={toggleSidebar} />
+          
+        {/* Page Content */}
         {children}
       </main>
     </div>
   );
-};
-
-export default DashboardLayout;
+}

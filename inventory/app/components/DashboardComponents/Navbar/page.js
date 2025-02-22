@@ -17,7 +17,7 @@ const Navbar = ({ isSidebarCollapsed, toggleSidebar }) => {
   };
 
   return (
-    <div className=" bg-slate-100 flex justify-between items-center w-full mb-7">
+    <div className="  flex justify-between items-center w-full  border-b  px-1 py-1 bg-gray-100">
       {/* LEFT SIDE */}
       <div className="flex justify-between items-center gap-5">
         <button className="px-3 py-3 bg-gray-100 rounded-full hover:bg-blue-100 transition-all duration-300"onClick={toggleSidebar}>
@@ -30,15 +30,20 @@ const Navbar = ({ isSidebarCollapsed, toggleSidebar }) => {
         </button>
 
         {/* Search Bar */}
-        <div className="relative">
-          <input
-            type="search"
-            placeholder="Start typing to search groups & products"
-            className="pl-10 pr-4 py-2 w-50 md:w-60 border-2 border-gray-300 bg-white rounded-lg focus:outline-none focus:border-blue-500"
-          />
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-            <Search className="text-gray-500" size={20} />
+        <div className="relative ">
+        <div className="absolute inset-y-0  right-3 pl-3  flex items-center">
+            <Search className="text-gray-500 " size={20} />
           </div>
+           <input
+                id="search"
+                name="search"
+                type="text"
+                required
+                placeholder="Start typing to search groups & products"
+                autoComplete="textInput"
+                className="min-w-48 w-72 border font-serif flex-auto rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-xs/6"
+              />
+         
         </div>
       </div>
 
@@ -46,7 +51,8 @@ const Navbar = ({ isSidebarCollapsed, toggleSidebar }) => {
       <div className="flex justify-between items-center gap-5">
         <div className="hidden md:flex justify-between items-center gap-5">
           {/* Dark Mode Toggle */}
-        
+         {/* Divider */}
+         <hr className="w-0 h-7 border border-solid border-l border-gray-300 mx-1" />
           {/* Dark Mode Toggle with Rotation Effect */}
           <button onClick={toggleDarkMode} className="relative">
             <div className={`transition-transform duration-500 ease-in-out ${ isDarkMode ? "rotate-180" : "rotate-0" }`} >
@@ -83,7 +89,7 @@ const Navbar = ({ isSidebarCollapsed, toggleSidebar }) => {
               height={50}
               className="rounded-full h-full object-cover"
             />
-            <span className="font-semibold">Yors</span>
+            <span className="font-semibold font-sans">Yors</span>
             <LuArrowBigDownDash/>
           </div>
         </div>

@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          String   @id @default(uuid())  // Unique Product ID
+  imageUrl    String   // Store image URL (uploaded to Cloudinary or another storage)
+  name        String
+  sku         String   @unique // Unique identifier for inventory tracking
+  stock       Int      // Stock quantity
+  price       Float    // Product price
+  categories  String[] // Store multiple categories (as an array)
+  tags        String[] // Store product tags (as an array)
+  brand       String   // Brand name
+  featured    Boolean  @default(false) // If product is featured
+  createdAt   DateTime @default(now()) // Timestamp of creation
+}

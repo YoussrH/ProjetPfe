@@ -4,6 +4,7 @@ import React from "react";
 
 export default function Footer() {
   return (
+    <>
     <div className="relative">
       <footer
         className="relative py-10 px-10 bg-cover bg-center font-['Inter']"
@@ -23,8 +24,7 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Ici votre adresse mail"
-                className="px-3 py-2 w-64 rounded-l-md border border-gray-400 outline-none text-sm"
-              />
+                className="px-3 py-2 w-64 rounded-l-md border border-gray-400 outline-none text-sm" />
               <button className="bg-black text-white px-4 py-2 rounded-r-md font-semibold text-sm hover:bg-gray-800 transition">
                 OK
               </button>
@@ -87,7 +87,7 @@ export default function Footer() {
                 <a href="#" className="text-gray-700 hover:text-black transition">
                   <Youtube className="h-5" />
                 </a>
-              
+
               </div>
             </div>
           </div>
@@ -99,20 +99,20 @@ export default function Footer() {
         </div>
       </footer>
 
-        <div className="bg-black  py-3">
-          <span className="mx-6 text-sm font-normal  text-white">TED CLARNE'S</span>
-          <span className="mx-6 text-sm font-normal text-white">BOSS</span>
-          <span className="mx-6 text-sm font-normal text-white">TLILA</span>
-          <span className="mx-6 text-sm font-normal text-white">O'Spella</span>
-          <span className="mx-6 text-sm font-normal text-white">HUGO</span>
-          <span className="mx-6 text-sm font-normal text-white">P'TIT FRIMEUR</span>
-          <span className="mx-6 text-sm font-normal text-white">GIVENCHY PARIS</span>
-          <span className="mx-6 text-sm font-normal text-white">LANVIN</span>
-          <span className="mx-6 text-sm font-normal text-white">CHLOÉ</span>
-          <span className="mx-6 text-sm font-normal text-white">KENZO</span>
-        </div>
+      <div className="bg-black  py-3">
+        <span className="mx-6 text-sm font-normal  text-white">TED CLARNE'S</span>
+        <span className="mx-6 text-sm font-normal text-white">BOSS</span>
+        <span className="mx-6 text-sm font-normal text-white">TLILA</span>
+        <span className="mx-6 text-sm font-normal text-white">O'Spella</span>
+        <span className="mx-6 text-sm font-normal text-white">HUGO</span>
+        <span className="mx-6 text-sm font-normal text-white">P'TIT FRIMEUR</span>
+        <span className="mx-6 text-sm font-normal text-white">GIVENCHY PARIS</span>
+        <span className="mx-6 text-sm font-normal text-white">LANVIN</span>
+        <span className="mx-6 text-sm font-normal text-white">CHLOÉ</span>
+        <span className="mx-6 text-sm font-normal text-white">KENZO</span>
+      </div>
 
- 
-    </div>
+
+    </div></>
   );
 }

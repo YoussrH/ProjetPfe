@@ -1,7 +1,6 @@
 @import url('https://fonts.cdnfonts.com/css/beatrice-display-trial');
 
-@tailwind base;
-@tailwind components;
+@tailwind base;@tailwind components;
 @tailwind utilities;
 
 :root {
