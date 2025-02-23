@@ -12,11 +12,17 @@ import { TbShoppingCart } from "react-icons/tb";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import {  FaBox, FaTruck, FaFileInvoice, FaReceipt, FaMoneyBillWave, FaUndo, FaStickyNote } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
-import { FaBoxes, FaLayerGroup, FaBalanceScale } from "react-icons/fa";
+import { FaBoxes, FaLayerGroup, FaBalanceScale , FaTags, FaWarehouse, FaCubes} from "react-icons/fa";
 
 const SidebarLink = ({ href, icon: Icon, label, isCollapsed, hasSubmenu, submenuItems }) => {
   const pathname = usePathname();
-  const isActive = pathname.startsWith(href);
+  
+  // Check if the current path exactly matches the href
+  const isActive = pathname === href;
+
+  // Check if any submenu item is active
+  const isSubmenuActive = submenuItems?.some(item => pathname.startsWith(item.href));
+
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const handleArrowClick = (e) => {
@@ -32,7 +38,7 @@ const SidebarLink = ({ href, icon: Icon, label, isCollapsed, hasSubmenu, submenu
           className={`cursor-pointer flex items-center justify-between ${
             isCollapsed ? "justify-center py-4" : "justify-start px-8 py-4"
           } hover:text-blue-500 hover:bg-blue-100 gap-3 transition-colors ${
-            isActive ? "bg-blue-200 text-white" : ""
+            isActive && !isSubmenuActive ? "bg-blue-200 text-white" : ""
           }`}
         >
           <div className="flex items-center gap-3">
@@ -58,7 +64,11 @@ const SidebarLink = ({ href, icon: Icon, label, isCollapsed, hasSubmenu, submenu
         <div className="pl-12">
           {submenuItems.map((item, index) => (
             <Link href={item.href} key={index}>
-              <div className="cursor-pointer flex items-center justify-start px-8 py-2 hover:text-blue-500 hover:bg-blue-100 gap-3 transition-colors">
+              <div
+                className={`cursor-pointer flex items-center justify-start px-8 py-2 hover:text-blue-500 hover:bg-blue-100 gap-3 transition-colors ${
+                  pathname.startsWith(item.href) ? "bg-blue-200 text-white" : ""
+                }`}
+              >
                 <item.icon className="w-4 h-4 !text-gray-700" />
                 <span className="font-medium text-gray-700">{item.label}</span>
               </div>
@@ -77,13 +87,17 @@ const Sidebar = ({ isSidebarCollapsed }) => {
 
   // Inventory Submenu Items
 
+ 
   const inventorySubmenuItems = [
-    { href: "/dashboard/inventory", icon: FaBoxes, label: "Articles" },
-    { href: "/dashboard/inventory", icon: FaLayerGroup, label: "Groupes d'articles" },
-    { href: "/dashboard/inventory/adjustments", icon: FaBalanceScale, label: "Ajustement des stocks" },
+    { href: "/dashboard/inventory/items/new", icon: FaBoxes, label: "Articles" }, // Boxes for items
+    { href: "/dashboard/inventory/categories/new", icon: FaTags, label: "Catégories" }, // Tags for categories
+    { href: "/dashboard/inventory/brands/new", icon: FaLayerGroup, label: "Marques" }, // LayerGroup for brands
+    { href: "/dashboard/inventory/units/new", icon: FaCubes, label: "Unités" }, // Cubes for measurement units
+    { href: "/dashboard/inventory/warehouse/new", icon: FaWarehouse, label: "Entrepôt" }, // Warehouse for storage
+    { href: "/dashboard/inventory/adjustments", icon: FaBalanceScale, label: "Ajustement des stocks" }, // Balance for stock adjustments
   ];
   
-  
+ 
   // Sales Submenu Items
   const salesSubmenuItems = [
     { href: "/dashboard/sales/orders", icon: HiOutlineShoppingCart, label: "Commandes de vente" }, 
