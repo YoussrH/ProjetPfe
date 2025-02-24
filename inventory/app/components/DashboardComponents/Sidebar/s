@@ -93,6 +93,7 @@ const Sidebar = ({ isSidebarCollapsed }) => {
       { href: "/dashboard/inventory/items/new", icon: FaBoxes, label: "Articles" },
       { href: "/dashboard/inventory/categories/new", icon: FaTags, label: "Catégories" },
       { href: "/dashboard/inventory/brands/new", icon: FaLayerGroup, label: "Marques" },
+      { href: "/dashboard/inventory/units/new", icon: FaCubes, label: "Unités" },
       { href: "/dashboard/inventory/warehouse/new", icon: FaWarehouse, label: "Entrepôt" },
       { href: "/dashboard/inventory/adjustments", icon: FaBalanceScale, label: "Ajustement des stocks" },
     ];

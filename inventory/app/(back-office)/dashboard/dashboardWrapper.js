@@ -19,7 +19,7 @@ export default function DashboardLayout({ children }) {
       {/* Main Content */}
       <main
         className={`flex flex-col w-full h-full py-1 px-4 bg-gray-50 transition-all duration-300 ${
-          isSidebarCollapsed ? "md:pl-16" : "md:pl-[16.4rem]"
+          isSidebarCollapsed ? "md:pl-20" : "md:pl-[18.5rem]"
         }`}
       >
         {/* Navbar */}

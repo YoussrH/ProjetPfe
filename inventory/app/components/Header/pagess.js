@@ -118,7 +118,7 @@ export default function Heding() {
 
   return (
     <>
-      <header className="px-10 border-b border-gray-3  bg-[url('/background.svg')] bg-cover bg-center">
+      <header className="px-10 border-b border-gray-3  bg-[url('/background.svg')] bg-cover bg-center py-2">
       <div className="pt-3 flex items-center justify-between"> 
     {/* Logo Section */}
 
@@ -165,18 +165,24 @@ export default function Heding() {
                 </h5>
                 {/* Tooltip on hover for specific items */}
                 {["Fille", "Garçon", "Bébé"].includes(item) && (
-                  <span className="whitespace-nowrap absolute bottom-full left-1/2 -translate-x-1/2 mb-1 text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition">
+                  <span className=" pt-4 whitespace-nowrap absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition">
                     {item === "Bébé" ? "1-36 mois" : "2-16 ans"}
                   </span>
                 )}
               </div>
             ))}
-          </nav>
-
+                  
+           </nav>
+           <div className="flex items-end gap-2 px-9 mb-2">
+                    <Image src="/search.svg" alt="search" width={30} height={30} className="cursor-pointer " />
+                    <Image src="/wishlist.svg" alt="wishlist" width={30} height={30} className="cursor-pointer" />
+                    <Image src="/cart1.svg" alt="cart" width={30} height={30} className="cursor-pointer" />
+                    <Image src="/user.svg" alt="user" width={30} height={30} className="cursor-pointer" />
+                  </div>   
 
           {/* Submenu */}
           <div
-            className={`absolute left-0 top-48 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0 top-20 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               submenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("Nouveautés")}
