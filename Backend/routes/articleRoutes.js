@@ -1,0 +1,105 @@
+const express = require("express");
+const router = express.Router();
+const Article = require("../models/articleModel");
+
+// ➤ Ajouter un article (with Cloudinary image upload)
+// Cloudinary Configuration
+
+
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+    cloud_name: 'dnkd2ksye',
+    api_key: '911994369859426',
+    api_secret: 'ARy8-LlzyXtWqycF5vLoDAz-YX4',
+  });
+
+  module.exports= cloudinary;
+// POST request for creating an article
+router.post("/", async (req, res) => {
+  try {
+    const { name, description, price, discount, stock, sku, images, seoTitle, seoKeywords, categoryId, marqueId } = req.body;
+
+    // Upload images to Cloudinary
+    const imageUrls = [];
+    for (const image of images) {
+      const uploadedImage = await cloudinary.uploader.upload(image, {
+        folder: 'articles', // Optional folder name in Cloudinary
+      });
+      imageUrls.push(uploadedImage.secure_url); // Store the secure URL of the uploaded image
+    }
+
+    const finalPrice = price - (price * (discount || 0)) / 100;
+
+    // Create and save the article with image URLs to the database
+    const article = await Article.create({
+      name, description, price, discount, finalPrice, stock, sku, images: imageUrls, seoTitle, seoKeywords, categoryId, marqueId
+    });
+
+    res.status(201).json(article);  // Send back the created article
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Error adding article", error });
+  }
+});
+// ➤ Ajouter un article
+/* router.post("/", async (req, res) => {
+  try {
+    console.log("Données reçues :", req.body);
+    const { name, description, price, discount, stock, sku, images, seoTitle, seoKeywords, categoryId, marqueId } = req.body;
+
+    const finalPrice = price - (price * (discount || 0)) / 100;
+
+    const article = await Article.create({
+      name, description, price, discount, finalPrice, stock, sku, images, seoTitle, seoKeywords, categoryId, marqueId
+    });
+
+    res.status(201).json(article);
+  } catch (error) {
+    console.error("Erreur SQL :", error);
+    res.status(500).json({ message: "Erreur lors de l'ajout de l'article", error });
+  }
+}); */
+
+
+
+// ➤ Obtenir tous les articles
+router.get("/", async (req, res) => {
+  try {
+    const articles = await Article.findAll();
+    res.json(articles);
+  } catch (error) {
+    res.status(500).json({ message: "Erreur lors de la récupération des articles", error });
+  }
+});
+
+// ➤ Modifier un article
+router.put("/:id", async (req, res) => {
+  try {
+    const { name, price, quantity, description } = req.body;
+    const article = await Article.findByPk(req.params.id);
+    if (!article) {
+      return res.status(404).json({ message: "Article non trouvé" });
+    }
+    await article.update({ name, price, quantity, description });
+    res.json(article);
+  } catch (error) {
+    res.status(500).json({ message: "Erreur lors de la mise à jour de l'article", error });
+  }
+});
+
+// ➤ Supprimer un article
+router.delete("/:id", async (req, res) => {
+  try {
+    const article = await Article.findByPk(req.params.id);
+    if (!article) {
+      return res.status(404).json({ message: "Article non trouvé" });
+    }
+    await article.destroy();
+    res.json({ message: "Article supprimé avec succès" });
+  } catch (error) {
+    res.status(500).json({ message: "Erreur lors de la suppression de l'article", error });
+  }
+});
+
+module.exports = router;
