@@ -1,25 +1,22 @@
-
 const express = require("express");
 const router = express.Router();
 const Category = require("../models/categoryModel");
 
-// ➤ Ajouter une catégorie (ou sous-catégorie)
+// ➤ Ajouter une catégorie
 router.post("/", async (req, res) => {
   try {
-    const { name, parentId } = req.body;
-    const category = await Category.create({ name, parentId: parentId || null });
+    const { name } = req.body;
+    const category = await Category.create({ name });
     res.status(201).json(category);
   } catch (error) {
     res.status(500).json({ message: "Erreur lors de l'ajout de la catégorie", error });
   }
 });
 
-// ➤ Obtenir toutes les catégories et leurs sous-catégories
+// ➤ Obtenir toutes les catégories
 router.get("/", async (req, res) => {
   try {
-    const categories = await Category.findAll({
-      include: [{ model: Category, as: "subcategories" }]
-    });
+    const categories = await Category.findAll();
     res.json(categories);
   } catch (error) {
     res.status(500).json({ message: "Erreur lors de la récupération des catégories", error });
@@ -29,11 +26,11 @@ router.get("/", async (req, res) => {
 // ➤ Modifier une catégorie
 router.put("/:id", async (req, res) => {
   try {
-    const { name, parentId } = req.body;
+    const { name } = req.body;
     const category = await Category.findByPk(req.params.id);
     if (!category) return res.status(404).json({ message: "Catégorie non trouvée" });
 
-    await category.update({ name, parentId: parentId || null });
+    await category.update({ name });
     res.json(category);
   } catch (error) {
     res.status(500).json({ message: "Erreur lors de la mise à jour de la catégorie", error });
