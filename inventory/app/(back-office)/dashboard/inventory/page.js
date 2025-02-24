@@ -1,6 +1,6 @@
 import FixedHeader from '@/app/components/DashboardComponents/FixedHeader'
 import ItemCard from '@/app/components/DashboardComponents/ItemCard'
-import ProductForm from '@/app/components/DashboardComponents/ProductForm'
+import ProductForm from '@/app/components/DashboardComponents/AjouterArticle'
 import Link from 'next/link'
 import React from 'react'
 

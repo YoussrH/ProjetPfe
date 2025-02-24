@@ -171,7 +171,7 @@ export default function Header() {
 
           {/* Submenu */}
           <div
-            className={`absolute left-0 top-48 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0 top-44 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               submenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("Nouveautés")}
@@ -208,7 +208,7 @@ export default function Header() {
                   <Image src="/DINA-VIOLET-1.jpg" alt="Sélection Femme" width={350} height={50} className="h-96 rounded-lg shadow-md" />
                   <div className="absolute top-0 h-full left-0 right-0 bg-black bg-opacity-30 text-white p-4 text-center">
                     <h4 className=" relative top-40 text-lg  font-normal">Sélection Femme</h4>
-                    <button className=" hover:text-black text-white relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
+                    <button className=" hover:text-black  relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
                       Découvrir Plus
                     </button>
                   </div>
@@ -228,7 +228,7 @@ export default function Header() {
 
           {/* PETITS PRIX Submenu */}
           <div
-            className={`absolute left-0 top-48 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0  top-44 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               petitPrixOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("PETITS PRIX")}
@@ -266,7 +266,7 @@ export default function Header() {
                   <Image src="/fille.jpg" alt="Sélection Fille" width={350} height={50} className="h-96 rounded-lg shadow-md" />
                   <div className="absolute top-0 h-full left-0 right-0 bg-black bg-opacity-30 text-white p-4 text-center">
                     <h4 className=" relative top-40 text-lg  font-normal">Sélection Fille</h4>
-                    <button className=" hover:text-black text-white relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
+                    <button className=" hover:text-black  relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
                       Découvrir Plus
                     </button>
                   </div>
@@ -286,7 +286,7 @@ export default function Header() {
 
           {/* Fille Submenu */}
           <div
-            className={`absolute left-0 top-48 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0  top-44 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               filleOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("Fille")}
@@ -356,7 +356,7 @@ export default function Header() {
                   <Image src="/fille.jpg" alt="Sélection Femme" width={350} height={50} className="h-96 rounded-lg shadow-md" />
                   <div className="absolute top-0 h-full left-0 right-0 bg-black bg-opacity-30 text-white p-4 text-center">
                     <h4 className=" relative top-40 text-lg  font-normal">Sélection Fille</h4>
-                    <button className=" hover:text-black text-white relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
+                    <button className=" hover:text-black  relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
                       Découvrir Plus
                     </button>
 
@@ -368,7 +368,7 @@ export default function Header() {
           </div>
           {/* Garçon submenu */}
           <div
-            className={`absolute left-0 top-48 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0  top-44 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               garconOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("Garçon")}
@@ -434,7 +434,7 @@ export default function Header() {
                   <Image src="/Garcon.jpg" alt="Sélection Garcon" width={350} height={50} className="h-96 rounded-lg shadow-md" />
                   <div className="absolute top-0 h-full left-0 right-0 bg-black bg-opacity-30 text-white p-4 text-center">
                     <h4 className=" relative top-40 text-lg  font-normal">Les Nouveauté pour Garçon</h4>
-                    <button className=" hover:text-black text-white relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
+                    <button className=" hover:text-black  relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
                       Découvrir Plus
                     </button>
 
@@ -446,7 +446,7 @@ export default function Header() {
           </div>
           {/* Bébé submenu */}
           <div
-            className={`absolute left-0 top-48 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0  top-44 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               bebeOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("Bébé")}
@@ -507,7 +507,7 @@ export default function Header() {
                   <Image src="/bebe.jpg" alt="Sélection Bebe" width={350} height={50} className="h-96 rounded-lg shadow-md" />
                   <div className="absolute top-0 h-full left-0 right-0 bg-black bg-opacity-30 text-white p-4 text-center">
                     <h4 className=" relative top-40 text-lg  font-normal">Sélection Bebe</h4>
-                    <button className=" hover:text-black text-white relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
+                    <button className=" hover:text-black  relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
                       Découvrir Plus
                     </button>
 
@@ -519,7 +519,7 @@ export default function Header() {
           </div>
           {/*Chaussures submenu */}
           <div
-            className={`absolute left-0 top-48 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0  top-44 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               chaussuresOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("Chaussures")}
@@ -554,7 +554,7 @@ export default function Header() {
                   <Image src="/DINA-VIOLET-1.jpg" alt="Sélection Femme" width={350} height={50} className="h-96 rounded-lg shadow-md" />
                   <div className="absolute top-0 h-full left-0 right-0 bg-black bg-opacity-30 text-white p-4 text-center">
                     <h4 className=" relative top-40 text-lg  font-normal">Sélection Femme</h4>
-                    <button className=" hover:text-black text-white relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
+                    <button className=" hover:text-black  relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
                       Découvrir Plus
                     </button>
 
@@ -562,9 +562,9 @@ export default function Header() {
                 </div> 
                 <div className="relative">
                   <Image src="/DINA-VIOLET-1.jpg" alt="Sélection Femme" width={350} height={50} className="h-96 rounded-lg shadow-md" />
-                  <div className="absolute top-0 h-full left-0 right-0 bg-black bg-opacity-30 text-white p-4 text-center">
+                  <div className="absolute top-0 h-full left-0 right-0 bg-black bg-opacity-30  p-4 text-center">
                     <h4 className=" relative top-40 text-lg  font-normal">Sélection Femme</h4>
-                    <button className=" hover:text-black text-white relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
+                    <button className=" hover:text-black  relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
                       Découvrir Plus
                     </button>
 
@@ -576,7 +576,7 @@ export default function Header() {
           </div>
           {/* Marque submenu */} 
           <div
-            className={`absolute left-0  top-48 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0   top-44 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               marquesOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("Marques")}
@@ -600,9 +600,9 @@ export default function Header() {
                 <div className="flex gap-8">
                 <div className="relative">
                   <Image src="/DINA-VIOLET-1.jpg" alt="Sélection Femme" width={350} height={50} className="h-96 rounded-lg shadow-md" />
-                  <div className="absolute top-0 h-full left-0 right-0 bg-black bg-opacity-30 text-white p-4 text-center">
+                  <div className="absolute top-0 h-full left-0 right-0 bg-black bg-opacity-30  p-4 text-center">
                     <h4 className=" relative top-40 text-lg  font-normal">Sélection Femme</h4>
-                    <button className=" hover:text-black text-white relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
+                    <button className=" hover:text-black  relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
                       Découvrir Plus
                     </button>
 
@@ -614,9 +614,9 @@ export default function Header() {
                     <div className="flex gap-8">
                 <div className="relative">
                   <Image src="/BRUNO-Blue-003-B-3.jpg" alt="Sélection BRUNO" width={350} height={50} className="h-96 rounded-lg shadow-md" />
-                  <div className="absolute top-0 h-full left-0 right-0 bg-black bg-opacity-30 text-white p-4 text-center">
+                  <div className="absolute top-0 h-full left-0 right-0 bg-black bg-opacity-30  p-4 text-center">
                     <h4 className=" relative top-40 text-lg  font-normal">Sélection BRUNO</h4>
-                    <button className=" hover:text-black text-white relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
+                    <button className=" hover:text-black  relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
                       Découvrir Plus
                     </button>
 
@@ -628,7 +628,7 @@ export default function Header() {
           </div>
           {/* Tendances submenu */}
           <div
-            className={`absolute left-0 top-48 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0  top-44 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               tendancesOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("Tendances")}
@@ -665,9 +665,9 @@ export default function Header() {
                 <div className="flex gap-8">
                 <div className="relative">
                   <Image src="/DINA-VIOLET-1.jpg" alt="Sélection Femme" width={350} height={50} className="h-96 rounded-lg shadow-md" />
-                  <div className="absolute top-0 h-full left-0 right-0 bg-black bg-opacity-30 text-white p-4 text-center">
+                  <div className="absolute top-0 h-full left-0 right-0 bg-black bg-opacity-30  p-4 text-center">
                     <h4 className=" relative top-40 text-lg  font-normal">Sélection Femme</h4>
-                    <button className=" hover:text-black text-white relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
+                    <button className=" hover:text-black  relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
                       Découvrir Plus
                     </button>
 
@@ -679,7 +679,7 @@ export default function Header() {
           </div>
           {/* Outlet submenu */} 
           <div
-            className={`absolute left-0 top-48 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0  top-44 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               outletOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("Outlet")}
@@ -724,9 +724,9 @@ export default function Header() {
                 <div className="flex gap-8">
                 <div className="relative">
                   <Image src="/DINA-VIOLET-1.jpg" alt="Sélection Femme" width={350} height={50} className="h-96 rounded-lg shadow-md" />
-                  <div className="absolute top-0 h-full left-0 right-0 bg-black bg-opacity-30 text-white p-4 text-center">
+                  <div className="absolute top-0 h-full left-0 right-0 bg-black bg-opacity-30  p-4 text-center">
                     <h4 className=" relative top-40 text-lg  font-normal">Sélection Femme</h4>
-                    <button className=" hover:text-black text-white relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
+                    <button className=" hover:text-black  relative top-40 mt-2 px-4 py-2 text-black font-normal rounded-full border border-white hover:bg-gray-300">
                       Découvrir Plus
                     </button>
 

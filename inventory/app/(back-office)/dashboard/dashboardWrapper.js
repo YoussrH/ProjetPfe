@@ -12,7 +12,7 @@ export default function DashboardLayout({ children }) {
   };
 
   return (
-    <div className="flex bg-gray-50 text-gray-900 w-full  min-h-screen">
+    <div className="flex bg-gray-50 text-gray-900 w-full  min-h-full">
       {/* Sidebar */}
       <Sidebar isSidebarCollapsed={isSidebarCollapsed} />
 

@@ -165,7 +165,7 @@ export default function Heding() {
                 </h5>
                 {/* Tooltip on hover for specific items */}
                 {["Fille", "Garçon", "Bébé"].includes(item) && (
-                  <span className=" pt-4 whitespace-nowrap absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition">
+                  <span className="  whitespace-nowrap absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition">
                     {item === "Bébé" ? "1-36 mois" : "2-16 ans"}
                   </span>
                 )}
@@ -182,7 +182,7 @@ export default function Heding() {
 
           {/* Submenu */}
           <div
-            className={`absolute left-0 top-20 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0 top-16 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               submenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("Nouveautés")}
@@ -239,7 +239,7 @@ export default function Heding() {
 
           {/* PETITS PRIX Submenu */}
           <div
-            className={`absolute left-0 top-48 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0  top-16 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               petitPrixOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("PETITS PRIX")}
@@ -297,7 +297,7 @@ export default function Heding() {
 
           {/* Fille Submenu */}
           <div
-            className={`absolute left-0 top-48 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0   top-16 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               filleOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("Fille")}
@@ -379,7 +379,7 @@ export default function Heding() {
           </div>
           {/* Garçon submenu */}
           <div
-            className={`absolute left-0 top-48 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0   top-16 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               garconOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("Garçon")}
@@ -457,7 +457,7 @@ export default function Heding() {
           </div>
           {/* Bébé submenu */}
           <div
-            className={`absolute left-0 top-48 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0   top-16 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               bebeOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("Bébé")}
@@ -530,7 +530,7 @@ export default function Heding() {
           </div>
           {/*Chaussures submenu */}
           <div
-            className={`absolute left-0 top-48 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0   top-16 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               chaussuresOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("Chaussures")}
@@ -587,7 +587,7 @@ export default function Heding() {
           </div>
           {/* Marque submenu */} 
           <div
-            className={`absolute left-0  top-48 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0    top-16 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               marquesOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("Marques")}
@@ -639,7 +639,7 @@ export default function Heding() {
           </div>
           {/* Tendances submenu */}
           <div
-            className={`absolute left-0 top-48 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0   top-16 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               tendancesOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("Tendances")}
@@ -690,7 +690,7 @@ export default function Heding() {
           </div>
           {/* Outlet submenu */} 
           <div
-            className={`absolute left-0 top-48 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0   top-16 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               outletOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={() => handleMouseEnter("Outlet")}
