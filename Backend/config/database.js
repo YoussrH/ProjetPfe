@@ -1,18 +1,14 @@
-require('dotenv').config();
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize("inventory", "Yosr", "Yosr123", {
   host: "localhost",
-  port: 2103,  // Assure-toi que c'est bien le port correct
+  port: 2103, // Ensure this is correct
   dialect: "postgres",
-  logging: console.log, // Active l'affichage des requêtes SQL
+  logging: console.log,
 });
 
-
-
-
 sequelize.authenticate()
-  .then(() => console.log('✅ Connexion à PostgreSQL réussie !'))
-  .catch(err => console.error('❌ Erreur de connexion à PostgreSQL :', err));
+  .then(() => console.log("✅ Connected to PostgreSQL"))
+  .catch(err => console.error("❌ Database connection error:", err));
 
-module.exports = sequelize;
+module.exports = sequelize; // Ensure this is exported

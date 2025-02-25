@@ -4,7 +4,7 @@ const Article = require("../models/articleModel");
 const cloudinary = require("../config/cloudinaryConfig");
 
 // ➤ Add New Article
-router.post("/", async (req, res) => {
+router.post("/ajouterArticle", async (req, res) => {
   try {
     const {
       name,
@@ -13,15 +13,17 @@ router.post("/", async (req, res) => {
       discount,
       stock,
       sku,
-      images, // Make sure the request sends an array
+      images,
       seoTitle,
       seoKeywords,
       categoryId,
       marqueId,
+      genreId,
+      tailles, // Array of taille IDs
     } = req.body;
 
-    if (!name || !price || !categoryId || !marqueId) {
-      return res.status(400).json({ message: "Name, price, category, and marque are required!" });
+    if (!name || !price || !categoryId || !marqueId || !genreId || !tailles) {
+      return res.status(400).json({ message: "Name, price, category, marque, genre, and tailles are required!" });
     }
 
     // Ensure images is an array before processing
@@ -37,7 +39,6 @@ router.post("/", async (req, res) => {
 
     // Calculate final price
     const finalPrice = price - (price * (discount || 0)) / 100;
-    console.log("🔍 Debug: Article model:", Article);
 
     // Save Article with images as an array
     const article = await Article.create({
@@ -48,11 +49,13 @@ router.post("/", async (req, res) => {
       finalPrice,
       stock,
       sku,
-      images: imageUrls, // Make sure this is an array
+      images: imageUrls,
       seoTitle,
       seoKeywords,
       categoryId,
       marqueId,
+      genreId,
+      tailles: tailles.map(id => parseInt(id)), // Store tailles as an array of IDs
     });
 
     res.status(201).json(article);
@@ -61,7 +64,6 @@ router.post("/", async (req, res) => {
     res.status(500).json({ message: "Error adding article", error });
   }
 });
-
 
 // ➤ Get All Articles
 router.get("/", async (req, res) => {
@@ -76,21 +78,39 @@ router.get("/", async (req, res) => {
 // ➤ Update Article
 router.put("/:id", async (req, res) => {
   try {
-    const { name, description, price, discount, stock, sku } = req.body;
+    const { name, description, price, discount, stock, sku, genreId, categoryId, marqueId, tailles } = req.body;
+
+    if (!name || !price || !stock || !genreId || !categoryId || !marqueId || !tailles) {
+      return res.status(400).json({ message: "Tous les champs obligatoires sont requis !" });
+    }
+
     const article = await Article.findByPk(req.params.id);
-    
-    if (!article) return res.status(404).json({ message: "Article not found" });
+    if (!article) {
+      return res.status(404).json({ message: "Article non trouvé" });
+    }
 
     const finalPrice = price - (price * (discount || 0)) / 100;
 
-    await article.update({ name, description, price, discount, finalPrice, stock, sku });
+    await article.update({
+      name,
+      description,
+      price,
+      discount,
+      finalPrice,
+      stock,
+      sku,
+      genreId,
+      categoryId,
+      marqueId,
+      tailles: tailles.map(id => parseInt(id)), // Ensure tailles is an array of numbers
+    });
 
     res.json(article);
   } catch (error) {
-    res.status(500).json({ message: "Error updating article", error });
+    console.error("Error updating article:", error);
+    res.status(500).json({ message: "Erreur lors de la modification de l'article", error });
   }
 });
-
 // ➤ Delete Article
 router.delete("/:id", async (req, res) => {
   try {

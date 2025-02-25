@@ -3,7 +3,9 @@ const router = express.Router();
 const Marque = require("../models/marqueModel");
 
 // ➤ Add a Marque
-router.post("/", async (req, res) => {
+// ✅ POST: Add a new marque
+router.post("/ajouterMarque", async (req, res) => {
+  console.log("🔵 Received request at /ajouterMarque"); // Debugging log
   try {
     const { name } = req.body;
     if (!name) return res.status(400).json({ message: "Name is required" });
@@ -11,6 +13,7 @@ router.post("/", async (req, res) => {
     const marque = await Marque.create({ name });
     res.status(201).json(marque);
   } catch (error) {
+    console.error("❌ Error adding marque:", error);
     res.status(500).json({ message: "Error adding marque", error });
   }
 });

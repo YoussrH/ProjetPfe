@@ -1,5 +1,3 @@
-
-
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
@@ -32,7 +30,15 @@ const Article = sequelize.define("Article", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  genreId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  tailles: {
+    type: DataTypes.ARRAY(DataTypes.INTEGER), // Array of Taille IDs
+    allowNull: false,
+    defaultValue: [],
+  },
 });
 
-// Ensure the model is exported
 module.exports = Article;

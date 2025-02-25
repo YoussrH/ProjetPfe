@@ -14,7 +14,7 @@ const router = express.Router();
 const Category = require("../models/categoryModel");
 
 // POST: Add a category (or subcategory)
-router.post("/", async (req, res) => {
+router.post("/ajouterCategorie", async (req, res) => {
   try {
     const { name, parentId } = req.body;
     const category = await Category.create({ name, parentId: parentId || null });
@@ -24,17 +24,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// GET: Retrieve all categories with their subcategories
-/* router.get("/", async (req, res) => {
-  try {
-    const categories = await Category.findAll({
-      include: [{ model: Category, as: "subcategories" }]
-    });
-    res.json(categories);
-  } catch (error) {
-    res.status(500).json({ message: "Error retrieving categories", error });
-  }
-}); */
+
 router.get("/", async (req, res) => {
   try {
     const categories = await Category.findAll({
