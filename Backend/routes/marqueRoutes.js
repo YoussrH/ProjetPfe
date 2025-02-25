@@ -2,55 +2,53 @@ const express = require("express");
 const router = express.Router();
 const Marque = require("../models/marqueModel");
 
-// ➤ Ajouter une marque
-router.post("/addMarque", async (req, res) => {
+// ➤ Add a Marque
+router.post("/", async (req, res) => {
   try {
     const { name } = req.body;
+    if (!name) return res.status(400).json({ message: "Name is required" });
+
     const marque = await Marque.create({ name });
     res.status(201).json(marque);
   } catch (error) {
-    res.status(500).json({ message: "Erreur lors de l'ajout de la marque", error });
+    res.status(500).json({ message: "Error adding marque", error });
   }
 });
 
-// ➤ Obtenir toutes les marques
+// ➤ Get All Marques
 router.get("/", async (req, res) => {
   try {
     const marques = await Marque.findAll();
-    console.log(marques);  // Log the array of results
     res.json(marques);
   } catch (error) {
-    console.error('Error fetching marques:', error);  // Log any errors
-    res.status(500).json({ message: "Erreur lors de la récupération des marques", error });
+    res.status(500).json({ message: "Error retrieving marques", error });
   }
 });
 
-
-
-// ➤ Modifier une marque
+// ➤ Update a Marque
 router.put("/:id", async (req, res) => {
   try {
     const { name } = req.body;
     const marque = await Marque.findByPk(req.params.id);
-    if (!marque) return res.status(404).json({ message: "Marque non trouvée" });
+    if (!marque) return res.status(404).json({ message: "Marque not found" });
 
     await marque.update({ name });
     res.json(marque);
   } catch (error) {
-    res.status(500).json({ message: "Erreur lors de la mise à jour de la marque", error });
+    res.status(500).json({ message: "Error updating marque", error });
   }
 });
 
-// ➤ Supprimer une marque
+// ➤ Delete a Marque
 router.delete("/:id", async (req, res) => {
   try {
     const marque = await Marque.findByPk(req.params.id);
-    if (!marque) return res.status(404).json({ message: "Marque non trouvée" });
+    if (!marque) return res.status(404).json({ message: "Marque not found" });
 
     await marque.destroy();
-    res.json({ message: "Marque supprimée avec succès" });
+    res.json({ message: "Marque deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Erreur lors de la suppression de la marque", error });
+    res.status(500).json({ message: "Error deleting marque", error });
   }
 });
 

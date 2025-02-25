@@ -1,55 +1,77 @@
 
+
+
+
+
+
+
+
+
+
+
 const express = require("express");
 const router = express.Router();
 const Category = require("../models/categoryModel");
 
-// ➤ Ajouter une catégorie (ou sous-catégorie)
+// POST: Add a category (or subcategory)
 router.post("/", async (req, res) => {
   try {
     const { name, parentId } = req.body;
     const category = await Category.create({ name, parentId: parentId || null });
     res.status(201).json(category);
   } catch (error) {
-    res.status(500).json({ message: "Erreur lors de l'ajout de la catégorie", error });
+    res.status(500).json({ message: "Error adding category", error });
   }
 });
 
-// ➤ Obtenir toutes les catégories et leurs sous-catégories
-router.get("/", async (req, res) => {
+// GET: Retrieve all categories with their subcategories
+/* router.get("/", async (req, res) => {
   try {
     const categories = await Category.findAll({
       include: [{ model: Category, as: "subcategories" }]
     });
     res.json(categories);
   } catch (error) {
-    res.status(500).json({ message: "Erreur lors de la récupération des catégories", error });
+    res.status(500).json({ message: "Error retrieving categories", error });
+  }
+}); */
+router.get("/", async (req, res) => {
+  try {
+    const categories = await Category.findAll({
+      include: [
+        { model: Category, as: "parentCategory", attributes: ["id", "name"] }, // Include parent
+        { model: Category, as: "subcategories" } // Keep subcategories if needed
+      ]
+    });
+    res.json(categories);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving categories", error });
   }
 });
 
-// ➤ Modifier une catégorie
+
+// PUT: Update a category
 router.put("/:id", async (req, res) => {
   try {
     const { name, parentId } = req.body;
     const category = await Category.findByPk(req.params.id);
-    if (!category) return res.status(404).json({ message: "Catégorie non trouvée" });
-
+    if (!category) return res.status(404).json({ message: "Category not found" });
     await category.update({ name, parentId: parentId || null });
     res.json(category);
   } catch (error) {
-    res.status(500).json({ message: "Erreur lors de la mise à jour de la catégorie", error });
+    res.status(500).json({ message: "Error updating category", error });
   }
 });
 
-// ➤ Supprimer une catégorie
+// DELETE: Remove a category
 router.delete("/:id", async (req, res) => {
   try {
     const category = await Category.findByPk(req.params.id);
-    if (!category) return res.status(404).json({ message: "Catégorie non trouvée" });
-
+    if (!category) return res.status(404).json({ message: "Category not found" });
     await category.destroy();
-    res.json({ message: "Catégorie supprimée avec succès" });
+    res.json({ message: "Category deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Erreur lors de la suppression de la catégorie", error });
+    res.status(500).json({ message: "Error deleting category", error });
   }
 });
 

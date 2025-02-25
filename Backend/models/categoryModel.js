@@ -31,7 +31,7 @@ const Category = sequelize.define("Category", {
   updatedAt: 'updated_at',
 });
 
-// Self-referencing association for subcategories
+// Self-referencing associations for subcategories
 Category.hasMany(Category, { as: "subcategories", foreignKey: "parentId" });
 Category.belongsTo(Category, { as: "parentCategory", foreignKey: "parentId" });
 

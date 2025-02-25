@@ -1,104 +1,106 @@
 const express = require("express");
 const router = express.Router();
 const Article = require("../models/articleModel");
+const cloudinary = require("../config/cloudinaryConfig");
 
-// ➤ Ajouter un article (with Cloudinary image upload)
-// Cloudinary Configuration
-
-
-const cloudinary = require('cloudinary').v2;
-
-cloudinary.config({
-    cloud_name: 'dnkd2ksye',
-    api_key: '911994369859426',
-    api_secret: 'ARy8-LlzyXtWqycF5vLoDAz-YX4',
-  });
-
-  module.exports= cloudinary;
-// POST request for creating an article
+// ➤ Add New Article
 router.post("/", async (req, res) => {
   try {
-    const { name, description, price, discount, stock, sku, images, seoTitle, seoKeywords, categoryId, marqueId } = req.body;
+    const {
+      name,
+      description,
+      price,
+      discount,
+      stock,
+      sku,
+      images, // Make sure the request sends an array
+      seoTitle,
+      seoKeywords,
+      categoryId,
+      marqueId,
+    } = req.body;
 
-    // Upload images to Cloudinary
-    const imageUrls = [];
-    for (const image of images) {
-      const uploadedImage = await cloudinary.uploader.upload(image, {
-        folder: 'articles', // Optional folder name in Cloudinary
-      });
-      imageUrls.push(uploadedImage.secure_url); // Store the secure URL of the uploaded image
+    if (!name || !price || !categoryId || !marqueId) {
+      return res.status(400).json({ message: "Name, price, category, and marque are required!" });
     }
 
+    // Ensure images is an array before processing
+    const imageUrls = [];
+    if (Array.isArray(images) && images.length > 0) {
+      for (const image of images) {
+        const uploadedImage = await cloudinary.uploader.upload(image, {
+          folder: "articles",
+        });
+        imageUrls.push(uploadedImage.secure_url);
+      }
+    }
+
+    // Calculate final price
     const finalPrice = price - (price * (discount || 0)) / 100;
+    console.log("🔍 Debug: Article model:", Article);
 
-    // Create and save the article with image URLs to the database
+    // Save Article with images as an array
     const article = await Article.create({
-      name, description, price, discount, finalPrice, stock, sku, images: imageUrls, seoTitle, seoKeywords, categoryId, marqueId
-    });
-
-    res.status(201).json(article);  // Send back the created article
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ message: "Error adding article", error });
-  }
-});
-// ➤ Ajouter un article
-/* router.post("/", async (req, res) => {
-  try {
-    console.log("Données reçues :", req.body);
-    const { name, description, price, discount, stock, sku, images, seoTitle, seoKeywords, categoryId, marqueId } = req.body;
-
-    const finalPrice = price - (price * (discount || 0)) / 100;
-
-    const article = await Article.create({
-      name, description, price, discount, finalPrice, stock, sku, images, seoTitle, seoKeywords, categoryId, marqueId
+      name,
+      description,
+      price,
+      discount,
+      finalPrice,
+      stock,
+      sku,
+      images: imageUrls, // Make sure this is an array
+      seoTitle,
+      seoKeywords,
+      categoryId,
+      marqueId,
     });
 
     res.status(201).json(article);
   } catch (error) {
-    console.error("Erreur SQL :", error);
-    res.status(500).json({ message: "Erreur lors de l'ajout de l'article", error });
+    console.error("Error adding article:", error);
+    res.status(500).json({ message: "Error adding article", error });
   }
-}); */
+});
 
 
-
-// ➤ Obtenir tous les articles
+// ➤ Get All Articles
 router.get("/", async (req, res) => {
   try {
     const articles = await Article.findAll();
     res.json(articles);
   } catch (error) {
-    res.status(500).json({ message: "Erreur lors de la récupération des articles", error });
+    res.status(500).json({ message: "Error retrieving articles", error });
   }
 });
 
-// ➤ Modifier un article
+// ➤ Update Article
 router.put("/:id", async (req, res) => {
   try {
-    const { name, price, quantity, description } = req.body;
+    const { name, description, price, discount, stock, sku } = req.body;
     const article = await Article.findByPk(req.params.id);
-    if (!article) {
-      return res.status(404).json({ message: "Article non trouvé" });
-    }
-    await article.update({ name, price, quantity, description });
+    
+    if (!article) return res.status(404).json({ message: "Article not found" });
+
+    const finalPrice = price - (price * (discount || 0)) / 100;
+
+    await article.update({ name, description, price, discount, finalPrice, stock, sku });
+
     res.json(article);
   } catch (error) {
-    res.status(500).json({ message: "Erreur lors de la mise à jour de l'article", error });
+    res.status(500).json({ message: "Error updating article", error });
   }
 });
 
-// ➤ Supprimer un article
+// ➤ Delete Article
 router.delete("/:id", async (req, res) => {
   try {
     const article = await Article.findByPk(req.params.id);
-    if (!article) {
-      return res.status(404).json({ message: "Article non trouvé" });
-    }
+    if (!article) return res.status(404).json({ message: "Article not found" });
+
     await article.destroy();
-    res.json({ message: "Article supprimé avec succès" });
+    res.json({ message: "Article deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Erreur lors de la suppression de l'article", error });
+    res.status(500).json({ message: "Error deleting article", error });
   }
 });
 
