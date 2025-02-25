@@ -33,27 +33,25 @@ export default function AutoSlider() {
   }, []);
 
   return (
-    <div className="relative w-full h-[500px] sm:h-[400px] md:h-[500px] overflow-hidden">
+    <div className="relative w-full h-[500px] overflow-hidden">
       <div
         className="flex transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {slides.map((slide, index) => (
-          <div key={index} className="relative w-full h-full flex-shrink-0">
+          <div key={index} className="relative w-full h-[500px] flex-shrink-0">
             <Image
               src={slide.src}
               alt={`Slide ${index + 1}`}
               width={500}
               height={10}
-              className="w-full h-full object-cover"
+              className="w-screen h-full object-fit"
             />
             {randomPositions.length > 0 && (
-              <div
-                className={`absolute ${randomPositions[index]} bg-white bg-opacity-20 text-black p-3 sm:p-5 rounded-lg shadow-lg backdrop-blur-md max-w-xs sm:max-w-sm md:max-w-md`}
-              >
-                <h2 className="text-sm sm:text-lg font-medium text-black">{slide.title}</h2>
-                <p className="mt-1 sm:mt-2 text-xs sm:text-sm font-serif text-gray-700">{slide.text}</p>
-                <button className="mt-3 sm:mt-4 px-4 sm:px-6 py-2 bg-black text-white text-xs sm:text-sm font-serif rounded border border-black hover:bg-gray-800">
+              <div className={`absolute ${randomPositions[index]} bg-white bg-opacity-20 text-black p-5 rounded-lg shadow-lg backdrop-blur-md`}>
+                <h2 className="text-lg font-medium text-black">{slide.title}</h2>
+                <p className="mt-2 text-sm font-serif text-gray-700">{slide.text}</p>
+                <button className="mt-4 px-6 py-2 bg-black text-white text-sm font-serif rounded border border-black hover:bg-gray-800">
                   Découvrir
                 </button>
               </div>
@@ -61,21 +59,20 @@ export default function AutoSlider() {
           </div>
         ))}
       </div>
-  
+
       {/* Dots Indicator */}
-      <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 flex space-x-1 sm:space-x-2">
+      <div className="absolute bottom-4 right-4 flex space-x-2">
         {slides.map((_, index) => (
           <div
             key={index}
-            className={`w-3 h-3 sm:w-5 sm:h-4 border-2 border-black rounded-full flex items-center justify-center transition-all duration-300 ${
+            className={`w-5 h-4 border-2 border-black rounded-full flex items-center justify-center transition-all duration-300 ${
               currentIndex === index ? "p-1" : ""
             }`}
           >
-            {currentIndex === index && <div className="w-3 h-1 sm:w-5 sm:h-2 bg-black rounded-full"></div>}
+            {currentIndex === index && <div className="w-5 h-2 bg-black rounded-full"></div>}
           </div>
         ))}
       </div>
     </div>
   );
-  
 }

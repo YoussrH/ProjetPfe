@@ -1,6 +1,6 @@
 import HeaderForm from '@/app/components/DashboardComponents/HeaderForm'
 import React from 'react'
-import AjouterArticle from '@/app/components/DashboardComponents/AjouterArticle'
+import AjouterArticle from '@/app/components/DashboardComponents/ArticleComp/AjouterArticle'
 
 export default function NewArticle() {
   return (

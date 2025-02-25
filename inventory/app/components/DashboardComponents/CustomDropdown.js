@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-const CustomDropdown = ({ options, value, onChange, placeholder }) => {
+const CustomDropdown = ({ options, value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Ensure "Choose from the list" is the first option
+  const dropdownOptions = [{ value: "", label: "Choisissez parmi la liste" }, ...options];
 
   const handleSelect = (selectedValue) => {
     onChange(selectedValue);
@@ -11,17 +14,16 @@ const CustomDropdown = ({ options, value, onChange, placeholder }) => {
   return (
     <div className="relative">
       <div
-        className="border p-2 rounded w-full cursor-pointer"
+        className="border p-2 rounded w-full cursor-pointer bg-white"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {value ? options.find((option) => option.value === value)?.label : placeholder}
+        {dropdownOptions.find((option) => option.value === value)?.label || "Choose from the list"}
       </div>
       {isOpen && (
         <div
-          className="relative z-10 mt-1 w-full bg-white border rounded shadow-lg max-h-32 overflow-y-auto"
-          style={{ maxHeight: '120px' }} // Adjust height as needed
+          className="absolute z-10 mt-1 w-full bg-white border rounded shadow-lg max-h-32 overflow-y-auto"
         >
-          {options.map((option) => (
+          {dropdownOptions.map((option) => (
             <div
               key={option.value}
               className="p-2 hover:bg-gray-100 cursor-pointer"
