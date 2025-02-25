@@ -29,45 +29,41 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-  flexRender, // Import flexRender here
+  flexRender,
 } from "@tanstack/react-table";
 
-const CategoryTable = () => {
-  const [categories, setCategories] = useState([]);
+const MarqueTable = () => {
+  const [marques, setMarques] = useState([]);
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
   const [rowSelection, setRowSelection] = useState({});
 
   useEffect(() => {
-    const fetchCategories = async () => {
+    const fetchMarques = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/categories");
-        const categoriesData = response.data.map(category => ({
-          ...category,
-          parentCategory: response.data.find(cat => cat.id === category.parentId)?.name || "Aucune",
-        }));
-        setCategories(categoriesData);
+        const response = await axios.get("http://localhost:5000/api/marques"); // Updated endpoint
+        setMarques(response.data);
       } catch (error) {
-        toast.error("Échec du chargement des catégories");
+        toast.error("Échec du chargement des marques");
       }
     };
-    fetchCategories();
+    fetchMarques();
   }, []);
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Voulez-vous vraiment supprimer cette catégorie ?")) return;
+    if (!window.confirm("Voulez-vous vraiment supprimer cette marque ?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/categories/${id}`);
-      toast.success("Catégorie supprimée avec succès");
-      setCategories(prev => prev.filter(category => category.id !== id));
+      await axios.delete(`http://localhost:5000/api/marques/${id}`); // Updated endpoint
+      toast.success("Marque supprimée avec succès");
+      setMarques(prev => prev.filter(marque => marque.id !== id));
     } catch (error) {
-      toast.error("Échec de la suppression de la catégorie");
+      toast.error("Échec de la suppression de la marque");
     }
   };
 
-  const handleEdit = (category) => {
-    alert(`Modifier la catégorie : ${category.name}`);
+  const handleEdit = (marque) => {
+    alert(`Modifier la marque : ${marque.name}`);
   };
 
   const columns = [
@@ -81,17 +77,12 @@ const CategoryTable = () => {
       cell: ({ row }) => <div className="capitalize">{row.getValue("name")}</div>,
     },
     {
-      accessorKey: "parentCategory",
-      header: "Catégorie parente",
-      cell: ({ row }) => <div>{row.getValue("parentCategory")}</div>,
-    },
-    {
       id: "actions",
       header: "Actions",
       cell: ({ row }) => {
-        const category = row.original;
+        const marque = row.original;
         return (
-          <DropdownMenu >
+          <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="h-8 w-8 p-0">
                 <MoreHorizontal />
@@ -99,11 +90,11 @@ const CategoryTable = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="font-sans">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem onClick={() => handleEdit(category)}>
+              <DropdownMenuItem onClick={() => handleEdit(marque)}>
                 <Edit className="mr-2 h-4 w-4" /> Modifier
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => handleDelete(category.id)}>
+              <DropdownMenuItem onClick={() => handleDelete(marque.id)}>
                 <Trash className="mr-2 h-4 w-4 text-red-700" /> Supprimer
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -114,7 +105,7 @@ const CategoryTable = () => {
   ];
 
   const table = useReactTable({
-    data: categories,
+    data: marques,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -130,12 +121,12 @@ const CategoryTable = () => {
   return (
     <div className="p-6 rounded-lg font-sans">
       <Toaster position="top-right" />
-      <h2 className="text-xl font-normal mb-4">Toutes les catégories</h2>
+      <h2 className="text-xl font-normal mb-4">Toutes les marques</h2>
 
       {/* Filtre de recherche et sélection de colonnes */}
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filtrer les catégories..."
+          placeholder="Filtrer les marques..."
           value={table.getColumn("name")?.getFilterValue() || ""}
           onChange={(event) => table.getColumn("name")?.setFilterValue(event.target.value)}
           className="max-w-sm"
@@ -162,7 +153,7 @@ const CategoryTable = () => {
         </DropdownMenu>
       </div>
 
-      {/* Tableau des catégories */}
+      {/* Tableau des marques */}
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -206,7 +197,6 @@ const CategoryTable = () => {
 
       {/* Pagination */}
       <div className="flex items-center justify-end space-x-2 py-4">
-
         <div className="space-x-2">
           <Button
             variant="outline"
@@ -230,4 +220,4 @@ const CategoryTable = () => {
   );
 };
 
-export default CategoryTable;
+export default MarqueTable;

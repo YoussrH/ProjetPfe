@@ -1,3 +1,22 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 "use client"
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -23,101 +42,55 @@ export default function AjouterArticle() {
     seoKeywords: '',
     categoryId: '',
     marqueId: '',
-    genreId: '',
-    tailles: [], // Array to store selected taille IDs
+    genreId: '', // Add genreId to form data
   });
 
   const [categories, setCategories] = useState([]);
   const [marques, setMarques] = useState([]);
-  const [genres, setGenres] = useState([]);
-  const [tailles, setTailles] = useState([]); // State for tailles
+  const [genres, setGenres] = useState([]); // Add genres state
   const [loading, setLoading] = useState(false);
   const [selectedMainCategory, setSelectedMainCategory] = useState('');
   const [subcategories, setSubcategories] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
 
-  // Fetch data on component mount
+  // Fetch categories, marques, and genres on mount
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [categoriesRes, marquesRes, genresRes, articlesRes, taillesRes] = await Promise.all([
+        const [categoriesRes, marquesRes, genresRes] = await Promise.all([
           axios.get('http://localhost:5000/api/categories'),
           axios.get('http://localhost:5000/api/marques'),
-          axios.get('http://localhost:5000/api/genres'),
-          axios.get('http://localhost:5000/api/articles'),
-          axios.get('http://localhost:5000/api/tailles'), // Fetch tailles
+          axios.get('http://localhost:5000/api/genres'), // Fetch genres
         ]);
-
-        // Log tailles response
-        console.log("Tailles Response:", taillesRes.data);
-
-        // Update state with fetched data
         setCategories(categoriesRes.data);
         setMarques(marquesRes.data);
-        setGenres(genresRes.data);
-        setTailles(taillesRes.data); // Set tailles
-
-        // Generate SKU
-        const numberOfArticles = Array.isArray(articlesRes.data) ? articlesRes.data.length : 0; // Ensure articlesRes.data is an array
-        const formattedName = formData.name
-          ? formData.name.trim().replace(/\s+/g, '-').toUpperCase() // Format name if not empty
-          : 'ARTICLE'; // Fallback if name is empty
-
-        // Ensure SKU is unique
-        let generatedSKU;
-        let isUnique = false;
-        let attempt = 0;
-
-        while (!isUnique) {
-          generatedSKU = `${formattedName}-${String(numberOfArticles + 1 + attempt).padStart(3, '0')}`;
-
-          // Check if SKU already exists
-          if (Array.isArray(articlesRes.data)) {
-            const existingArticle = articlesRes.data.find(article => article.sku === generatedSKU);
-            if (!existingArticle) {
-              isUnique = true;
-            }
-          } else {
-            // If articlesRes.data is not an array, assume SKU is unique
-            isUnique = true;
-          }
-
-          attempt++;
-        }
-
-        setFormData(prev => ({ ...prev, sku: generatedSKU }));
+        setGenres(genresRes.data); // Set genres state
       } catch (error) {
         console.error("Error loading data:", error);
         toast.error("Failed to load data.");
       }
     };
-
     fetchData();
-  }, [formData.name]); // Regenerate SKU when name changes
+  }, []);
 
-  // Log tailles state
-  useEffect(() => {
-    console.log("Tailles State:", tailles);
-  }, [tailles]);
-
-  // Handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   // Handle genre change
   const handleGenreChange = (value) => {
+    console.log("Selected Genre ID:", value);
     setFormData(prev => ({ ...prev, genreId: value }));
   };
 
-  // Handle file upload
+  // Handle file uploads & previews
   const handleFileUpload = (files) => {
     const newPreviews = files.map(file => URL.createObjectURL(file));
-    setImagePreviews(newPreviews); // Replace existing previews
+    setImagePreviews(prev => [...prev, ...newPreviews]);
 
     setFormData((prevState) => ({
       ...prevState,
-      images: files, // Replace existing images with new files
+      images: [...prevState.images, ...files],
     }));
   };
 
@@ -125,6 +98,8 @@ export default function AjouterArticle() {
   const handleMainCategoryChange = (value) => {
     setSelectedMainCategory(value);
     const selectedCat = categories.find(cat => cat.id === value);
+    console.log("Selected Main Category:", selectedCat);
+
     if (selectedCat && selectedCat.subcategories) {
       setSubcategories(selectedCat.subcategories.map(sub => ({
         value: sub.id,
@@ -133,44 +108,34 @@ export default function AjouterArticle() {
     } else {
       setSubcategories([]);
     }
+
     setFormData(prev => ({ ...prev, categoryId: '' }));
   };
 
   // Handle subcategory change
   const handleSubcategoryChange = (value) => {
+    console.log("Selected Subcategory ID:", value);
     setFormData(prev => ({ ...prev, categoryId: value }));
   };
 
   // Handle marque change
   const handleMarqueChange = (value) => {
+    console.log("Selected Marque ID:", value);
     setFormData(prev => ({ ...prev, marqueId: value }));
   };
 
-  // Handle taille change
-  const handleTailleChange = (e) => {
-    const { value, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      tailles: checked
-        ? [...prev.tailles, value] // Add taille ID
-        : prev.tailles.filter((id) => id !== value), // Remove taille ID
-    }));
-  };
-
-  // Handle form submission
 /*   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
     try {
       const imageUrls = [];
-
-      // Upload images to Cloudinary
+  
       for (const file of formData.images) {
         const formDataCloudinary = new FormData();
         formDataCloudinary.append('file', file);
-        formDataCloudinary.append('upload_preset', 'Bgtm_D');
-
+        formDataCloudinary.append('upload_preset', 'Bgtm_D'); 
+  
         try {
           const response = await axios.post(
             'https://api.cloudinary.com/v1_1/dnkd2ksye/image/upload',
@@ -182,23 +147,22 @@ export default function AjouterArticle() {
           toast.error("Error uploading images!");
         }
       }
-
+  
       // Send article data to backend
       await axios.post('http://localhost:5000/api/articles/ajouterArticle', {
         ...formData,
         price: parseFloat(formData.price) || 0,
         discount: parseFloat(formData.discount) || 0,
         stock: Number.isNaN(parseInt(formData.stock)) ? 0 : parseInt(formData.stock),
-        categoryId: parseInt(formData.categoryId),
-        marqueId: parseInt(formData.marqueId),
-        genreId: parseInt(formData.genreId),
-        tailles: formData.tailles.map(id => parseInt(id)), // Convert taille IDs to numbers
+        categoryId: parseInt(formData.categoryId),  // Ensure it's a number
+        marqueId: parseInt(formData.marqueId),  // Ensure it's a number
+        genreId: parseInt(formData.genreId),  // Ensure it's a number
         images: imageUrls,
       });
-
+  
       toast.success('Article added successfully!');
-
-      // Reset form
+  
+      // Reset the form
       setFormData({
         name: '',
         description: '',
@@ -211,8 +175,7 @@ export default function AjouterArticle() {
         seoKeywords: '',
         categoryId: '',
         marqueId: '',
-        genreId: '',
-        tailles: [], // Reset tailles
+        genreId: '', // Reset genreId
       });
       setImagePreviews([]);
       setSelectedMainCategory('');
@@ -234,54 +197,51 @@ export default function AjouterArticle() {
       // Upload images to Cloudinary
       for (const file of formData.images) {
         const formDataCloudinary = new FormData();
-        formDataCloudinary.append('file', file);
-        formDataCloudinary.append('upload_preset', 'Bgtm_D');
+        formDataCloudinary.append("file", file);
+        formDataCloudinary.append("upload_preset", "Bgtm_D");
   
         try {
           const response = await axios.post(
-            'https://api.cloudinary.com/v1_1/dnkd2ksye/image/upload',
+            "https://api.cloudinary.com/v1_1/dnkd2ksye/image/upload",
             formDataCloudinary
           );
           imageUrls.push(response.data.secure_url);
         } catch (error) {
-          console.error('Cloudinary Upload Error:', error);
+          console.error("Cloudinary Upload Error:", error);
           toast.error("Error uploading images!");
         }
       }
   
-      // Send article data to backend
-      await axios.post('http://localhost:5000/api/articles/ajouterArticle', {
+      // Send article data to backend (excluding SKU)
+      await axios.post("http://localhost:5000/api/articles/ajouterArticle", {
         ...formData,
         price: parseFloat(formData.price) || 0,
         discount: parseFloat(formData.discount) || 0,
         stock: Number.isNaN(parseInt(formData.stock)) ? 0 : parseInt(formData.stock),
-        categoryId: parseInt(formData.categoryId),
-        marqueId: parseInt(formData.marqueId),
-        genreId: parseInt(formData.genreId),
-        tailles: formData.tailles.map(id => parseInt(id)), // Convert taille IDs to numbers
+        categoryId: parseInt(formData.categoryId), // Ensure it's a number
+        marqueId: parseInt(formData.marqueId), // Ensure it's a number
+        genreId: parseInt(formData.genreId), // Ensure it's a number
         images: imageUrls,
       });
   
-      toast.success('Article added successfully!');
+      toast.success("Article added successfully!");
   
-      // Reset form
+      // Reset the form
       setFormData({
-        name: '',
-        description: '',
-        price: '',
-        discount: '',
-        stock: '',
-        sku: '',
+        name: "",
+        description: "",
+        price: "",
+        discount: "",
+        stock: "",
         images: [],
-        seoTitle: '',
-        seoKeywords: '',
-        categoryId: '',
-        marqueId: '',
-        genreId: '',
-        tailles: [], // Reset tailles
+        seoTitle: "",
+        seoKeywords: "",
+        categoryId: "",
+        marqueId: "",
+        genreId: "",
       });
       setImagePreviews([]);
-      setSelectedMainCategory('');
+      setSelectedMainCategory("");
       setSubcategories([]);
     } catch (error) {
       toast.error("Error adding article");
@@ -290,7 +250,7 @@ export default function AjouterArticle() {
       setLoading(false);
     }
   };
-  // Prepare main category options
+  // Prepare options
   const mainCategoryOptions = categories
     .filter(cat => cat.parentId === null)
     .map(cat => ({
@@ -298,51 +258,34 @@ export default function AjouterArticle() {
       label: cat.name,
     }));
 
-  // Prepare genre options
   const genreOptions = genres.map(genre => ({
     value: genre.id,
     label: genre.name,
   }));
 
-  const renderTailleCheckboxes = () => {
-    if (!tailles || tailles.length === 0) {
-      return <p>Aucune taille disponible.</p>; // Fallback if no tailles are available
-    }
-
-    return tailles.map((taille) => (
-      <label key={taille.id} className="flex items-center space-x-2">
-        <input
-          type="checkbox"
-          value={taille.id}
-          checked={formData.tailles.includes(taille.id.toString())} // Ensure value is a string
-          onChange={handleTailleChange}
-        />
-        <span>{taille.name}</span>
-      </label>
-    ));
-  };
-
   return (
     <section className="dark:bg-gray-900  p-8 max-w-4xl mx-16 rounded-lg ">
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
-
+    
       <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-6 text-center">
         Ajouter un Nouvel Article
       </h2>
-
+    
       <form onSubmit={handleSubmit} className="grid gap-6">
+        {/* Product Details */}
         <div className="grid sm:grid-cols-2 gap-6">
           <div className="space-y-4">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Nom du produit</label>
             <Input type="text" name="name" value={formData.name} onChange={handleChange} required />
-
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Prix (DT)</label>
+    
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Prix (€)</label>
             <Input type="number" name="price" value={formData.price} onChange={handleChange} required />
-
+    
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Stock disponible</label>
             <Input type="number" name="stock" value={formData.stock} onChange={handleChange} required />
           </div>
-
+    
+          {/* Image Upload Section */}
           <div className="flex flex-col items-center justify-center border border-gray-300 dark:border-gray-600 rounded-lg p-4">
             <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Ajouter des images</p>
             <Dropzone onDrop={handleFileUpload} />
@@ -353,69 +296,74 @@ export default function AjouterArticle() {
             </div>
           </div>
         </div>
-
+    
         <hr className="border-gray-300 dark:border-gray-600" />
-
+    
+        {/* Description */}
         <div>
           <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
           <Textarea name="description" value={formData.description} onChange={handleChange} />
         </div>
-
+    
+        {/* Category Selection */}
         <div className="grid sm:grid-cols-2 gap-6">
           <div className=''>
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Catégorie principale</label>
             <CustomDropdown options={mainCategoryOptions} value={selectedMainCategory} onChange={handleMainCategoryChange} />
           </div>
-
+    
           <div>
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Sous-catégorie</label>
             <CustomDropdown options={subcategories} value={formData.categoryId} onChange={handleSubcategoryChange} />
           </div>
         </div>
-
+        
+        {/* Brand & Genre */}
         <div className="grid sm:grid-cols-2 gap-6">
           <div>
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Marque</label>
             <CustomDropdown options={marques.map(m => ({ value: m.id, label: m.name }))} value={formData.marqueId} onChange={handleMarqueChange} />
           </div>
-
+    
           <div>
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Genre</label>
             <CustomDropdown options={genreOptions} value={formData.genreId} onChange={handleGenreChange} />
           </div>
         </div>
-
+    
+           {/* SKU */}
         <div>
           <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Référence (SKU)</label>
-          <Input type="text" name="sku" value={formData.sku} onChange={handleChange} disabled />
-        </div>
-
-        <div>
-          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Tailles disponibles</label>
-          <div className="flex space-x-4">
-            {renderTailleCheckboxes()}
+          <Input
+            type="text"
+            name="sku"
+            value={generatedSku}  // Display the generated SKU
+            disabled
+          />
           </div>
-        </div>
-
+    
         <hr className="border-gray-300 dark:border-gray-600" />
-
+    
+        {/* SEO Fields */}
         <div className="grid sm:grid-cols-2 gap-6">
           <div>
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Titre SEO</label>
             <Input type="text" name="seoTitle" value={formData.seoTitle} onChange={handleChange} />
           </div>
-
+    
           <div>
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Mots-clés SEO</label>
             <Input type="text" name="seoKeywords" value={formData.seoKeywords} onChange={handleChange} />
           </div>
         </div>
-
+    
+        {/* Discount Field */}
         <div>
           <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Remise (%)</label>
           <Input type="number" name="discount" value={formData.discount} onChange={handleChange} />
         </div>
-
+    
+        {/* Submit Button */}
         <div className="flex justify-center mt-4">
           <Button
             type="submit"

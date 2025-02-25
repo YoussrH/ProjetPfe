@@ -91,8 +91,8 @@ const Sidebar = ({ isSidebarCollapsed }) => {
     // Inventory Submenu Items
     const inventorySubmenuItems = [
       { href: "/dashboard/inventory/items/new", icon: FaBoxes, label: "Articles" },
-      { href: "/dashboard/inventory/categories/new", icon: FaTags, label: "Catégories" },
-      { href: "/dashboard/inventory/brands/new", icon: FaLayerGroup, label: "Marques" },
+      { href: "/dashboard/inventory/categories", icon: FaTags, label: "Catégories" },
+      { href: "/dashboard/inventory/brands/", icon: FaLayerGroup, label: "Marques" },
       { href: "/dashboard/inventory/warehouse/new", icon: FaWarehouse, label: "Entrepôt" },
       { href: "/dashboard/inventory/adjustments", icon: FaBalanceScale, label: "Ajustement des stocks" },
     ];
