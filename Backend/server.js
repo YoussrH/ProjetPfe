@@ -19,7 +19,7 @@ app.use("/api/articles", articleRoutes);
 app.use("/api/categories", categorieRoutes);
 app.use("/api/marques", marqueRoutes); // ✅ Ensure this is correct
 app.use("/api/genres", genreRoutes); // ✅ Ensure this is correct
-app.use("/api/tailles", tailleRoutes); // Mount taille routes
+app.use("/api/tailles", tailleRoutes);
 
 const PORT = process.env.PORT || 5000;
 const sequelize = require("./config/database");

@@ -1,6 +1,11 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
+const Category = require("./categoryModel");
+const Marque = require("./marqueModel");
+const Genre = require("./genreModel");
+const Taille = require("./tailleModel");
 
+// Define the Article model
 const Article = sequelize.define("Article", {
   name: {
     type: DataTypes.STRING,
@@ -40,5 +45,19 @@ const Article = sequelize.define("Article", {
     defaultValue: [],
   },
 });
+
+// Associations
+Article.belongsTo(Category, { foreignKey: "categoryId", onDelete: "CASCADE" });
+Category.hasMany(Article, { foreignKey: "categoryId" });
+
+Article.belongsTo(Marque, { foreignKey: "marqueId", onDelete: "CASCADE" });
+Marque.hasMany(Article, { foreignKey: "marqueId" });
+
+Article.belongsTo(Genre, { foreignKey: "genreId", onDelete: "CASCADE" });
+Genre.hasMany(Article, { foreignKey: "genreId" });
+
+// Many-to-Many Relationship (Article - Taille)
+Article.belongsToMany(Taille, { through: "ArticleTailles" });
+Taille.belongsToMany(Article, { through: "ArticleTailles" });
 
 module.exports = Article;
