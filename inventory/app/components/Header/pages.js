@@ -68,7 +68,7 @@ export default function TopNav() {
         )}
       </div>
       <Link href="/">
-        <img src="/bgm1.svg" className="h-6 mr-24 cursor-pointer" alt="Logo" />
+        <img src="/mgm1.svg" className="h-6 mr-24 cursor-pointer" alt="Logo" />
       </Link>
       <div className="flex items-center gap-2">
         <Image src="/search.svg" alt="search" width={40} height={30} className="cursor-pointer" />

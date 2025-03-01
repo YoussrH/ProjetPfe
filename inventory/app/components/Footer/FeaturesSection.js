@@ -1,13 +1,16 @@
-import { FaShippingFast, FaUndo, FaGift, FaPhoneAlt } from "react-icons/fa";
 import { GiHummingbird } from "react-icons/gi";
+
 export default function FeaturesSection() {
   return (
-    <div className="flex flex-col items-center my-16 px-4">
+    <div className="relative flex flex-col items-center my-16 px-4">
       {/* Left Decorative Image */}
-      <img src="/roue-left.svg" className="hidden md:block -mt-16" />
+      <img 
+        src="/roue-left.svg" 
+        className="hidden md:block absolute left-14 top-1/2 transform -translate-y-1/2 w-44 opacity-60" 
+      />
 
       {/* Main Container */}
-      <div className="flex flex-col md:flex-row gap-10 lg:gap-20 h-auto max-w-5xl w-full items-center justify-between bg-slate-50 bg-opacity-35 shadow-lg rounded-lg p-6 border">
+      <div className="flex flex-col md:flex-row gap-10 lg:gap-20 h-auto max-w-5xl w-full items-center justify-between bg-slate-50 bg-opacity-35 shadow-lg rounded-lg p-6 border relative z-10">
         {/* Livraison */}
         <div className="flex flex-col font-serif items-center text-center space-y-2">
           <img src="/skydiving.png" className="w-12 md:w-16" />
@@ -36,7 +39,10 @@ export default function FeaturesSection() {
       </div>
 
       {/* Right Decorative Image */}
-      <img src="/roue-right-1.svg" className="hidden md:block -mt-16" />
+      <img 
+        src="/roue-right-1.svg" 
+        className="hidden md:block absolute right-14 top-1/2 transform -translate-y-1/2 w-44 opacity-60" 
+      />
     </div>
   );
 }

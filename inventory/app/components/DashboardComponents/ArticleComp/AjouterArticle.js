@@ -12,18 +12,18 @@ import { ToastContainer } from 'react-toastify';
 
 export default function AjouterArticle() {
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    price: '',
-    discount: '',
-    stock: '',
-    sku: '',
+    name: "",
+    description: "",
+    price: "",
+    discount: "",
+    stock: "",
+    sku: "",
     images: [],
-    seoTitle: '',
-    seoKeywords: '',
-    categoryId: '',
-    marqueId: '',
-    genreId: '',
+    seoTitle: "",
+    seoKeywords: "",
+    categoryId: "",
+    marqueId: "",
+    genreId: "",
     tailles: [], // Array to store selected taille IDs
   });
 
@@ -32,7 +32,7 @@ export default function AjouterArticle() {
   const [genres, setGenres] = useState([]);
   const [tailles, setTailles] = useState([]); // State for tailles
   const [loading, setLoading] = useState(false);
-  const [selectedMainCategory, setSelectedMainCategory] = useState('');
+  const [selectedMainCategory, setSelectedMainCategory] = useState("");
   const [subcategories, setSubcategories] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
 
@@ -40,52 +40,44 @@ export default function AjouterArticle() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [categoriesRes, marquesRes, genresRes, articlesRes, taillesRes] = await Promise.all([
-          axios.get('http://localhost:5000/api/categories'),
-          axios.get('http://localhost:5000/api/marques'),
-          axios.get('http://localhost:5000/api/genres'),
-          axios.get('http://localhost:5000/api/articles'),
-          axios.get('http://localhost:5000/api/tailles'), // Fetch tailles
+        const [categoriesRes, marquesRes, genresRes, articlesRes] = await Promise.all([
+          axios.get("http://localhost:5000/api/categories"),
+          axios.get("http://localhost:5000/api/marques"),
+          axios.get("http://localhost:5000/api/genres"),
+          axios.get("http://localhost:5000/api/articles"),
         ]);
-
-        // Log tailles response
-        console.log("Tailles Response:", taillesRes.data);
 
         // Update state with fetched data
         setCategories(categoriesRes.data);
         setMarques(marquesRes.data);
         setGenres(genresRes.data);
-        setTailles(taillesRes.data); // Set tailles
 
         // Generate SKU
-        const numberOfArticles = Array.isArray(articlesRes.data) ? articlesRes.data.length : 0; // Ensure articlesRes.data is an array
+        const numberOfArticles = Array.isArray(articlesRes.data) ? articlesRes.data.length : 0;
         const formattedName = formData.name
-          ? formData.name.trim().replace(/\s+/g, '-').toUpperCase() // Format name if not empty
-          : 'ARTICLE'; // Fallback if name is empty
+          ? formData.name.trim().replace(/\s+/g, "-").toUpperCase()
+          : "ARTICLE";
 
-        // Ensure SKU is unique
         let generatedSKU;
         let isUnique = false;
         let attempt = 0;
 
         while (!isUnique) {
-          generatedSKU = `${formattedName}-${String(numberOfArticles + 1 + attempt).padStart(3, '0')}`;
+          generatedSKU = `${formattedName}-${String(numberOfArticles + 1 + attempt).padStart(3, "0")}`;
 
-          // Check if SKU already exists
           if (Array.isArray(articlesRes.data)) {
-            const existingArticle = articlesRes.data.find(article => article.sku === generatedSKU);
+            const existingArticle = articlesRes.data.find((article) => article.sku === generatedSKU);
             if (!existingArticle) {
               isUnique = true;
             }
           } else {
-            // If articlesRes.data is not an array, assume SKU is unique
             isUnique = true;
           }
 
           attempt++;
         }
 
-        setFormData(prev => ({ ...prev, sku: generatedSKU }));
+        setFormData((prev) => ({ ...prev, sku: generatedSKU }));
       } catch (error) {
         console.error("Error loading data:", error);
         toast.error("Failed to load data.");
@@ -95,55 +87,80 @@ export default function AjouterArticle() {
     fetchData();
   }, [formData.name]); // Regenerate SKU when name changes
 
-  // Log tailles state
+  // Fetch tailles when genreId or categoryId changes
   useEffect(() => {
-    console.log("Tailles State:", tailles);
-  }, [tailles]);
+    if (!formData.categoryId || !formData.genreId) return;
+  
+    const fetchTailles = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/tailles", {
+          params: { 
+            category_id: formData.categoryId, 
+            genre_id: formData.genreId 
+          },
+        });
+  
+        console.log("Fetched tailles:", response.data); // Debugging output
+  
+        setTailles(response.data);
+      } catch (error) {
+        console.error("Error fetching tailles:", error);
+        toast.error("Failed to load tailles.");
+      }
+    };
+  
+    fetchTailles();
+  }, [formData.categoryId, formData.genreId]); // Run when categoryId or genreId changes
+  
 
-  // Handle input changes
+
+
+// Handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   // Handle genre change
   const handleGenreChange = (value) => {
-    setFormData(prev => ({ ...prev, genreId: value }));
+    setFormData((prev) => ({ ...prev, genreId: value }));
   };
 
   // Handle file upload
   const handleFileUpload = (files) => {
-    const newPreviews = files.map(file => URL.createObjectURL(file));
-    setImagePreviews(newPreviews); // Replace existing previews
+    const newPreviews = files.map((file) => URL.createObjectURL(file));
+    setImagePreviews(newPreviews);
 
     setFormData((prevState) => ({
       ...prevState,
-      images: files, // Replace existing images with new files
+      images: files,
     }));
   };
 
   // Handle main category change
   const handleMainCategoryChange = (value) => {
     setSelectedMainCategory(value);
-    const selectedCat = categories.find(cat => cat.id === value);
+    const selectedCat = categories.find((cat) => cat.id === value);
     if (selectedCat && selectedCat.subcategories) {
-      setSubcategories(selectedCat.subcategories.map(sub => ({
-        value: sub.id,
-        label: sub.name,
-      })));
+      setSubcategories(
+        selectedCat.subcategories.map((sub) => ({
+          value: sub.id,
+          label: sub.name,
+        }))
+      );
     } else {
       setSubcategories([]);
     }
-    setFormData(prev => ({ ...prev, categoryId: '' }));
+    setFormData((prev) => ({ ...prev, categoryId: "" }));
   };
 
   // Handle subcategory change
   const handleSubcategoryChange = (value) => {
-    setFormData(prev => ({ ...prev, categoryId: value }));
+    setFormData((prev) => ({ ...prev, categoryId: value }));
   };
 
   // Handle marque change
   const handleMarqueChange = (value) => {
-    setFormData(prev => ({ ...prev, marqueId: value }));
+    setFormData((prev) => ({ ...prev, marqueId: value }));
   };
 
   // Handle taille change
@@ -158,99 +175,33 @@ export default function AjouterArticle() {
   };
 
   // Handle form submission
-/*   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      const imageUrls = [];
-
-      // Upload images to Cloudinary
-      for (const file of formData.images) {
-        const formDataCloudinary = new FormData();
-        formDataCloudinary.append('file', file);
-        formDataCloudinary.append('upload_preset', 'Bgtm_D');
-
-        try {
-          const response = await axios.post(
-            'https://api.cloudinary.com/v1_1/dnkd2ksye/image/upload',
-            formDataCloudinary
-          );
-          imageUrls.push(response.data.secure_url);
-        } catch (error) {
-          console.error('Cloudinary Upload Error:', error);
-          toast.error("Error uploading images!");
-        }
-      }
-
-      // Send article data to backend
-      await axios.post('http://localhost:5000/api/articles/ajouterArticle', {
-        ...formData,
-        price: parseFloat(formData.price) || 0,
-        discount: parseFloat(formData.discount) || 0,
-        stock: Number.isNaN(parseInt(formData.stock)) ? 0 : parseInt(formData.stock),
-        categoryId: parseInt(formData.categoryId),
-        marqueId: parseInt(formData.marqueId),
-        genreId: parseInt(formData.genreId),
-        tailles: formData.tailles.map(id => parseInt(id)), // Convert taille IDs to numbers
-        images: imageUrls,
-      });
-
-      toast.success('Article added successfully!');
-
-      // Reset form
-      setFormData({
-        name: '',
-        description: '',
-        price: '',
-        discount: '',
-        stock: '',
-        sku: '',
-        images: [],
-        seoTitle: '',
-        seoKeywords: '',
-        categoryId: '',
-        marqueId: '',
-        genreId: '',
-        tailles: [], // Reset tailles
-      });
-      setImagePreviews([]);
-      setSelectedMainCategory('');
-      setSubcategories([]);
-    } catch (error) {
-      toast.error("Error adding article");
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  }; */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-  
+
     try {
       const imageUrls = [];
-  
+
       // Upload images to Cloudinary
       for (const file of formData.images) {
         const formDataCloudinary = new FormData();
-        formDataCloudinary.append('file', file);
-        formDataCloudinary.append('upload_preset', 'Bgtm_D');
-  
+        formDataCloudinary.append("file", file);
+        formDataCloudinary.append("upload_preset", "Bgtm_D");
+
         try {
           const response = await axios.post(
-            'https://api.cloudinary.com/v1_1/dnkd2ksye/image/upload',
+            "https://api.cloudinary.com/v1_1/dnkd2ksye/image/upload",
             formDataCloudinary
           );
           imageUrls.push(response.data.secure_url);
         } catch (error) {
-          console.error('Cloudinary Upload Error:', error);
+          console.error("Cloudinary Upload Error:", error);
           toast.error("Error uploading images!");
         }
       }
-  
+
       // Send article data to backend
-      await axios.post('http://localhost:5000/api/articles/ajouterArticle', {
+      await axios.post("http://localhost:5000/api/articles/ajouterArticle", {
         ...formData,
         price: parseFloat(formData.price) || 0,
         discount: parseFloat(formData.discount) || 0,
@@ -258,30 +209,30 @@ export default function AjouterArticle() {
         categoryId: parseInt(formData.categoryId),
         marqueId: parseInt(formData.marqueId),
         genreId: parseInt(formData.genreId),
-        tailles: formData.tailles.map(id => parseInt(id)), // Convert taille IDs to numbers
+        tailles: formData.tailles.map((id) => parseInt(id)), // Convert taille IDs to numbers
         images: imageUrls,
       });
-  
-      toast.success('Article added successfully!');
-  
+
+      toast.success("Article added successfully!");
+
       // Reset form
       setFormData({
-        name: '',
-        description: '',
-        price: '',
-        discount: '',
-        stock: '',
-        sku: '',
+        name: "",
+        description: "",
+        price: "",
+        discount: "",
+        stock: "",
+        sku: "",
         images: [],
-        seoTitle: '',
-        seoKeywords: '',
-        categoryId: '',
-        marqueId: '',
-        genreId: '',
+        seoTitle: "",
+        seoKeywords: "",
+        categoryId: "",
+        marqueId: "",
+        genreId: "",
         tailles: [], // Reset tailles
       });
       setImagePreviews([]);
-      setSelectedMainCategory('');
+      setSelectedMainCategory("");
       setSubcategories([]);
     } catch (error) {
       toast.error("Error adding article");
@@ -290,37 +241,40 @@ export default function AjouterArticle() {
       setLoading(false);
     }
   };
+
   // Prepare main category options
   const mainCategoryOptions = categories
-    .filter(cat => cat.parentId === null)
-    .map(cat => ({
+    .filter((cat) => cat.parentId === null)
+    .map((cat) => ({
       value: cat.id,
       label: cat.name,
     }));
 
   // Prepare genre options
-  const genreOptions = genres.map(genre => ({
+  const genreOptions = genres.map((genre) => ({
     value: genre.id,
     label: genre.name,
   }));
 
+  // Render taille checkboxes
   const renderTailleCheckboxes = () => {
     if (!tailles || tailles.length === 0) {
-      return <p>Aucune taille disponible.</p>; // Fallback if no tailles are available
+      return <p>Aucune taille disponible.</p>;
     }
-
+  
     return tailles.map((taille) => (
       <label key={taille.id} className="flex items-center space-x-2">
         <input
           type="checkbox"
           value={taille.id}
-          checked={formData.tailles.includes(taille.id.toString())} // Ensure value is a string
+          checked={formData.tailles.includes(String(taille.id))} // Ensure comparison works
           onChange={handleTailleChange}
         />
         <span>{taille.name}</span>
       </label>
     ));
   };
+  
 
   return (
     <section className="dark:bg-gray-900  p-8 max-w-4xl mx-16 rounded-lg ">

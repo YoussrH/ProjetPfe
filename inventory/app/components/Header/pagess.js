@@ -124,7 +124,7 @@ export default function Heding() {
 
       <nav className="flex gap-6">
       <Link href="/">
-      <img src="/bgm1.svg" alt="bgm logo" className="h-9 pb-4 mr-28   cursor-pointer" /> 
+      <img src="/mgm1.svg" alt="mgm logo" className="h-9 pb-4 mr-28   cursor-pointer" /> 
       </Link>
 
             {[

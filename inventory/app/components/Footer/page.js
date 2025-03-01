@@ -209,7 +209,7 @@ export default function Footer() {
 
             {/* Copyright */}
             <div className="mt-6 text-center text-gray-600 text-xs">
-              &copy; {new Date().getFullYear()} BGM Boutique. Tous droits
+              &copy; {new Date().getFullYear()} MGM Boutique. Tous droits
               réservés.
             </div>
           </div>

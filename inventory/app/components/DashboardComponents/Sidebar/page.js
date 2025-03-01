@@ -124,7 +124,7 @@ const Sidebar = ({ isSidebarCollapsed }) => {
             isSidebarCollapsed ? "px-5" : "px-8"
           }`}
         >
-          <Image src="/bgm1.svg" alt="bluegate-logo" width={27} height={27} className="w-11" />
+          <Image src="/mgm1.svg" alt="MGM-logo" width={27} height={27} className="w-11" />
           {!isSidebarCollapsed && <h1 className="font-bold font-serif text-xl">NEGOCE</h1>}
         </div>
   
@@ -165,7 +165,7 @@ const Sidebar = ({ isSidebarCollapsed }) => {
         {/* Footer */}
         {!isSidebarCollapsed && (
           <div className="mb-10">
-            <p className="text-center text-xs text-gray-500">&copy; 2025 BGM NEGOCE Sarl</p>
+            <p className="text-center text-xs text-gray-500">&copy; 2025 MGM NEGOCE Sarl</p>
           </div>
         )}
       </div>
