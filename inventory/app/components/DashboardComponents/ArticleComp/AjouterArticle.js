@@ -1,14 +1,22 @@
-"use client"
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Dropzone } from '@/components/ui/dropzone';
-import CustomDropdown from '../CustomDropdown';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
+"use client";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Dropzone } from "@/components/ui/dropzone";
+import CustomDropdown from "../CustomDropdown";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function AjouterArticle() {
   const [formData, setFormData] = useState({
@@ -90,32 +98,29 @@ export default function AjouterArticle() {
   // Fetch tailles when genreId or categoryId changes
   useEffect(() => {
     if (!formData.categoryId || !formData.genreId) return;
-  
+
     const fetchTailles = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/tailles", {
-          params: { 
-            category_id: formData.categoryId, 
-            genre_id: formData.genreId 
+          params: {
+            category_id: formData.categoryId,
+            genre_id: formData.genreId,
           },
         });
-  
+
         console.log("Fetched tailles:", response.data); // Debugging output
-  
+
         setTailles(response.data);
       } catch (error) {
         console.error("Error fetching tailles:", error);
         toast.error("Failed to load tailles.");
       }
     };
-  
+
     fetchTailles();
   }, [formData.categoryId, formData.genreId]); // Run when categoryId or genreId changes
-  
 
-
-
-// Handle input changes
+  // Handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -164,13 +169,12 @@ export default function AjouterArticle() {
   };
 
   // Handle taille change
-  const handleTailleChange = (e) => {
-    const { value, checked } = e.target;
+  const handleTailleChange = (tailleId, checked) => {
     setFormData((prev) => ({
       ...prev,
       tailles: checked
-        ? [...prev.tailles, value] // Add taille ID
-        : prev.tailles.filter((id) => id !== value), // Remove taille ID
+        ? [...prev.tailles, String(tailleId)] // Add taille ID
+        : prev.tailles.filter((id) => id !== String(tailleId)), // Remove taille ID
     }));
   };
 
@@ -255,27 +259,32 @@ export default function AjouterArticle() {
     value: genre.id,
     label: genre.name,
   }));
-
-  // Render taille checkboxes
-  const renderTailleCheckboxes = () => {
-    if (!tailles || tailles.length === 0) {
-      return <p>Aucune taille disponible.</p>;
-    }
-  
-    return tailles.map((taille) => (
-      <label key={taille.id} className="flex items-center space-x-2">
-        <input
-          type="checkbox"
-          value={taille.id}
-          checked={formData.tailles.includes(String(taille.id))} // Ensure comparison works
-          onChange={handleTailleChange}
-        />
-        <span>{taille.name}</span>
-      </label>
-    ));
+  const TailleDropdown = ({ tailles, selectedTailles, onTailleChange }) => {
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" className="w-full font-sans">
+            Sélectionner les tailles
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56 font-sans max-h-60 p-1 overflow-y-auto">
+          <div className="sticky -top-1 pt-2 bg-white z-50 ">
+          <DropdownMenuLabel >Tailles disponibles</DropdownMenuLabel>
+          <DropdownMenuSeparator  />
+          </div>
+          {tailles.map((taille) => (
+            <DropdownMenuCheckboxItem
+              key={taille.id}
+              checked={selectedTailles.includes(String(taille.id))}
+              onCheckedChange={(checked) => onTailleChange(taille.id, checked)}
+            >
+              {taille.name}
+            </DropdownMenuCheckboxItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
   };
-  
-
   return (
     <section className="dark:bg-gray-900  p-8 max-w-4xl mx-16 rounded-lg ">
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
@@ -338,6 +347,7 @@ export default function AjouterArticle() {
             <CustomDropdown options={genreOptions} value={formData.genreId} onChange={handleGenreChange} />
           </div>
         </div>
+        <div className="grid sm:grid-cols-2 gap-6">
 
         <div>
           <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Référence (SKU)</label>
@@ -346,11 +356,13 @@ export default function AjouterArticle() {
 
         <div>
           <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Tailles disponibles</label>
-          <div className="flex space-x-4">
-            {renderTailleCheckboxes()}
-          </div>
+          <TailleDropdown
+            tailles={tailles}
+            selectedTailles={formData.tailles}
+            onTailleChange={handleTailleChange}
+          />
         </div>
-
+</div>
         <hr className="border-gray-300 dark:border-gray-600" />
 
         <div className="grid sm:grid-cols-2 gap-6">
