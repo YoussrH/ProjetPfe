@@ -54,5 +54,19 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({ message: "Error deleting marque", error });
   }
 });
+// ➤ Get a Marque by ID
+router.get("/:id", async (req, res) => {
+  try {
+    const marque = await Marque.findByPk(req.params.id);
+    if (!marque) {
+      return res.status(404).json({ message: "Marque not found" });
+    }
+    res.json(marque);
+  } catch (error) {
+    console.error("Error fetching marque:", error);
+    res.status(500).json({ message: "Error fetching marque", error });
+  }
+});
+
 
 module.exports = router;

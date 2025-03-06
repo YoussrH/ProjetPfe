@@ -9,6 +9,7 @@ const categorieRoutes = require("./routes/categorieRoutes");
 const marqueRoutes = require("./routes/marqueRoutes"); // ✅ Make sure this is correct
 const genreRoutes = require("./routes/genreRoutes"); // ✅ Make sure this is correct
 const tailleRoutes = require("./routes/tailleRoutes");
+const couleursRouter = require("./routes/couleurRoutes");
 
 // Middleware
 app.use(cors());
@@ -20,7 +21,7 @@ app.use("/api/categories", categorieRoutes);
 app.use("/api/marques", marqueRoutes); // ✅ Ensure this is correct
 app.use("/api/genres", genreRoutes); // ✅ Ensure this is correct
 app.use("/api/tailles", tailleRoutes);
-
+app.use("/api/couleurs", couleursRouter);
 const PORT = process.env.PORT || 5000;
 const sequelize = require("./config/database");
 

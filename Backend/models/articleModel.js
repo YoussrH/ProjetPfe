@@ -1,9 +1,11 @@
-const { DataTypes } = require("sequelize");
+ const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 const Category = require("./categoryModel");
 const Marque = require("./marqueModel");
 const Genre = require("./genreModel");
 const Taille = require("./tailleModel");
+
+const Couleur = require("./couleurModel");
 
 // Define the Article model
 const Article = sequelize.define("Article", {
@@ -12,6 +14,10 @@ const Article = sequelize.define("Article", {
     allowNull: false,
   },
   description: DataTypes.TEXT,
+  conseils: {
+    type: DataTypes.TEXT, 
+    allowNull: true, 
+  },
   price: {
     type: DataTypes.FLOAT,
     allowNull: false,
@@ -43,7 +49,10 @@ const Article = sequelize.define("Article", {
     type: DataTypes.ARRAY(DataTypes.INTEGER), // Array of Taille IDs
     allowNull: false,
     defaultValue: [],
-  },
+  }
+  ,
+
+  
 });
 
 // Associations
@@ -60,4 +69,11 @@ Genre.hasMany(Article, { foreignKey: "genreId" });
 Article.belongsToMany(Taille, { through: "ArticleTailles" });
 Taille.belongsToMany(Article, { through: "ArticleTailles" });
 
+// Article - Couleur (Many-to-Many)
+Article.belongsToMany(Couleur, { through: "ArticleCouleurs" });
+Couleur.belongsToMany(Article, { through: "ArticleCouleurs" });
+
+
 module.exports = Article;
+
+

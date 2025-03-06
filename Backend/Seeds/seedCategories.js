@@ -1,5 +1,5 @@
-const sequelize = require("./config/database");
-const Category = require("./models/categoryModel");
+const sequelize = require("../config/database");
+const Category = require("../models/categoryModel");
 
 const seedCategories = async () => {
   await sequelize.sync({ force: true }); // WARNING: Deletes all data before inserting
