@@ -99,16 +99,18 @@ const Sidebar = ({ isSidebarCollapsed }) => {
   
     // Sales Submenu Items
     const salesSubmenuItems = [
-      { href: "/dashboard/sales/orders", icon: HiOutlineShoppingCart, label: "Commandes de vente" },
       { href: "/dashboard/sales/customers", icon: FaUserGroup, label: "Clients" },
+      { href: "/dashboard/sales/orders", icon: HiOutlineShoppingCart, label: "Commandes de vente" },
+      { href: "/dashboard/sales/invoices", icon: FaFileInvoice, label: "Factures" },
+      { href: "/dashboard/sales/payments", icon: FaMoneyBillWave, label: "Paiements reçus" },
+      { href: "/dashboard/sales/receipts", icon: FaReceipt, label: "Reçus de vente" },
       { href: "/dashboard/sales/packages", icon: FaBox, label: "Colis" },
       { href: "/dashboard/sales/shipments", icon: FaTruck, label: "Expéditions" },
-      { href: "/dashboard/sales/invoices", icon: FaFileInvoice, label: "Factures" },
-      { href: "/dashboard/sales/receipts", icon: FaReceipt, label: "Reçus de vente" },
-      { href: "/dashboard/sales/payments", icon: FaMoneyBillWave, label: "Paiements reçus" },
       { href: "/dashboard/sales/returns", icon: FaUndo, label: "Retours de vente" },
       { href: "/dashboard/sales/credit-notes", icon: FaStickyNote, label: "Avoirs" },
+      { href: "/dashboard/sales/discounts", icon: FaTags, label: "Remise" },
     ];
+    
   
     // Expenses Submenu Items
     const expensesSubmenuItems = [
@@ -160,6 +162,7 @@ const Sidebar = ({ isSidebarCollapsed }) => {
           <SidebarLink href="/dashboard/integration" icon={Workflow} label="Intégrations" isCollapsed={isSidebarCollapsed} />
           <SidebarLink href="/dashboard/reports" icon={TbReport} label="Rapports" isCollapsed={isSidebarCollapsed} />
           <SidebarLink href="/dashboard/settings" icon={SlidersHorizontal} label="Réglages" isCollapsed={isSidebarCollapsed} />
+        
         </div>
   
         {/* Footer */}

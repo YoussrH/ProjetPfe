@@ -1,3 +1,4 @@
+// components/NouveauteProductList.js
 "use client";
 
 import React, { useState } from "react";
@@ -44,12 +45,13 @@ const NouveauteProductList = ({ products }) => {
               >
                 {/* Product Image */}
                 <Link href={`/products/${product.id}`}>
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-52 h-64 object-contain rounded-sm my-5 "
-                />          </Link>       
-              
+                  <img
+                    src={product.images[0] || "/placeholder-image.jpg"} // Use the first image or a fallback
+                    alt={product.name}
+                    className="w-52 h-64 object-contain rounded-sm my-5"
+                  />
+                </Link>
+
                 <div className="-ml-5 justify-center">
                   {/* Nouveauté Badge */}
                   <div className="w-full flex justify-center mt-2">
@@ -60,22 +62,26 @@ const NouveauteProductList = ({ products }) => {
 
                   {/* Product Details */}
                   <div className="text-center mt-2">
-                    <p className="text-gray-700 text-sm mt-2">
-                      {product.brand}
+                    {/* Brand */}
+                    <p className="text-gray-700 text-sm font-normal tracking-widest ">
+                      {product.marque?.name || "No Brand"} {/* Display marque name */}
                     </p>
 
-                    {/* Product Name and Price */}
+                    {/* Product Name */}
                     <div className="group-hover:opacity-0 transition-opacity duration-300">
-                      <p className="text-gray-700 font-serif text-xs mt-2">
-                        {product.name}
-                      </p>
-                      <p className="text-gray-900 font-serif text-xs font-semibold">
-                        {product.price} €
-                      </p>
-                    </div>
+                    <p className="text-gray-700 font-serif text-xs mt-1">
+                      {product.name}
+                    </p>
 
-                    {/* Achat Rapide and Favoris Buttons */}
-                    <div className="-mt-10 relative inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {/* Price */}
+                    <p className="text-gray-900 font-serif text-xs font-semibold mt-1">
+                      {product.price} DT
+                    </p>
+                    </div>
+                  </div>
+
+                   {/* Achat Rapide and Favoris Buttons */}
+                   <div className="-mt-10 relative inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="flex space-x-1">
                         <button className="bg-black border border-black text-white font-serif text-xs px-4 py-2 rounded-full flex items-center hover:bg-white hover:text-black transition-all duration-300">
                           Achat Rapide
@@ -83,7 +89,6 @@ const NouveauteProductList = ({ products }) => {
                         <GoHeart className="w-5 h-5 cursor-pointer mt-2" />
                       </div>
                     </div>
-                  </div>
                 </div>
               </div>
             ))
@@ -102,10 +107,10 @@ const NouveauteProductList = ({ products }) => {
               page={currentPage}
               onChange={handlePageChange}
               shape="rounded"
-              boundaryCount={2}            />
+              boundaryCount={2}
+            />
           </div>
         )}
-
       </div>
     </div>
   );
