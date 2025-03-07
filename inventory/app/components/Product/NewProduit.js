@@ -10,7 +10,7 @@ const products = [
   { id: 4, image: "/femme-slider1.jpg", composition: "98% COTTON 2% ELASTANE", name: "Pull Oversize", price: "DT 84.99", colors: ["#1C1C1C", "#808080"] },
 ];
 
-export default function NewProd() {
+export default function NewProduit() {
   return (
     <section className="px-10 mt-16">
       {/* Header */}

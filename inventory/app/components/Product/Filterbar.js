@@ -4,16 +4,16 @@ import { useState, useEffect } from "react";
 import { Chip } from "@mui/material";
 import { usePathname } from "next/navigation";
 import axios from "axios";
+import { Slider } from "@/components/ui/slider";
 
 const FilterBar = ({ onFilterSelect, onClearAllFilters, selectedFilters, onDeleteFilter, totalProducts }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [minPrice, setMinPrice] = useState(50);
-  const [maxPrice, setMaxPrice] = useState(1275);
-  const [rangeValue, setRangeValue] = useState(maxPrice);
+  const [minPrice, setMinPrice] = useState(10); // Default min price
+  const [maxPrice, setMaxPrice] = useState(300); // Default max price
   const pathname = usePathname() || "";
   const [isScrolling, setIsScrolling] = useState(false);
   const [dropdownData, setDropdownData] = useState({
-    Prix: { min: 50, max: 1275 },
+    Prix: { min: 10, max: 300 }, // Updated price range
     Genres: [],
     Catégories: [],
     Tailles: [],
@@ -26,7 +26,7 @@ const FilterBar = ({ onFilterSelect, onClearAllFilters, selectedFilters, onDelet
   // Handle scroll event
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolling(window.scrollY > 50);
+      setIsScrolling(window.scrollY > 380);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -62,20 +62,19 @@ const FilterBar = ({ onFilterSelect, onClearAllFilters, selectedFilters, onDelet
     fetchDropdownData();
   }, []);
 
-  // Fetch tailles when selectedCategory or selectedGenre changes
   // Handle filter selection
-const handleFilterSelect = (category, filterName) => {
+  const handleFilterSelect = (category, filterName) => {
     if (category === "Catégories") {
       // Find the selected category or subcategory
       const selectedCat = dropdownData.Catégories.find(
         (cat) => cat.name === filterName || cat.subcategories.some((sub) => sub.name === filterName)
       );
-  
+
       if (selectedCat) {
         // If the selected item is a subcategory, set the parent category's ID
         const subcategory = selectedCat.subcategories.find((sub) => sub.name === filterName);
         if (subcategory) {
-          setSelectedCategory(selectedCat.id); // Set the parent category's ID
+          setSelectedCategory(subcategory.id); // Set the parent category's ID
         } else {
           setSelectedCategory(selectedCat.id); // Set the main category's ID
         }
@@ -86,42 +85,25 @@ const handleFilterSelect = (category, filterName) => {
       const selectedGen = dropdownData.Genres.find((gen) => gen.name === filterName);
       setSelectedGenre(selectedGen ? selectedGen.id : null); // Store the ID
     }
-  
+
     onFilterSelect(category, filterName);
   };
-  
-  // Fetch tailles when selectedCategory or selectedGenre changes
-  useEffect(() => {
-    if (!selectedCategory || !selectedGenre) return;
-  
-    console.log("Fetching tailles for category_id:", selectedCategory, "and genre_id:", selectedGenre); // Debugging
-  
-    const fetchTailles = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/tailles", {
-          params: {
-            category_id: selectedCategory, // This should be the subcategory's ID
-            genre_id: selectedGenre,
-          },
-        });
-  
-        console.log("Fetched tailles:", response.data); // Debugging
-  
-        setDropdownData((prev) => ({
-          ...prev,
-          Tailles: response.data, // Store the full tailles objects
-        }));
-      } catch (error) {
-        console.error("Error fetching tailles:", error);
-        setDropdownData((prev) => ({
-          ...prev,
-          Tailles: [], // Set to empty array on error
-        }));
-      }
-    };
-  
-    fetchTailles();
-  }, [selectedCategory, selectedGenre]);
+
+  // Handle price range change
+  const handlePriceRangeChange = () => {
+    onFilterSelect("Prix", { min: minPrice, max: maxPrice });
+  };
+
+  // Handle range slider change
+  const handleRangeChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "minPrice") {
+      setMinPrice(Math.min(Number(value), maxPrice)); // Ensure minPrice doesn't exceed maxPrice
+    } else if (name === "maxPrice") {
+      setMaxPrice(Math.max(Number(value), minPrice)); // Ensure maxPrice doesn't go below minPrice
+    }
+  };
+
   // Helper function to organize categories hierarchically
   const organizeCategories = (categories) => {
     const categoryMap = {};
@@ -154,13 +136,70 @@ const handleFilterSelect = (category, filterName) => {
     setOpenDropdown(null);
   };
 
-  // Handle filter selection
-
   // Render dropdown list
   const renderDropdownList = (items, title) => {
     console.log(`Rendering ${title} dropdown with items:`, items); // Debugging output
 
-    if (title === "Tailles" || title === "Marques") {
+    // Ensure items is always an array
+    const safeItems = Array.isArray(items) ? items : [];
+
+      if (title === "Prix") {
+        return (
+          <div
+            className="absolute bg-white border border-gray-300 mt-1 p-4 rounded-md shadow-lg z-50 w-64"
+            onMouseLeave={handleMouseLeave}
+          >
+            <span className="block font-semibold text-sm mb-2">{title}</span>
+            <div className="flex flex-col space-y-4">
+              {/* ShadCN Slider */}
+              <Slider
+                value={[minPrice, maxPrice]}
+                onValueChange={(value) => {
+                  setMinPrice(value[0]);
+                  setMaxPrice(value[1]);
+                }}
+                min={10}
+                max={300}
+                step={1}
+                className="w-full"
+              />
+    
+              {/* Input Fields */}
+              <div className="flex items-center space-x-2">
+                <input
+                  type="number"
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(Math.min(Number(e.target.value), maxPrice))}
+                  className="w-20 p-1 border border-gray-300 rounded-md text-xs"
+                  placeholder="Min"
+                  min="10"
+                  max="300"
+                />
+                <span className="text-xs text-gray-500">to</span>
+                <input
+                  type="number"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(Math.max(Number(e.target.value), minPrice))}
+                  className="w-20 p-1 border border-gray-300 rounded-md text-xs"
+                  placeholder="Max"
+                  min="10"
+                  max="300"
+                />
+              </div>
+    
+              {/* Apply Button */}
+              <button
+                onClick={handlePriceRangeChange}
+                className="bg-black text-white text-xs px-3 py-1 rounded-md hover:bg-gray-800 transition-colors"
+              >
+                Appliquer
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+    if (title === "Tailles" || title === "Marques" || title === "Couleurs") {
       return (
         <div
           className="absolute bg-white border border-gray-300 mt-1 p-2 rounded-md shadow-lg z-50 w-48 max-h-40 overflow-y-auto"
@@ -168,9 +207,9 @@ const handleFilterSelect = (category, filterName) => {
         >
           <span className="block font-semibold text-sm mb-2">{title}</span>
           <ul>
-            {items.map((item, index) => (
+            {safeItems.map((item, index) => (
               <li
-                key={index} // Use index as the key for arrays of strings
+                key={typeof item === "string" ? item : item.id || index} // Use item name or ID as the key
                 className="text-xs py-1 cursor-pointer hover:bg-gray-100 px-2"
                 onClick={() => handleFilterSelect(title, typeof item === "string" ? item : item.name)}
               >
@@ -212,7 +251,7 @@ const handleFilterSelect = (category, filterName) => {
       >
         <span className="block font-semibold text-sm mb-2">{title}</span>
         <ul>
-          {items.map((item) => renderCategory(item))}
+          {safeItems.map((item) => renderCategory(item))}
         </ul>
       </div>
     );
@@ -220,55 +259,56 @@ const handleFilterSelect = (category, filterName) => {
 
   return (
     <header>
-      <div
-        className={`w-full max-w-5xl flex justify-between items-center border-b border-gray-300 pb-2 transition-all duration-300 ease-in-out ${
-          pathname.startsWith("/store") && isScrolling
-            ? "fixed left-52 top-0 py-3 px-5 w-full bg-white bg-[url('/background.svg')] bg-cover bg-center shadow-md z-50"
-            : ""
-        }`}
-      >
-        <div className="flex space-x-6 text-xs gap-7 font-normal">
-          <span onClick={onClearAllFilters} className="cursor-pointer">
-            Tous
-          </span>
-          {Object.keys(dropdownData).map((key) => (
-            <div key={key} className="relative">
-              <span
-                className="cursor-pointer hover:uppercase hover:border-b-2 hover:border-black"
-                onClick={() => toggleDropdown(key)}
-              >
-                {key}
-              </span>
-              {openDropdown === key && renderDropdownList(dropdownData[key], key)}
-            </div>
-          ))}
-        </div>
-        <span className="text-xs font-normal px-3 cursor-pointer hover:underline">
-          {totalProducts} Produit(s) {/* Display the total number of products */}
+    <div
+      className={`w-full max-w-7xl flex justify-between items-center border-b border-gray-300 pb-2 transition-all duration-300 ease-in-out ${
+        pathname.startsWith("/store") && isScrolling
+          ? "fixed left-32 top-0 py-3 px-5 w-full bg-white bg-[url('/background.svg')] bg-cover bg-center shadow-md z-50 " // Reduced gap on scroll
+          : "mr-96" // Default gap
+      }`}
+    >
+      <div className={`flex space-x-6 text-xs gap-2 font-normal `}>
+        <span onClick={onClearAllFilters} className="cursor-pointer">
+          Tous
         </span>
-      </div>
-
-      {/* Selected Filters */}
-      <div className="flex flex-wrap gap-2 mt-3">
-        {selectedFilters.map((item, index) => (
-          <Chip
-            key={index}
-            label={<span className="text-xs">{item.filter}</span>}
-            variant="outlined"
-            onDelete={() => onDeleteFilter(item.filter)}
-            sx={{ fontSize: "0.75rem" }}
-          />
+        {Object.keys(dropdownData).map((key) => (
+          <div key={key} className="relative">
+            <span
+              className="cursor-pointer hover:uppercase hover:border-b-2 hover:border-black"
+              onClick={() => toggleDropdown(key)}
+            >
+              {key}
+            </span>
+            {openDropdown === key && renderDropdownList(dropdownData[key], key)}
+          </div>
         ))}
-        {selectedFilters.length > 1 && (
-          <Chip
-            label={<span className="text-xs">Supprimer Tout</span>}
-            variant="outlined"
-            onDelete={onClearAllFilters}
-            sx={{ fontSize: "0.75rem", fontWeight: "normal" }}
-          />
-        )}
       </div>
-    </header>
+      <span className="text-xs font-normal  cursor-pointer hover:underline">
+        {totalProducts} Produit(s) {/* Display the total number of products */}
+      </span>
+    </div>
+  
+    {/* Selected Filters */}
+    <div className="flex flex-wrap gap-2 mt-3">
+      {selectedFilters.map((item, index) => (
+        <Chip
+          key={index}
+          label={<span className="text-xs">{item.filter}</span>}
+          variant="outlined"
+          onDelete={() => onDeleteFilter(item.filter)}
+          sx={{ fontSize: "0.75rem" }}
+        />
+      ))}
+      {selectedFilters.length > 1 && (
+        <Chip
+          label={<span className="text-xs">Supprimer Tout</span>}
+          variant="outlined"
+          onDelete={onClearAllFilters}
+          sx={{ fontSize: "0.75rem", fontWeight: "normal" }}
+        />
+      )}
+    </div>
+  </header>
+  
   );
 };
 

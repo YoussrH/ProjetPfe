@@ -1,4 +1,3 @@
-// app/store/nouveautes/page.js
 "use client";
 
 import { usePathname } from "next/navigation";
@@ -77,11 +76,39 @@ const NouveautesPage = () => {
 
     filters.forEach(({ category, filter }) => {
       if (category === "Prix") {
-        filtered = filtered.filter(product => product.price >= filter.min && product.price <= filter.max);
-      } else {
-        filtered = filtered.filter(product => {
-          const productValue = product[category.toLowerCase()];
-          return productValue && productValue.includes(filter.split(" ")[0]);
+        // Handle price range filter
+        filtered = filtered.filter(
+          (product) => product.price >= filter.min && product.price <= filter.max
+        );
+      } else if (category === "Catégories") {
+        // Handle category filter
+        filtered = filtered.filter((product) => {
+          const productCategory = product.category?.name || product.category; // Ensure category is accessible
+          return productCategory && productCategory.includes(filter);
+        });
+      } else if (category === "Genres") {
+        // Handle genre filter
+        filtered = filtered.filter((product) => {
+          const productGenre = product.genre?.name || product.genre; // Ensure genre is accessible
+          return productGenre && productGenre.includes(filter);
+        });
+      } else if (category === "Tailles") {
+        // Handle size filter
+        filtered = filtered.filter((product) => {
+          const productSizes = product.sizes || []; // Ensure sizes is an array
+          return productSizes.includes(filter);
+        });
+      } else if (category === "Marques") {
+        // Handle brand filter
+        filtered = filtered.filter((product) => {
+          const productBrand = product.marque?.name || product.marque; // Ensure brand is accessible
+          return productBrand && productBrand.includes(filter);
+        });
+      } else if (category === "Couleurs") {
+        // Handle color filter
+        filtered = filtered.filter((product) => {
+          const productColors = product.colors || []; // Ensure colors is an array
+          return productColors.includes(filter);
         });
       }
     });
@@ -89,39 +116,23 @@ const NouveautesPage = () => {
     setFilteredProducts(filtered);
   };
 
-/*   const segments = pathname
-    .split("/")
-    .filter((segment) => segment && segment !== "store");
- */
   return (
     <section>
-      <div className="px-10 py-6 font-serif flex flex-col items-center">
+      {/* Responsive Padding and Layout */}
+      <div className="px-4 sm:px-6 lg:px-10 py-6 font-serif flex flex-col items-center">
         {/* Breadcrumb */}
-        {/* <div className="border border-gray-300 px-4 py-1 text-gray-500 text-sm mb-4 rounded-md">
-          <span className="text-gray-500">Accueil</span>
-          {segments.map((segment, index) => {
-            const formattedSegment = segment.replace(/-/g, " ");
-            const isLast = index === segments.length - 1;
-            return (
-              <span key={index} className="text-gray-500">
-                {" / "}
-                <span className={isLast ? "font-semibold" : "hover:underline cursor-pointer"}>
-                  {formattedSegment.charAt(0).toUpperCase() + formattedSegment.slice(1)}
-                </span>
-              </span>
-            );
-          })}
-        </div> */}
-        <Breadcrumb/>
+        <Breadcrumb />
 
         {/* Title Section */}
-        <h1 className="text-sm font-semibold text-center mb-2 uppercase">Nouvelles collections</h1>
+        <h1 className="text-sm sm:text-base font-semibold text-center mb-2 uppercase">
+          Nouvelles collections
+        </h1>
 
         {/* Description */}
-        <p className="font-mono text-xs text-center max-w-2xl mx-auto mb-6">
+        <p className="font-mono text-xs sm:text-sm text-center max-w-2xl mx-auto mb-6">
           Découvrez les nouvelles collections Printemps-Été 2025 des plus belles
           marques de la mode enfant et bébé:{" "}
-          <span className="text-xs font-mono font-normal">
+          <span className="text-xs sm:text-sm font-mono font-normal">
             Billieblush, BOSS, Chloé, DKNY, Givenchy, HUGO, KARL LAGERFELD KIDS,
             KENZO Kids, Lanvin, Marc Jacobs, Michael Kors, Sonia Rykiel,
             Timberland et Zadig&Voltaire.
@@ -134,7 +145,7 @@ const NouveautesPage = () => {
           onClearAllFilters={handleClearAllFilters}
           selectedFilters={selectedFilters}
           onDeleteFilter={handleDeleteFilter}
-          totalProducts={products.length} // Pass the total number of products
+          totalProducts={products.length}
         />
       </div>
 

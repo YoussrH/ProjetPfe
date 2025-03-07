@@ -4,16 +4,16 @@ import { useState, useEffect } from "react";
 import { Chip } from "@mui/material";
 import { usePathname } from "next/navigation";
 import axios from "axios";
+import { Slider } from "@/components/ui/slider";
 
 const FilterBar = ({ onFilterSelect, onClearAllFilters, selectedFilters, onDeleteFilter, totalProducts }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [minPrice, setMinPrice] = useState(50);
-  const [maxPrice, setMaxPrice] = useState(1275);
-  const [rangeValue, setRangeValue] = useState(maxPrice);
+  const [minPrice, setMinPrice] = useState(10); // Default min price
+  const [maxPrice, setMaxPrice] = useState(300); // Default max price
   const pathname = usePathname() || "";
   const [isScrolling, setIsScrolling] = useState(false);
   const [dropdownData, setDropdownData] = useState({
-    Prix: { min: 50, max: 1275 },
+    Prix: { min: 10, max: 300 }, // Updated price range
     Genres: [],
     Catégories: [],
     Tailles: [],
@@ -62,36 +62,47 @@ const FilterBar = ({ onFilterSelect, onClearAllFilters, selectedFilters, onDelet
     fetchDropdownData();
   }, []);
 
-  // Fetch tailles when selectedCategory or selectedGenre changes
-  useEffect(() => {
-    if (!selectedCategory || !selectedGenre) return;
+  // Handle filter selection
+  const handleFilterSelect = (category, filterName) => {
+    if (category === "Catégories") {
+      // Find the selected category or subcategory
+      const selectedCat = dropdownData.Catégories.find(
+        (cat) => cat.name === filterName || cat.subcategories.some((sub) => sub.name === filterName)
+      );
 
-    const fetchTailles = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/tailles", {
-          params: {
-            category_id: selectedCategory,
-            genre_id: selectedGenre,
-          },
-        });
-
-        console.log("Fetched tailles:", response.data); // Debugging output
-
-        setDropdownData((prev) => ({
-          ...prev,
-          Tailles: response.data, // Store the full tailles objects
-        }));
-      } catch (error) {
-        console.error("Error fetching tailles:", error);
-        setDropdownData((prev) => ({
-          ...prev,
-          Tailles: [], // Set to empty array on error
-        }));
+      if (selectedCat) {
+        // If the selected item is a subcategory, set the parent category's ID
+        const subcategory = selectedCat.subcategories.find((sub) => sub.name === filterName);
+        if (subcategory) {
+          setSelectedCategory(subcategory.id); // Set the parent category's ID
+        } else {
+          setSelectedCategory(selectedCat.id); // Set the main category's ID
+        }
+      } else {
+        setSelectedCategory(null); // Reset if no match is found
       }
-    };
+    } else if (category === "Genres") {
+      const selectedGen = dropdownData.Genres.find((gen) => gen.name === filterName);
+      setSelectedGenre(selectedGen ? selectedGen.id : null); // Store the ID
+    }
 
-    fetchTailles();
-  }, [selectedCategory, selectedGenre]);
+    onFilterSelect(category, filterName);
+  };
+
+  // Handle price range change
+  const handlePriceRangeChange = () => {
+    onFilterSelect("Prix", { min: minPrice, max: maxPrice });
+  };
+
+  // Handle range slider change
+  const handleRangeChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "minPrice") {
+      setMinPrice(Math.min(Number(value), maxPrice)); // Ensure minPrice doesn't exceed maxPrice
+    } else if (name === "maxPrice") {
+      setMaxPrice(Math.max(Number(value), minPrice)); // Ensure maxPrice doesn't go below minPrice
+    }
+  };
 
   // Helper function to organize categories hierarchically
   const organizeCategories = (categories) => {
@@ -125,24 +136,70 @@ const FilterBar = ({ onFilterSelect, onClearAllFilters, selectedFilters, onDelet
     setOpenDropdown(null);
   };
 
-  // Handle filter selection
-  const handleFilterSelect = (category, filterName) => {
-    if (category === "Catégories") {
-      const selectedCat = dropdownData.Catégories.find((cat) => cat.name === filterName);
-      setSelectedCategory(selectedCat ? selectedCat.id : null); // Store the ID
-    } else if (category === "Genres") {
-      const selectedGen = dropdownData.Genres.find((gen) => gen.name === filterName);
-      setSelectedGenre(selectedGen ? selectedGen.id : null); // Store the ID
-    }
-
-    onFilterSelect(category, filterName);
-  };
-
   // Render dropdown list
   const renderDropdownList = (items, title) => {
     console.log(`Rendering ${title} dropdown with items:`, items); // Debugging output
 
-    if (title === "Tailles" || title === "Marques") {
+    // Ensure items is always an array
+    const safeItems = Array.isArray(items) ? items : [];
+
+      if (title === "Prix") {
+        return (
+          <div
+            className="absolute bg-white border border-gray-300 mt-1 p-4 rounded-md shadow-lg z-50 w-64"
+            onMouseLeave={handleMouseLeave}
+          >
+            <span className="block font-semibold text-sm mb-2">{title}</span>
+            <div className="flex flex-col space-y-4">
+              {/* ShadCN Slider */}
+              <Slider
+                value={[minPrice, maxPrice]}
+                onValueChange={(value) => {
+                  setMinPrice(value[0]);
+                  setMaxPrice(value[1]);
+                }}
+                min={10}
+                max={300}
+                step={1}
+                className="w-full"
+              />
+    
+              {/* Input Fields */}
+              <div className="flex items-center space-x-2">
+                <input
+                  type="number"
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(Math.min(Number(e.target.value), maxPrice))}
+                  className="w-20 p-1 border border-gray-300 rounded-md text-xs"
+                  placeholder="Min"
+                  min="10"
+                  max="300"
+                />
+                <span className="text-xs text-gray-500">to</span>
+                <input
+                  type="number"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(Math.max(Number(e.target.value), minPrice))}
+                  className="w-20 p-1 border border-gray-300 rounded-md text-xs"
+                  placeholder="Max"
+                  min="10"
+                  max="300"
+                />
+              </div>
+    
+              {/* Apply Button */}
+              <button
+                onClick={handlePriceRangeChange}
+                className="bg-black text-white text-xs px-3 py-1 rounded-md hover:bg-gray-800 transition-colors"
+              >
+                Appliquer
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+    if (title === "Tailles" || title === "Marques" || title === "Couleurs") {
       return (
         <div
           className="absolute bg-white border border-gray-300 mt-1 p-2 rounded-md shadow-lg z-50 w-48 max-h-40 overflow-y-auto"
@@ -150,9 +207,9 @@ const FilterBar = ({ onFilterSelect, onClearAllFilters, selectedFilters, onDelet
         >
           <span className="block font-semibold text-sm mb-2">{title}</span>
           <ul>
-            {items.map((item, index) => (
+            {safeItems.map((item, index) => (
               <li
-                key={index} // Use index as the key for arrays of strings
+                key={typeof item === "string" ? item : item.id || index} // Use item name or ID as the key
                 className="text-xs py-1 cursor-pointer hover:bg-gray-100 px-2"
                 onClick={() => handleFilterSelect(title, typeof item === "string" ? item : item.name)}
               >
@@ -194,7 +251,7 @@ const FilterBar = ({ onFilterSelect, onClearAllFilters, selectedFilters, onDelet
       >
         <span className="block font-semibold text-sm mb-2">{title}</span>
         <ul>
-          {items.map((item) => renderCategory(item))}
+          {safeItems.map((item) => renderCategory(item))}
         </ul>
       </div>
     );

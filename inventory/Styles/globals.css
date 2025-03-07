@@ -1,6 +1,7 @@
 @import url('https://fonts.cdnfonts.com/css/beatrice-display-trial');
 
-@tailwind base;@tailwind components;
+@tailwind base;
+@tailwind components;
 @tailwind utilities;
 
 body {
@@ -12,21 +13,46 @@ body {
   background-position: center;
   background-repeat: no-repeat;
 }
-@keyframes marquee {
-  from {
+/* Animation for Desktop - Slower Scroll */
+/* Animation for Desktop - Two Messages Scroll Together */
+@keyframes marquee-desktop {
+  0% {
     transform: translateX(100%);
-    opacity: 0.4;
   }
-  to {
+  100% {
     transform: translateX(-100%);
-    opacity: 1;
   }
 }
 
-.animate-marquee {
-  display: flex;
-  animation: marquee 10s linear infinite; /* Faster speed */
+.animate-marquee-desktop {
+  animation: marquee-desktop 10s linear infinite;
 }
+
+/* Mobile Animation - Fade In and Out */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-fade {
+  position: relative;
+  width: 100%; /* Ensure full width for each message */
+  animation: fadeInOut 10s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* Delay for the second message to create a fade transition */
+.animate-fade:nth-child(2) {
+  animation-delay: 5s; /* Adjust this to sync with the first message */
+}
+
 
 /* Animated Scrollbar */
 ::-webkit-scrollbar {

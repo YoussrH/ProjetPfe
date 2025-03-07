@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useRef } from "react";
 import TopNav from "./TopNav";
+
+
 import { useRouter } from "next/navigation";
 import SubmenuNouveautes from "./Submenu/SubmenuNouveautes";
 import SubmenuPetitPrix from "./Submenu/SubmenuPetitPrix";
@@ -11,8 +13,6 @@ import SubmenuChaussures from "./Submenu/SubmenuChaussures";
 import SubmenuMarque from "./Submenu/SubmenuMarque";
 import SubmenuOutlet from "./Submenu/SubmenuOutlet";
 import SubmenuTendance from "./Submenu/SubmenuTendances";
-import { CiCirclePlus } from "react-icons/ci";
-
 export default function Header() {
   const router = useRouter();
   const [submenuOpen, setSubmenuOpen] = useState(false);
@@ -26,25 +26,27 @@ export default function Header() {
   const [outletOpen, setOutletOpen] = useState(false);
   const [secondeMainOpen, setSecondeMainOpen] = useState(false);
   const [luxeOpen, setLuxeOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+ 
   const timeoutRef = useRef(null);
-
   const handleClick = (menu) => {
+    setBreadcrumb(`Accueil / ${menu}`);
     const route = menu
       .toLowerCase()
       .replace(/\s+/g, "-")
       .replace(/[éèê]/g, "e")
       .replace("ô", "o")
       .replace("ç", "c"); // Handling special French characters
-    router.push(`/store/${route}`);
-  };
+  
+      console.log("Navigating to:", `/store/${route}`); // Debugging
 
+      router.push(`/store/${route}`);  };
+  
   const handleMouseEnter = (menu) => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-
+  
     switch (menu) {
       case "Nouveautés":
         setSubmenuOpen(true);
@@ -80,7 +82,7 @@ export default function Header() {
         break;
     }
   };
-
+  
   const handleMouseLeave = (menu) => {
     switch (menu) {
       case "Nouveautés":
@@ -117,16 +119,16 @@ export default function Header() {
         break;
     }
   };
+  
 
-  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+  const updateBreadcrumb = (newPath) => setBreadcrumb(`Accueil / ${newPath}`);
 
   return (
     <>
-      <header className="border-b border-gray-300">
-        <TopNav onMenuClick={toggleMobileMenu} isMobileMenuOpen={isMobileMenuOpen} />
-        <div className="mt-10 flex flex-col items-center">
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex gap-6">
+      <header className=" border-b border-gray-300">
+      <TopNav />
+      <div className="mt-10 flex flex-col items-center">
+      <nav className="  flex gap-6">
             {[
               "Nouveautés",
               "PETITS PRIX",
@@ -142,7 +144,7 @@ export default function Header() {
             ].map((item) => (
               <div key={item} className="relative group">
                 <h5
-                  className={`cursor-pointer pb-1 font-serif text-sm lg:text-base ${
+                  className={`cursor-pointer pb-1 font-serif ${
                     (item === "Nouveautés" && submenuOpen) ||
                     (item === "PETITS PRIX" && petitPrixOpen) ||
                     (item === "Fille" && filleOpen) ||
@@ -173,81 +175,68 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Mobile Navigation */}
-          {isMobileMenuOpen && (
-            <nav className="md:hidden flex flex-col gap-3 p-2  w-[288px]  bg-white border-t text-sm border-gray-300 fixed top-20 left-0 h-screen z-50 overflow-x-hidden overflow-y-auto">
-              {[
-                "Nouveautés",
-                "PETITS PRIX",
-                "Fille",
-                "Garçon",
-                "Bébé",
-                "Chaussures",
-                "Marques",
-                "Tendances",
-                "Outlet",
-                "SECONDE MAIN",
-                "Luxe",
-              ].map((item) => (
-                <div key={item} className="relative group border-b border-gray-200 pb-2">
-                  <h5
-                    className={`cursor-pointer pb-1 font-serif flex items-center justify-between text-sm sm:text-base`}
-                    onClick={() => handleClick(item)}
-                  >
-                    {item}
-                    <CiCirclePlus className="text-gray-500" />
-                  </h5>
-                </div>
-              ))}
-            </nav>
-          )}
 
-          {/* Submenus */}
+          {/* Submenu */}
           <SubmenuNouveautes
             isOpen={submenuOpen}
             onMouseEnter={() => handleMouseEnter("Nouveautés")}
             onMouseLeave={() => handleMouseLeave("Nouveautés")}
           />
+        
+
+          {/* PETITS PRIX Submenu */}
           <SubmenuPetitPrix
             isOpen={petitPrixOpen}
             onMouseEnter={() => handleMouseEnter("PETITS PRIX")}
             onMouseLeave={() => handleMouseLeave("PETITS PRIX")}
           />
-          <SubmenuFille
-            isOpen={filleOpen}
-            onMouseEnter={() => handleMouseEnter("Fille")}
-            onMouseLeave={() => handleMouseLeave("Fille")}
-          />
-          <SubmenuGarçon
-            isOpen={garconOpen}
-            onMouseEnter={() => handleMouseEnter("Garçon")}
-            onMouseLeave={() => handleMouseLeave("Garçon")}
-          />
-          <SubmenuBebe
-            isOpen={bebeOpen}
-            onMouseEnter={() => handleMouseEnter("Bébé")}
-            onMouseLeave={() => handleMouseLeave("Bébé")}
-          />
-          <SubmenuChaussures
-            isOpen={chaussuresOpen}
+
+          {/* Fille Submenu */}
+            <SubmenuFille
+               isOpen={filleOpen}
+               onMouseEnter={() => handleMouseEnter("Fille")}
+               onMouseLeave={() => handleMouseLeave("Fille")}
+             />
+          {/* Garçon submenu */}
+            <SubmenuGarçon
+               isOpen={garconOpen}
+               onMouseEnter={() => handleMouseEnter("Garçon")}
+               onMouseLeave={() => handleMouseLeave("Garçon")}
+             />
+          {/* Bébé submenu */}
+            <SubmenuBebe
+               isOpen={bebeOpen}
+               onMouseEnter={() => handleMouseEnter("Bébé")}
+               onMouseLeave={() => handleMouseLeave("Bébé")}
+             />
+          {/*Chaussures submenu */}
+          <SubmenuChaussures  
+           isOpen={chaussuresOpen}
             onMouseEnter={() => handleMouseEnter("Chaussures")}
             onMouseLeave={() => handleMouseLeave("Chaussures")}
           />
-          <SubmenuMarque
-            isOpen={marquesOpen}
-            onMouseEnter={() => handleMouseEnter("Marques")}
-            onMouseLeave={() => handleMouseLeave("Marques")}
-          />
+          {/* Marque submenu */} 
+          <SubmenuMarque 
+             isOpen={marquesOpen}
+             onMouseEnter={() => handleMouseEnter("Marques")}
+             onMouseLeave={() => handleMouseLeave("Marques")}
+           />
+         
+          {/* Tendances submenu */}
           <SubmenuTendance
-            isOpen={tendancesOpen}
-            onMouseEnter={() => handleMouseEnter("Tendances")}
-            onMouseLeave={() => handleMouseLeave("Tendances")}
-          />
-          <SubmenuOutlet
-            isOpen={outletOpen}
-            onMouseEnter={() => handleMouseEnter("Outlet")}
-            onMouseLeave={() => handleMouseLeave("Outlet")}
-          />
+             isOpen={tendancesOpen}
+             onMouseEnter={() => handleMouseEnter("Tendances")}
+             onMouseLeave={() => handleMouseLeave("Tendances")}
+           />
+         
+          {/* Outlet submenu */} 
+          <SubmenuOutlet 
+             isOpen={outletOpen}
+             onMouseEnter={() => handleMouseEnter("Outlet")}
+             onMouseLeave={() => handleMouseLeave("Outlet")}
+           />
+         
+        
         </div>
       </header>
     </>

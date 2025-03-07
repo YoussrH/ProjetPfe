@@ -1,4 +1,3 @@
-// components/NouveauteProductList.js
 "use client";
 
 import React, { useState } from "react";
@@ -32,6 +31,24 @@ const NouveauteProductList = ({ products }) => {
     setCurrentPage(value);
   };
 
+  // Function to check if the product is new (created or updated within the last 7 days)
+  const isProductNew = (product) => {
+    const createdAt = new Date(product.createdAt);
+    const updatedAt = new Date(product.updatedAt);
+    const currentDate = new Date();
+    
+    // Calculate the difference in time (in milliseconds)
+    const createdDiff = currentDate - createdAt;
+    const updatedDiff = currentDate - updatedAt;
+    
+    // Convert the difference to days
+    const createdDiffDays = createdDiff / (1000 * 60 * 60 * 24);
+    const updatedDiffDays = updatedDiff / (1000 * 60 * 60 * 24);
+    
+    // Return true if either createdAt or updatedAt is within the last 7 days
+    return createdDiffDays <= 7 || updatedDiffDays <= 7;
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="w-2/3">
@@ -44,7 +61,7 @@ const NouveauteProductList = ({ products }) => {
                 className="relative group transition-all duration-300"
               >
                 {/* Product Image */}
-                <Link href={`/products/${product.id}`}>
+                <Link href={`productsDetails/${product.id}`}>
                   <img
                     src={product.images[0] || "/placeholder-image.jpg"} // Use the first image or a fallback
                     alt={product.name}
@@ -53,12 +70,14 @@ const NouveauteProductList = ({ products }) => {
                 </Link>
 
                 <div className="-ml-5 justify-center">
-                  {/* Nouveauté Badge */}
-                  <div className="w-full flex justify-center mt-2">
-                    <div className="animate-bounce text-center border border-black text-white bg-black rounded-lg text-[10px] font-serif px-2 py-1">
-                      <span>NOUVEAUTÉ</span>
+                  {/* Nouveauté Badge - Conditionally rendered */}
+                  {isProductNew(product) && (
+                    <div className="w-full flex justify-center mt-2">
+                      <div className="animate-bounce text-center border border-black text-white bg-black rounded-lg text-[10px] font-serif px-2 py-1">
+                        <span>NOUVEAUTÉ</span>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {/* Product Details */}
                   <div className="text-center mt-2">
@@ -69,26 +88,26 @@ const NouveauteProductList = ({ products }) => {
 
                     {/* Product Name */}
                     <div className="group-hover:opacity-0 transition-opacity duration-300">
-                    <p className="text-gray-700 font-serif text-xs mt-1">
-                      {product.name}
-                    </p>
+                      <p className="text-gray-700 font-serif text-xs mt-1">
+                        {product.name}
+                      </p>
 
-                    {/* Price */}
-                    <p className="text-gray-900 font-serif text-xs font-semibold mt-1">
-                      {product.price} DT
-                    </p>
+                      {/* Price */}
+                      <p className="text-gray-900 font-serif text-xs font-semibold mt-1">
+                        {product.price} DT
+                      </p>
                     </div>
                   </div>
 
-                   {/* Achat Rapide and Favoris Buttons */}
-                   <div className="-mt-10 relative inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="flex space-x-1">
-                        <button className="bg-black border border-black text-white font-serif text-xs px-4 py-2 rounded-full flex items-center hover:bg-white hover:text-black transition-all duration-300">
-                          Achat Rapide
-                        </button>
-                        <GoHeart className="w-5 h-5 cursor-pointer mt-2" />
-                      </div>
+                  {/* Achat Rapide and Favoris Buttons */}
+                  <div className="-mt-10 relative inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="flex space-x-1">
+                      <button className="bg-black border border-black text-white font-serif text-xs px-4 py-2 rounded-full flex items-center hover:bg-white hover:text-black transition-all duration-300">
+                        Achat Rapide
+                      </button>
+                      <GoHeart className="w-5 h-5 cursor-pointer mt-2" />
                     </div>
+                  </div>
                 </div>
               </div>
             ))

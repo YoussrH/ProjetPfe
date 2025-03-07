@@ -2,8 +2,8 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import Heder from "../Header/Heder";
 import Header from "../Header/page";
-import Heding from "../Header/pagess";
 
 export default function DynamicHeader() {
   const pathname = usePathname() || ""; // Prevents undefined error
@@ -30,7 +30,7 @@ export default function DynamicHeader() {
           : ""
       }`}
     >
-      {pathname === "/" && isScrolling ? <Heding /> : <Header />}
+      {pathname === "/" && isScrolling ? <Heder /> : <Header />}
     </div>
   );
 }

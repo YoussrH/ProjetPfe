@@ -2,7 +2,7 @@ import { GiHummingbird } from "react-icons/gi";
 
 export default function FeaturesSection() {
   return (
-    <div className="relative flex flex-col items-center my-16 px-4">
+    <div className="relative flex flex-col bottom-0 items-center my-16 px-4">
       {/* Left Decorative Image */}
       <img 
         src="/roue-left.svg" 
