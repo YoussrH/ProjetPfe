@@ -18,9 +18,7 @@ export default function SubmenuNouveautes({ isOpen, onMouseEnter, onMouseLeave }
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      {/* Desktop Layout */}
       <div className="mx-auto w-[85%] p-6 hidden md:flex gap-20">
-        {/* Categories Section */}
         <div>
           <h4 className="font-bold font-serif mb-2 uppercase text-sm">Catégories</h4>
           <ul className="space-y-2">
@@ -42,7 +40,6 @@ export default function SubmenuNouveautes({ isOpen, onMouseEnter, onMouseLeave }
           </ul>
         </div>
 
-        {/* Marques Section */}
         <div>
           <h4 className="font-bold font-serif mb-2 uppercase text-sm">Marque</h4>
           <ul className="space-y-2">
@@ -67,7 +64,6 @@ export default function SubmenuNouveautes({ isOpen, onMouseEnter, onMouseLeave }
           </ul>
         </div>
 
-        {/* Images */}
         <div className="flex gap-8">
           <div className="relative">
             <Image src="/DINA-VIOLET-1.jpg" alt="Sélection Femme" width={350} height={50} className="h-96 rounded-lg shadow-md" />

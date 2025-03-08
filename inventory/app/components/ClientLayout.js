@@ -6,6 +6,7 @@ import Footer from "./Footer/page";
 import ScrollToTop from "./DynamicHeader/ScrollToTop";
 import DashboardLayout from "../(back-office)/dashboard/dashboardWrapper";
 import HomeLayout from "../(back-office)/dashboard/home/HomeLayout";
+import { Toaster } from "sonner";
 
 export default function ClientLayout({ children }) {
   const pathname = usePathname();
@@ -27,6 +28,7 @@ export default function ClientLayout({ children }) {
           {children}
           <ScrollToTop />
           <Footer />
+          <Toaster position="top-center" richColors />
         </>
       )}
     </>
