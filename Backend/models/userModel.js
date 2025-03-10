@@ -7,6 +7,10 @@ const User = sequelize.define("Utilisateur", {
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
   },
+  prefix: {
+    type: DataTypes.ENUM("Madame", "Monsieur", "MLLE", ""),
+    defaultValue: "",
+  },
   nom: { type: DataTypes.STRING, allowNull: false },
   prenom: { type: DataTypes.STRING, allowNull: false },
   email: { type: DataTypes.STRING, unique: true, allowNull: false },
@@ -14,7 +18,7 @@ const User = sequelize.define("Utilisateur", {
   otp: { type: DataTypes.STRING },
   otpExpires: { type: DataTypes.DATE },
   isVerified: { type: DataTypes.BOOLEAN, defaultValue: false },
-  newsletter: { type: DataTypes.BOOLEAN, defaultValue: false }, // Add newsletter field
+  newsletter: { type: DataTypes.BOOLEAN, defaultValue: false },
   role: {
     type: DataTypes.ENUM("user", "admin", "super_admin"),
     defaultValue: "user",

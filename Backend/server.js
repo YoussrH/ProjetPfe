@@ -15,6 +15,8 @@ const couleursRouter = require("./routes/couleurRoutes");
 const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const passwordRoutes = require("./routes/passwordRoutes");
+const userRoutes = require("./routes/userRoutes");
+const remiseRoutes = require("./routes/remiseRoutes");
 
 const app = express();
 
@@ -27,6 +29,7 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
+// Configure session middleware
 // Configure session middleware
 app.use(
   session({
@@ -66,6 +69,9 @@ app.use("/api/couleurs", couleursRouter);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/password", passwordRoutes);
+app.use("/api/utilisateur", userRoutes);
+app.use("/api/remises", remiseRoutes);
+
 
 const PORT = process.env.PORT || 5000;
 const sequelize = require("./config/database");
