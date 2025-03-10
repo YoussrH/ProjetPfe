@@ -149,7 +149,7 @@ export default function Heder() {
         ].map((item) => (
           <div key={item} className="relative group">
             <h5
-              className={`cursor-pointer pb-1 font-serif ${
+              className={`cursor-pointer pb-1  text-sm ${
                 (item === "Nouveautés" && submenuOpen) ||
                 (item === "PETITS PRIX" && petitPrixOpen) ||
                 (item === "Fille" && filleOpen) ||

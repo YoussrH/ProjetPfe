@@ -2,14 +2,16 @@
 import React from "react";
 import Image from "next/image";
 
-export default function SubmenuTendance({ isOpen, onMouseEnter, onMouseLeave }) {
+export default function SubmenuTendance({ isOpen, onMouseEnter, onMouseLeave ,isScrolled }) {
   return (
     <div
-            className={`absolute left-0  top-44 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+            className={`absolute left-0  top-[165px] w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
               isOpen ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
+            style={{ top: isScrolled ? "51px" : "173px" }} // Adjust top position based on isScrolled
+
           >
             <div className="mx-auto w-[85%] p-6 flex gap-12">
               {/* Categories Section */}

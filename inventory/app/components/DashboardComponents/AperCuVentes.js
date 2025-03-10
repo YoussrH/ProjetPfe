@@ -19,10 +19,10 @@ export default function AperCuVentes() {
 
     ]
   return (
-    <div className="font-sans bg-blue-50 border-b border-gray-200 p-16 gap-4 grid grid-cols-12 ">
+    <div className=" bg-slate-50 border-b border-gray-200 p-16 gap-4 grid grid-cols-12 ">
     {/*slaes Activity*/}
     <div className='col-span-8 border-r border-slate-300 p-8'>
-        <h2 className="font-semibold text-xl mb-4">Activités des ventes</h2>
+        <h2 className="font-semibold text-md mb-4">Activités des ventes</h2>
         <div className="grid grid-cols-4   gap-4 pr-8" >
         {/*card*/}
        {SalesActivity.map((item,i)=>{
@@ -38,7 +38,7 @@ export default function AperCuVentes() {
     </div>
     {/*Inventory Summary*/}
     <div className="col-span-4 p-8">
-        <h2 className="font-semibold text-xl mb-4">Résumé de l'inventaire</h2>
+        <h2 className="font-semibold text-md mb-4">Résumé de l'inventaire</h2>
         <div className="">
         {InventorySummary.map((item,i)=>
         {

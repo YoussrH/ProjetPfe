@@ -30,7 +30,7 @@ export default function DynamicHeader() {
           : ""
       }`}
     >
-      {pathname === "/" && isScrolling ? <Heder /> : <Header />}
+      {pathname === "/" && isScrolling ? <Header /> : <Header />}
     </div>
   );
 }

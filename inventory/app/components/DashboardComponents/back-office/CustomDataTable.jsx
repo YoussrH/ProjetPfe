@@ -47,11 +47,11 @@ export default function CustomDataTable() {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-bold mb-4 text-start mt-4 text-gray-800">
+      <h2 className="text-md font-bold mb-4 text-start mt-4 text-gray-800">
         Les Commandes Récentes
       </h2>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg bg-white">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 bg-white">
+        <table className="w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400 bg-white">
           <thead className="text-xs text-slate-900 uppercase bg-white dark:bg-[#eef4f0] dark:text-slate-700">
             <tr>
               <th scope="col" className="p-4">Select</th>
@@ -85,19 +85,19 @@ export default function CustomDataTable() {
           <span className="text-sm font-normal text-gray-500 dark:text-gray-400 p-3">Showing {indexOfFirstRow + 1}-{indexOfLastRow} of {data.length}</span>
           <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8 bg-white border-gray-200">
             <li>
-              <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 dark:bg-white dark:border-gray-200 dark:text-gray-400 dark:hover:bg-gray-200">
+              <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} className=" text-xs flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 dark:bg-white dark:border-gray-200 dark:text-gray-400 dark:hover:bg-gray-200">
                 Previous
               </button>
             </li>
             {[...Array(Math.ceil(data.length / rowsPerPage))].map((_, index) => (
               <li key={index}>
-                <button onClick={() => handlePageChange(index + 1)} className={`flex items-center justify-center border dark:border-gray-200 border-gray-100 px-3 h-8 leading-tight ${currentPage === index + 1 ? 'bg-slate-600 text-white' : 'bg-white text-gray-600 hover:bg-gray-100 dark:bg-white dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-200'}`}>
+                <button onClick={() => handlePageChange(index + 1)} className={`flex text-xs items-center justify-center border dark:border-gray-200 border-gray-100 px-3 h-8 leading-tight ${currentPage === index + 1 ? 'bg-slate-600 text-white' : 'bg-white text-gray-600 hover:bg-gray-100 dark:bg-white dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-200'}`}>
                   {index + 1}
                 </button>
               </li>
             ))}
             <li>
-              <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === Math.ceil(data.length / rowsPerPage)} className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 dark:bg-white dark:border-gray-300  dark:text-gray-400 dark:hover:bg-gray-200">
+              <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === Math.ceil(data.length / rowsPerPage)} className="flex items-center text-xs justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 dark:bg-white dark:border-gray-300  dark:text-gray-400 dark:hover:bg-gray-200">
                 Next
               </button>
             </li>

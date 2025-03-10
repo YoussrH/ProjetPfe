@@ -13,8 +13,8 @@ export default function BestSellingProductChart() {
   ];
 
   return (
-    <div className="bg-blue-50 p-8 rounded-lg relative">
-    <h2 className="text-xl font-bold mb-2 text-center">
+    <div className="bg-slate-50 p-8 rounded-lg relative">
+    <h2 className="text-md  font-bold mb-2 text-center">
       Produits les plus vendus
     </h2>
 
@@ -28,8 +28,8 @@ export default function BestSellingProductChart() {
               style={{ backgroundColor: product.color }}
             ></span>
             {/* Product Label and Value */}
-            <span className="font-medium text-gray-800">
-              {product.id}: <span className="font-bold">{product.value}</span>
+            <span className="font-medium text-sm text-gray-800">
+              {product.id}: <span className="text-md">{product.value}</span>
             </span>
           </div>
         ))}

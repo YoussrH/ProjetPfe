@@ -2,12 +2,13 @@
 import React from "react";
 import Image from "next/image";
 
-export default function SubmenuPetitPrix({ isOpen, onMouseEnter, onMouseLeave }) {
+export default function SubmenuPetitPrix({ isOpen, onMouseEnter, onMouseLeave,isScrolled  }) {
   return (
     <div
-    className={`absolute left-0  top-44 w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
+    className={`absolute left-0  top-[165px] w-full bg-white border border-gray-200 shadow-md transition-all duration-300 ease-in-out z-50 ${
       isOpen ? "opacity-100 visible" : "opacity-0 invisible"
     }`}
+    style={{ top: isScrolled ? "51px" :"173px" }} // Adjust top position based on isScrolled
     onMouseEnter={onMouseEnter} 
     onMouseLeave={onMouseLeave}
   >

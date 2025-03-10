@@ -50,8 +50,8 @@ export default function AutoSlider() {
             {randomPositions.length > 0 && (
               <div className={`absolute ${randomPositions[index]} bg-white bg-opacity-20 text-black p-5 rounded-lg shadow-lg backdrop-blur-md`}>
                 <h2 className="text-lg font-medium text-black">{slide.title}</h2>
-                <p className="mt-2 text-sm font-serif text-gray-700">{slide.text}</p>
-                <button className="mt-4 px-6 py-2 bg-black text-white text-sm font-serif rounded border border-black hover:bg-gray-800">
+                <p className="mt-2 text-sm  text-gray-700">{slide.text}</p>
+                <button className="mt-4 px-6 py-2 bg-black text-white text-sm  rounded border border-black hover:bg-gray-800">
                   Découvrir
                 </button>
               </div>

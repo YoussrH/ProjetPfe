@@ -80,8 +80,8 @@ export default function WeeklySalesForTopProducts() {
   };
 
   return (
-    <div className="bg-blue-50 p-8 rounded-lg">
-      <h2 className="text-xl font-bold mb-8 text-center">
+    <div className="bg-slate-50 p-8 rounded-lg">
+      <h2 className="text-md font-bold mb-8 text-center">
         Ventes hebdomadaires - Top 3 Produits
       </h2>
       <div style={{ width: "100%", height: "auto", margin: "0 auto" }}>

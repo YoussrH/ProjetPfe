@@ -1,0 +1,12 @@
+.hover-boundary {
+    padding: 20px; /* Adjust the padding to control the size of the boundary */
+    position: relative; /* Ensure the dropdown is positioned correctly */
+  }
+
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100; /* Ensure it appears above other content */
+    background-color: white; /* Add a background color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */
+  }

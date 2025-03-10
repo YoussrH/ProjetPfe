@@ -7,6 +7,7 @@ import ScrollToTop from "./DynamicHeader/ScrollToTop";
 import DashboardLayout from "../(back-office)/dashboard/dashboardWrapper";
 import HomeLayout from "../(back-office)/dashboard/home/HomeLayout";
 import { Toaster } from "sonner";
+import Header from "./Header/page";
 
 export default function ClientLayout({ children }) {
   const pathname = usePathname();
@@ -24,8 +25,9 @@ export default function ClientLayout({ children }) {
       ) : (
         // Default layout for other pages
         <>
-          <DynamicHeader />
-          {children}
+           <DynamicHeader />
+ 
+   {children}
           <ScrollToTop />
           <Footer />
           <Toaster position="top-center" richColors />

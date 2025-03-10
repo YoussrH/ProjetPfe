@@ -1,22 +1,20 @@
 "use client";
 import React, { useState } from "react";
+import { toast } from "sonner";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import OtpVerificationForm from "./OtpVerificationForm";
+import SignUpForm from "./SignUpForm";
+import LoginForm from "./LoginForm";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSeparator,
-  InputOTPSlot,
-} from "@/components/ui/input-otp";
-import { toast } from "sonner"; // Use sonner for notifications
 import Image from "next/image";
-import axios from "axios";
 
 const AuthModal = ({ isOpen, onClose }) => {
-  const [isSignUp, setIsSignUp] = useState(true); // Toggle between sign-up and sign-in
+  const router = useRouter();
+  const [isSignUp, setIsSignUp] = useState(true);
   const [formData, setFormData] = useState({
+    prefix: "",
     nom: "",
     prenom: "",
     email: "",
@@ -29,38 +27,21 @@ const AuthModal = ({ isOpen, onClose }) => {
 
   const toggleForm = () => {
     setIsSignUp(!isSignUp);
-    setIsOtpSent(false); // Reset OTP state
-  };
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
-  };
-
-  const validateEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+    setIsOtpSent(false);
   };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    if (!validateEmail(formData.email)) {
-      toast.error("Veuillez entrer une adresse e-mail valide.");
-      setIsLoading(false);
-      return;
-    }
-
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/register", formData);
-      toast.success(response.data.message); // Success toast
-      setIsOtpSent(true); // Show OTP input after successful registration
+      const response = await axios.post("http://localhost:5000/api/auth/register", formData, {
+        withCredentials: true,
+      });
+      toast.success(response.data.message, { duration: 5000 });
+      setIsOtpSent(true);
     } catch (error) {
-      toast.error(error.response?.data?.error || "Une erreur s'est produite. Veuillez réessayer."); // Error toast
+      toast.error(error.response?.data?.error || "Une erreur s'est produite. Veuillez réessayer.", { duration: 5000 });
     } finally {
       setIsLoading(false);
     }
@@ -69,35 +50,21 @@ const AuthModal = ({ isOpen, onClose }) => {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-  
+
     try {
       const response = await axios.post("http://localhost:5000/api/auth/verify-otp", {
         email: formData.email,
         otp,
+      }, {
+        withCredentials: true,
       });
-  
-      // Display success message in French
-      toast.success("OTP vérifié avec succès. Vous êtes maintenant connecté.");
-  
-      // Fetch and log user data
-      await fetchUserData();
-  
-      // Close the modal
+      toast.success("OTP vérifié avec succès. Vous êtes maintenant connecté.", { duration: 5000 });
       onClose();
-  
-      // Optionally, reload the page or update the UI to reflect the logged-in state
-      window.location.reload();
+      router.push("/");
+      window.location.reload(); // Reload the page after successful login
     } catch (error) {
-      console.error("Verify OTP Error:", error); // Log the full error object
-  
-      // Handle specific error messages
-      if (error.response?.status === 404) {
-        toast.error("User not found.");
-      } else if (error.response?.status === 400) {
-        toast.error("Invalid or expired OTP.");
-      } else {
-        toast.error("Une erreur s'est produite. Veuillez réessayer.");
-      }
+      console.error("Verify OTP Error:", error);
+      toast.error("Une erreur s'est produite. Veuillez réessayer.", { duration: 5000 });
     } finally {
       setIsLoading(false);
     }
@@ -108,50 +75,31 @@ const AuthModal = ({ isOpen, onClose }) => {
     setIsLoading(true);
   
     try {
+      await axios.post("http://localhost:5000/api/auth/logout", {}, {
+        withCredentials: true,
+      });
       const response = await axios.post(
         "http://localhost:5000/api/auth/login",
-        formData,
+        {
+          email: formData.email,
+          password: formData.password,
+        },
         {
           withCredentials: true,
         }
       );
-      toast.success(response.data.message); // Success toast
-  
-      // Fetch and log user data
-      await fetchUserData();
-  
-      // Close the modal
+      toast.success(response.data.message, { duration: 5000 });
       onClose();
-  
-      // Optionally, reload the page or update the UI to reflect the logged-in state
-      window.location.reload();
+      router.push("/");
+      window.location.reload(); // Reload the page after successful login
     } catch (error) {
-      console.error("Login Error:", error); // Log the full error object
-  
-      // Handle specific error messages
-      if (error.response?.status === 403) {
-        toast.error(error.response?.data?.message || "You are already logged in.");
-      } else if (error.response?.status === 404) {
-        toast.error("User not found.");
-      } else if (error.response?.status === 401) {
-        toast.error("Invalid credentials.");
-      } else {
-        toast.error("Une erreur s'est produite. Veuillez réessayer.");
-      }
+      console.error("Login Error:", error);
+      toast.error("Une erreur s'est produite. Veuillez réessayer.", { duration: 5000 });
     } finally {
       setIsLoading(false);
     }
   };
-  const fetchUserData = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/api/auth/user", {
-        withCredentials: true, // Include session cookie
-      });
-      console.log("User Data:", response.data.user); // Log user data to the console
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-md">
@@ -161,7 +109,6 @@ const AuthModal = ({ isOpen, onClose }) => {
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-4 font-sans tracking-wide">
-          {/* Hide Tabs and Social Buttons when OTP is shown */}
           {!isOtpSent && (
             <>
               {/* Tabs for Sign Up and Sign In */}
@@ -216,186 +163,29 @@ const AuthModal = ({ isOpen, onClose }) => {
             </>
           )}
 
-          {/* Sign Up / Sign In Form */}
           {isSignUp ? (
-            <form className="space-y-4" onSubmit={isOtpSent ? handleVerifyOtp : handleSignUp}>
-              {!isOtpSent ? (
-                <>
-                  {/* Sign-Up Form Fields */}
-                  <div className="w-64 mx-auto">
-                    <label className="block text-black font-medium mb-1 text-xs">
-                      Nom <span className="text-yellow-500">*</span>
-                    </label>
-                    <Input
-                      type="text"
-                      name="nom"
-                      placeholder="Nom"
-                      className="w-full text-xs"
-                      value={formData.nom}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="w-64 mx-auto">
-                    <label className="block text-black font-medium mb-1 text-xs">
-                      Prénom <span className="text-yellow-500">*</span>
-                    </label>
-                    <Input
-                      type="text"
-                      name="prenom"
-                      placeholder="Prénom"
-                      className="w-full text-xs"
-                      value={formData.prenom}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="w-64 mx-auto">
-                    <label className="block text-black font-medium mb-1 text-xs">
-                      Email <span className="text-yellow-500">*</span>
-                    </label>
-                    <Input
-                      type="email"
-                      name="email"
-                      placeholder="Email"
-                      className="w-full text-xs"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <p className="mt-1 text-xs text-black text-center">
-                    N'oubliez pas de valider votre adresse e-mail.
-                  </p>
-                  <div className="w-64 mx-auto">
-                    <label className="block text-black font-medium mb-1 text-xs">
-                      Mot de passe <span className="text-yellow-500">*</span>
-                    </label>
-                    <Input
-                      type="password"
-                      name="password"
-                      placeholder="Mot de passe"
-                      className="w-full text-xs"
-                      value={formData.password}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="flex items-center space-x-2 w-64 mx-auto">
-                    <Checkbox
-                      id="newsletter"
-                      name="newsletter"
-                      checked={formData.newsletter}
-                      onCheckedChange={(checked) =>
-                        setFormData({ ...formData, newsletter: checked })
-                      }
-                    />
-                    <label htmlFor="newsletter" className="text-xs text-black">
-                      Je m'inscris à la newsletter
-                    </label>
-                  </div>
-                  <div className="w-64 mx-auto">
-                    <Button
-                      type="submit"
-                      className="w-full bg-black text-white hover:bg-yellow-500 hover:text-black text-xs"
-                      disabled={isLoading}
-                    >
-                      {isLoading ? "Chargement..." : "S'inscrire"}
-                    </Button>
-                  </div>
-                </>
-              ) : (
-                <>
-                  {/* OTP Verification Form */}
-                  <div className="w-64 mx-auto">
-                    <label className="block text-black font-medium mb-1 text-xs">
-                      OTP <span className="text-yellow-500">*</span>
-                    </label>
-                    <InputOTP
-                      maxLength={6}
-                      value={otp}
-                      onChange={(value) => setOtp(value)}
-                    >
-                      <InputOTPGroup>
-                        <InputOTPSlot index={0} />
-                        <InputOTPSlot index={1} />
-                        <InputOTPSlot index={2} />
-                      </InputOTPGroup>
-                      <InputOTPSeparator />
-                      <InputOTPGroup>
-                        <InputOTPSlot index={3} />
-                        <InputOTPSlot index={4} />
-                        <InputOTPSlot index={5} />
-                      </InputOTPGroup>
-                    </InputOTP>
-                  </div>
-                  <div className="w-64 mx-auto">
-                    <Button
-                      type="submit"
-                      className="w-full bg-black text-white hover:bg-yellow-500 hover:text-black text-xs"
-                      disabled={isLoading}
-                    >
-                      {isLoading ? "Chargement..." : "Verify OTP"}
-                    </Button>
-                  </div>
-                </>
-              )}
-            </form>
+            isOtpSent ? (
+              <OtpVerificationForm
+                otp={otp}
+                setOtp={setOtp}
+                handleVerifyOtp={handleVerifyOtp}
+                isLoading={isLoading}
+              />
+            ) : (
+              <SignUpForm
+                formData={formData}
+                setFormData={setFormData}
+                handleSignUp={handleSignUp}
+                isLoading={isLoading}
+              />
+            )
           ) : (
-            <form className="space-y-4" onSubmit={handleLogin}>
-              {/* Login Form Fields */}
-              <div className="w-64 mx-auto">
-                <label className="block text-black font-medium mb-2 text-xs">
-                  Email <span className="text-yellow-500">*</span>
-                </label>
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  className="w-full text-xs"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="w-64 mx-auto">
-                <label className="block text-black font-medium mb-2 text-xs">
-                  Mot de passe <span className="text-yellow-500">*</span>
-                </label>
-                <Input
-                  type="password"
-                  name="password"
-                  placeholder="Mot de passe"
-                  className="w-full text-xs"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="flex items-center justify-between w-64 mx-auto">
-                <div className="flex items-center space-x-2">
-                  <Checkbox id="remember" />
-                  <label htmlFor="remember" className="text-xs text-black">
-                    Rester connecté
-                  </label>
-                </div>
-                <button
-                  type="button"
-                  className="text-xs text-blue-600 hover:underline"
-                >
-                  Mot de passe oublié ?
-                </button>
-              </div>
-              <div className="w-64 mx-auto">
-                <Button
-                  type="submit"
-                  className="w-full bg-black text-white hover:bg-yellow-500 hover:text-black text-xs"
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Chargement..." : "Se connecter"}
-                </Button>
-              </div>
-            </form>
+            <LoginForm
+              formData={formData}
+              setFormData={setFormData}
+              handleLogin={handleLogin}
+              isLoading={isLoading}
+            />
           )}
         </div>
       </DialogContent>

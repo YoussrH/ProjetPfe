@@ -5,6 +5,7 @@ import Link from "next/link";
 import { CiMenuKebab, CiCircleRemove } from "react-icons/ci";
 import AuthModal from "../Auth/AuthModal";
 import axios from "axios"; // Import Axios for API calls
+import { useRouter } from "next/navigation"; // Import useRouter for navigation
 
 const countries = [
   { name: "France", flag: "🇫🇷" },
@@ -15,6 +16,7 @@ const countries = [
 ];
 
 export default function TopNav({ onMenuClick, isMobileMenuOpen }) {
+  const router = useRouter(); // Initialize the router
   const dropdownRef = useRef(null);
   const [selectedCountry, setSelectedCountry] = useState(countries[0]);
   const [isOpen, setIsOpen] = useState(false);
@@ -46,11 +48,19 @@ export default function TopNav({ onMenuClick, isMobileMenuOpen }) {
         }
       }
     };
-  
+
     fetchUserData();
   }, []); // Empty dependency array to run only once on mount
-  
-  
+
+  // Handle user icon click
+  const handleUserIconClick = () => {
+    if (isAuthenticated) {
+      router.push("/store/Customer"); // Navigate to /store/Customer if the user exists
+    } else {
+      setIsAuthModalOpen(true); // Open the auth modal if the user is not authenticated
+    }
+  };
+
   // Empty dependency array to run only once on mount
   const toggleDropdown = () => setIsOpen(!isOpen);
   const selectCountry = (country) => {
@@ -65,7 +75,8 @@ export default function TopNav({ onMenuClick, isMobileMenuOpen }) {
       });
       setIsAuthenticated(false); // Set user as not authenticated
       setUserPrenom(""); // Clear user's first name
-      window.location.reload(); // Refresh the page to reflect the logged-out state
+      setIsUserDropdownOpen(false); // Close the user dropdown
+      router.push("/"); // Redirect to the homepage after logout
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -76,18 +87,18 @@ export default function TopNav({ onMenuClick, isMobileMenuOpen }) {
       <div className="grid grid-cols-3 items-center h-5 pt-2 px-2 sm:px-5 md:px-8">
         <div className="flex items-center gap-3">
           <Image src="/phone.svg" width={25} height={20} alt="phone" className="w-6 h-6 sm:w-7 sm:h-7" />
-          <Link href="#" className="hidden md:inline text-sm font-serif">
+          <Link href="#" className="hidden md:inline text-sm ">
             Service Client
           </Link>
         </div>
 
         <div className="flex-grow overflow-hidden text-center w-full">
-          <div className="whitespace-nowrap text-sm text-gray-500 font-serif hidden md:flex animate-marquee-desktop">
+          <div className="whitespace-nowrap text-sm text-gray-500  hidden md:flex animate-marquee-desktop">
             <span className="mx-5">Petits prix : -50% sur une sélection d'articles à prix rond !*</span>
             <span className="mx-5">Livraison offerte à partir de 150 DT d'achat</span>
           </div>
 
-          <div className="whitespace-nowrap text-sm font-serif flex md:hidden overflow-hidden relative">
+          <div className="whitespace-nowrap text-sm  flex md:hidden overflow-hidden relative">
             <div className="animate-fade">
               <span className="mx-5">Livraison offerte à partir de 150 DT d'achat</span>
             </div>
@@ -97,7 +108,7 @@ export default function TopNav({ onMenuClick, isMobileMenuOpen }) {
           </div>
         </div>
 
-        <div className="hidden md:flex justify-end text-sm font-serif">
+        <div className="hidden md:flex justify-end text-sm ">
           <Link href="#">Nos Boutique</Link>
         </div>
       </div>
@@ -105,10 +116,10 @@ export default function TopNav({ onMenuClick, isMobileMenuOpen }) {
       <div className="hidden md:grid grid-cols-3 items-center px-8 mt-2 py-3">
         <div className="relative">
           <div className="flex gap-2 items-center cursor-pointer p-2 rounded-md" onClick={toggleDropdown}>
-            <h5 className="font-thin text-sm font-serif">Pays de livraison :</h5>
+            <h5 className="font-thin text-sm ">Pays de livraison :</h5>
             <span className="text-lg">{selectedCountry.flag}</span>
-            <span className="font-light tracking-[1.3px] text-sm font-serif">{selectedCountry.name}</span>
-            <span className="tracking-[2px] text-sm font-serif">| FR</span>
+            <span className="font-light tracking-[1.3px] text-sm ">{selectedCountry.name}</span>
+            <span className="tracking-[2px] text-sm ">| FR</span>
           </div>
 
           {isOpen && (
@@ -133,13 +144,13 @@ export default function TopNav({ onMenuClick, isMobileMenuOpen }) {
           </Link>
         </div>
 
-        <div className="flex justify-end gap-2">
-          <Image src="/search.svg" alt="search" width={35} height={30} className="cursor-pointer" />
-          <Image src="/wishlist.svg" alt="wishlist" width={35} height={30} className="cursor-pointer" />
-          <Image src="/cartnotselected.svg" alt="cart" width={35} height={30} className="cursor-pointer" />
-          <div
-              ref={dropdownRef}
-              className="relative"
+                  <div className="flex justify-end gap-2">
+            <Image src="/search.svg" alt="search" width={35} height={30} className="cursor-pointer" />
+            <Image src="/wishlist.svg" alt="wishlist" width={35} height={30} className="cursor-pointer" />
+            <Image src="/cartnotselected.svg" alt="cart" width={35} height={30} className="cursor-pointer" />
+            {/* Invisible Boundary for User Icon and Dropdown */}
+            <div
+              className="relative p-2" // Add padding to create a larger hover area
               onMouseEnter={() => setIsUserDropdownOpen(true)}
               onMouseLeave={() => setIsUserDropdownOpen(false)}
             >
@@ -150,35 +161,35 @@ export default function TopNav({ onMenuClick, isMobileMenuOpen }) {
                 width={35}
                 height={30}
                 className="cursor-pointer"
-                onClick={() => !isAuthenticated && setIsAuthModalOpen(true)}
+                onClick={handleUserIconClick} // Use the new handler
               />
 
               {/* Dropdown */}
               {isUserDropdownOpen && isAuthenticated && (
-                <div className="absolute right-0 mt-2 w-48 z-50 bg-white border border-gray-300 rounded-md shadow-md">
-                  <div className="px-4 py-2 text-sm">
+                <div className="absolute right-0 mt-1 w-48 z-50 bg-white border border-gray-300 rounded-md shadow-md">
+                  <div className="px-4 py-2 text-xs">
                     <p className="font-semibold">Bonjour {userPrenom}</p>
                   </div>
                   <hr className="border-t border-gray-300" />
-                  <Link href="/mes-commandes" className="block px-4 py-2 text-sm hover:bg-gray-100">
+                  <Link href="/mes-commandes" className="block px-4 py-2 text-xs font-mono hover:bg-gray-100">
                     Mes commandes
                   </Link>
-                  <Link href="/mes-infos" className="block px-4 py-2 text-sm hover:bg-gray-100">
+                  <Link href="/mes-infos" className="block px-4 py-2 text-xs hover:bg-gray-100">
                     Mes infos personnelles
                   </Link>
-                  <Link href="/ma-liste" className="block px-4 py-2 text-sm hover:bg-gray-100">
+                  <Link href="/ma-liste" className="block px-4 py-2 text-xs hover:bg-gray-100">
                     Ma liste d'envies
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                    className="block w-full text-left px-4 py-2 text-xs hover:bg-gray-100"
                   >
                     Se déconnecter
                   </button>
                 </div>
               )}
             </div>
-        </div>
+          </div>
       </div>
 
       <div className="grid grid-cols-3 md:hidden items-center max-w-80 py-2 px-2 mt-5 relative">

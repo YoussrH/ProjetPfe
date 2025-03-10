@@ -8,8 +8,10 @@ body {
   overflow-x: hidden;
   width: 100%;
   /* Beatrice Display Trial */
-  font-family: 'Inter', sans-serif;
-  background: url('/background.svg');
+/*   font-family: 'Inter', sans-serif;
+ */ 
+ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+ background: url('/background.svg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -144,3 +146,19 @@ body {
   }
 }
 
+/* Transparent Scrollbar */
+.scrollbar-transparent::-webkit-scrollbar {
+  width: 0px; /* Width of the scrollbar */
+}
+
+.scrollbar-transparent::-webkit-scrollbar-track {
+  background: transparent; /* Transparent track */
+}
+
+.scrollbar-transparent::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2); /* Semi-transparent thumb */
+}
+
+.scrollbar-transparent::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3); /* Slightly darker on hover */
+}

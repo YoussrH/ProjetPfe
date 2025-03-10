@@ -119,9 +119,10 @@ const NouveautesPage = () => {
   return (
     <section>
       {/* Responsive Padding and Layout */}
-      <div className="px-4 sm:px-6 lg:px-10 py-6 font-serif flex flex-col items-center">
-        {/* Breadcrumb */}
-        <Breadcrumb />
+         {/* Breadcrumb */}
+        <Breadcrumb />  
+        <div className="px-4 sm:px-6 lg:px-10 py-6 font-serif flex flex-col items-center">
+   
 
         {/* Title Section */}
         <h1 className="text-sm sm:text-base font-semibold text-center mb-2 uppercase">

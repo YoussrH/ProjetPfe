@@ -7,7 +7,6 @@ import React from 'react'
 export default function Dashboard() {
   return (
     <div className='font-sans'>
-      <DashboardBanner/>
       <AperCuVentes/>
         {/* charts: */}
         <DashboardCharts/>
